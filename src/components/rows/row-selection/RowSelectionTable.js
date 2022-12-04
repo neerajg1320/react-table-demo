@@ -1,10 +1,12 @@
-import { useTable } from "react-table";
-import MOCK_DATA from "./MOCK_DATA.json";
-import { COLUMNS, GROUPED_COLUMNS } from './columns';
+import { useTable, useRowSelect } from "react-table";
+import MOCK_DATA from "../../MOCK_DATA.json";
+import { COLUMNS, GROUPED_COLUMNS } from '../../columns';
 import {useMemo} from "react";
-import './table.css';
+import '../../table.css';
+import {RowCheckbox} from "../RowCheckbox";
+import {ShowObject} from "../../show";
 
-export const RowSelection = () => {
+export const RowSelectionTable = () => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
 
@@ -14,15 +16,35 @@ export const RowSelection = () => {
     headerGroups,
     footerGroups,
     rows,
-    prepareRow
+    prepareRow,
+    selectedFlatRows
   } = useTable({
     columns,
     data
-  });;
+  },
+  useRowSelect,
+  (hooks) => {
+    hooks.visibleColumns.push((columns) => {
+      return [
+        {
+          id: "selection",
+          Header: ({getToggleAllRowsSelectedProps}) => (
+              <RowCheckbox {...getToggleAllRowsSelectedProps()} />
+          ),
+          Cell: ({ row }) => (
+            <RowCheckbox {...row.getToggleRowSelectedProps()} />
+          )
+        },
+        ...columns
+      ]
+    })
+  }
+);
 
   const firstPageRows = rows.slice(0,10);
 
   return (
+      <>
       <table {...getTableProps()}>
         <thead>
         {headerGroups.map(headerGroup => (
@@ -67,5 +89,7 @@ export const RowSelection = () => {
         }
         </tfoot>
       </table>
+      <ShowObject object={selectedFlatRows.map((row) => row.original)} />
+      </>
   );
 }
