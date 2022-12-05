@@ -1,5 +1,4 @@
 import { useTable, useRowSelect } from "react-table";
-import { PRESET_COLUMNS, GROUPED_COLUMNS } from '../../../assets/PRESET_COLUMNS';
 import {useCallback, useEffect, useMemo, useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
@@ -9,6 +8,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteRows} from "../../../redux/actions";
 
 export const RowDeleteTable = () => {
+  const [debugSelection, setDebugSelection] = useState(false);
+
   // Data variables
   const data = useSelector(state => state.rows);
   const columns = useSelector(state => state.columns);
@@ -17,25 +18,25 @@ export const RowDeleteTable = () => {
   // Debug Window
   const [output, setOutput] = useState('');
 
-  const onRowDeleteClick = (id) => {
+  const onRowDeleteClick = useCallback(  (id) => {
     setOutput(`delete click id=${id}`);
-  }
+  }, []);
 
-  const onSelectionChange = (id) => {
+  const onSelectionChange = useCallback(  (id) => {
     if (id === -1) {
       console.log('header clicked');
     } else {
       // console.log(`select click id=${id}`);
     }
-  };
+  },[]);
 
   const handleBulkDeleteClick = useCallback((ids) => {
     console.log(`handleBulkDeleteClick: ids=${ids}`);
     dispatch(deleteRows(ids));
   }, []);
 
-  const handleBulkEditClick = useCallback((ids) => {
-    console.log(`handleBulkEditClick: ids=${ids}`);
+  const handleBulkEditClick = useCallback((ids, values) => {
+    console.log(`handleBulkEditClick: ids=${ids} values=${JSON.stringify(values)}`);
   }, []);
 
   const {
@@ -79,8 +80,6 @@ export const RowDeleteTable = () => {
       ]
     })
   });
-
-
 
   return (
       <>
@@ -140,11 +139,12 @@ export const RowDeleteTable = () => {
         </tfoot>
       </table>
       </div>
-
-      <div>
-        <ShowObject object={output} />
-        <ShowObject object={selectedFlatRows.map((row) => row.original)} />
-      </div>
+      {debugSelection &&
+        <div>
+          <ShowObject object={output} />
+          <ShowObject object={selectedFlatRows.map((row) => row.original)} />
+        </div>
+      }
       </>
   );
 }

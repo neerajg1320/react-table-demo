@@ -2,7 +2,10 @@ import {useCallback, useEffect, useState} from "react";
 
 const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
   const [bulkColumns, setBulkColumns] = useState([]);
-  const [expanded, setExpanded] = useState(false)
+  const [bulkExpanded, setsetBulkExpanded] = useState(false);
+  // We haven't used state here as we do not want to rerender the component
+  // when setting the bulkValues
+  const bulkValues = {};
 
   useEffect(() => {
     setBulkColumns(columns.filter(col => col.bulk));
@@ -15,15 +18,15 @@ const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
   }, [selectedFlatRows]);
 
   const handleSaveClick = () => {
-    setExpanded(!expanded);
+    setsetBulkExpanded(!bulkExpanded);
     const selectedIds = getRowIds();
     if (onEdit) {
-      onEdit(selectedIds);
+      onEdit(selectedIds, bulkValues);
     }
   }
 
   const handleCancelClick = () => {
-    setExpanded(!expanded);
+    setsetBulkExpanded(!bulkExpanded);
   }
 
   const handleDeleteClick = () => {
@@ -62,14 +65,14 @@ const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
           <div>
             <button
                 disabled={selectedFlatRows.length < 1}
-                onClick={e => setExpanded(!expanded)}
+                onClick={e => setsetBulkExpanded(!bulkExpanded)}
             >
               Bulk Edit
             </button>
           </div>
 
           {/* Columns and Save button, can be part of expandable*/}
-          {expanded &&
+          {bulkExpanded &&
           <div
               style={{
                 padding:"10px",
@@ -84,23 +87,41 @@ const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
               }}
           >
             {/* We can try grid here*/}
-            {bulkColumns.map((col, col_idx) => (
-                <div key={col_idx} style={{display:"flex", flexDirection:"row", gap:"10px"}}>
-                  <span style={{width: "80px"}}>{col.Header}</span>
-                  <span>{(col.type === "input") ?
-                      <input type="text"/> :
-                      (col.type === "select") ?
-                      <select>
-                        {col.choices.map((choice, ch_idx) => (
-                            // TBD:
-                        <option key={ch_idx} value={choice}>{choice}</option>
-                        ))}
-                      </select>
-                           :
-                          ""
-                  }</span>
-                </div>
-            ))}
+            {bulkColumns.map((col, col_idx) => {
+                bulkValues[col.accessor] = col.defaultChoice;
+                return (
+                  <div key={col_idx} style={{display:"flex", flexDirection:"row", gap:"10px"}}>
+                    <span style={{width: "80px"}}>{col.Header}</span>
+                    <span>{(col.type === "input") ?
+                        <input
+                            type="text"
+                            defaultValue=""
+                            onChange={e => {
+                              bulkValues[col.accessor] = e.target.value;
+                            }}
+                        /> :
+                        (col.type === "select") ?
+                        <select
+                            defaultValue={bulkValues[col.accessor]}
+                            onChange={e => {
+                                bulkValues[col.accessor] = e.target.value;
+                            }}
+                        >
+                          {col.choices.map((choice, ch_idx) => (
+                            <option
+                                key={ch_idx}
+                                value={choice}
+                            >
+                              {choice}
+                            </option>
+                          ))}
+                        </select>
+                             :
+                            ""
+                    }</span>
+                  </div>
+              )}
+            )}
             <div style={{
               display: "flex",
               justifyContent:"end",

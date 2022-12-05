@@ -32,11 +32,13 @@ export const PRESET_COLUMNS = [
     bulk: true,
     type: "select",
     choices: [
+      "Select",
       "Australia",
       "India",
       "UK",
       "US"
-    ]
+    ],
+    defaultChoice: "India"
   },
   {
     Header: 'Phone',
@@ -44,7 +46,6 @@ export const PRESET_COLUMNS = [
     accessor: 'phone',
     bulk: true,
     type: "input",
-
   }
 ];
 

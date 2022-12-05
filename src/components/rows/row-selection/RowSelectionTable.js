@@ -9,6 +9,7 @@ import {ShowObject} from "../../show";
 export const RowSelectionTable = () => {
   const columns = useMemo(() => PRESET_COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
+  const debugSelection = false;
 
   const {
     getTableProps,
@@ -89,7 +90,9 @@ export const RowSelectionTable = () => {
         }
         </tfoot>
       </table>
-      <ShowObject object={selectedFlatRows.map((row) => row.original)} />
+      {debugSelection &&
+          <ShowObject object={selectedFlatRows.map((row) => row.original)}/>
+      }
       </>
   );
 }
