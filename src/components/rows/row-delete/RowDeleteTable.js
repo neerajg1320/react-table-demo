@@ -16,11 +16,14 @@ export const RowDeleteTable = () => {
   const columns = useSelector(state => state.columns);
   const dispatch = useDispatch();
 
-  // Debug Window
+  // Show Debug Window
+  // eslint-disable-next-line
   const [output, setOutput] = useState('');
 
   const onRowDeleteClick = useCallback(  (id) => {
-    setOutput(`delete click id=${id}`);
+    // console.log(`delete click id=${id}`);
+    dispatch(deleteRows([id]));
+    // eslint-disable-next-line
   }, []);
 
   const onSelectionChange = useCallback(  (id) => {
@@ -78,7 +81,9 @@ export const RowDeleteTable = () => {
         {
           Header: "Delete",
           Cell: ({ row }) => (
-              <button onClick={e => onRowDeleteClick(row.id)}>Delete</button>
+              <button onClick={e => onRowDeleteClick(row.original.id)}>
+                Delete
+              </button>
           )
         },
       ]
@@ -88,13 +93,11 @@ export const RowDeleteTable = () => {
   return (
       <>
       <div>
-        {(selectedFlatRows.length > 0 || true) &&
-            <BulkEditBox
-                onEdit={handleBulkEditClick}
-                onDelete={handleBulkDeleteClick}
-                {...{selectedFlatRows, columns}}
-            />
-        }
+        <BulkEditBox
+            onEdit={handleBulkEditClick}
+            onDelete={handleBulkDeleteClick}
+            {...{selectedFlatRows, columns}}
+        />
       </div>
 
       <div>
