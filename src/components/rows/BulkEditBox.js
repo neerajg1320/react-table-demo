@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
 
-const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
+const BulkEditBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
   const [bulkColumns, setBulkColumns] = useState([]);
   const [bulkExpanded, setsetBulkExpanded] = useState(false);
   // We haven't used state here as we do not want to rerender the component
@@ -140,4 +140,4 @@ const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
   );
 }
 
-export default SelectedRowsBox;
+export default BulkEditBox;

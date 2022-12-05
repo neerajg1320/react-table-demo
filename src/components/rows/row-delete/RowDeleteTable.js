@@ -3,7 +3,7 @@ import {useCallback,useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
 import {ShowObject} from "../../show";
-import SelectedRowsBox from "../SelectedRowsBox";
+import BulkEditBox from "../BulkEditBox";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
 
@@ -89,7 +89,7 @@ export const RowDeleteTable = () => {
       <>
       <div>
         {(selectedFlatRows.length > 0 || true) &&
-            <SelectedRowsBox
+            <BulkEditBox
                 onEdit={handleBulkEditClick}
                 onDelete={handleBulkDeleteClick}
                 {...{selectedFlatRows, columns}}

@@ -10,7 +10,7 @@ const columnsReducer =  (state=initialState, action) => {
     case ActionTypes.DELETE_COLUMNS:
       ids = action.payload.ids;
       return state.filter(item => !ids.includes(item.id));
-      
+
     case ActionTypes.EDIT_ROWS:
       ids = action.payload.ids;
       const values = action.payload.values;
