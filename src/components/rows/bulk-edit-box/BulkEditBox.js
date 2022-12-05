@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useState} from "react";
+import Button from 'react-bootstrap/Button';
 
 const BulkEditBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
   const [bulkColumns, setBulkColumns] = useState([]);
@@ -43,19 +44,18 @@ const BulkEditBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
     <div
         style={{
           display: "flex",
-          flexDirection:"column",
+          flexDirection:"row",
           gap:"20px",
           padding:"10px",
-          // border: "1px dashed red"
         }}
     >
       <div>
-        <button
+        <Button variant="danger" size="sm"
             disabled={selectedFlatRows.length < 1}
             onClick={handleDeleteClick}
         >
           Bulk Delete
-        </button>
+        </Button>
       </div>
 
       <div style={{display:"flex"}}>
@@ -65,12 +65,12 @@ const BulkEditBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
           position: "relative"
         }}>
           <div>
-            <button
+            <Button variant="primary" size="sm"
                 disabled={selectedFlatRows.length < 1}
                 onClick={e => setsetBulkExpanded(!bulkExpanded)}
             >
               Bulk Edit
-            </button>
+            </Button>
           </div>
 
           {/* Columns and Save button, can be part of expandable*/}
