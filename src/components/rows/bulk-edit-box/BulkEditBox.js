@@ -82,6 +82,7 @@ const BulkEditBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
                 flexDirection:"column",
                 gap:"15px",
                 boxShadow: "rgba(0, 0, 0, 0.5) 0px 5px 15px",
+                borderRadius: "4px",
                 position: "absolute",
                 left: "40px",
                 top: "25px",
@@ -150,8 +151,20 @@ const BulkEditBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
               paddingRight: "20px",
               gap: "10px"
             }}>
-              <button onClick={handleCancelClick}>Cancel</button>
-              <button onClick={handleSaveClick}>Save</button>
+              <Button
+                  variant="outline-danger"
+                  size="sm"
+                  onClick={handleCancelClick}
+              >
+                Cancel
+              </Button>
+              <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={handleSaveClick}
+              >
+                Save
+              </Button>
             </div>
           </div>
           }
