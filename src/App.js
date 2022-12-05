@@ -13,8 +13,8 @@ function App() {
       {/*<SortingTable />*/}
       {/*<FilteringTable />*/}
       {/*<PaginationTable />*/}
-      <RowSelectionTable />
-      {/*<RowDeleteTable />*/}
+      {/*<RowSelectionTable />*/}
+      <RowDeleteTable />
     </div>
   );
 }

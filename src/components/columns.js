@@ -6,7 +6,7 @@ export const COLUMNS = [
     Header: 'Id',
     Footer: 'Id',
     accessor: 'id',
-    disableFilters: true
+    disableFilters: true,
   },
   {
     Header: 'First Name',
@@ -30,11 +30,13 @@ export const COLUMNS = [
     Header: 'Country',
     Footer: 'Country',
     accessor: 'country',
+    bulk: true
   },
   {
     Header: 'Phone',
     Footer: 'Phone',
     accessor: 'phone',
+    bulk: true
   }
 ];
 
