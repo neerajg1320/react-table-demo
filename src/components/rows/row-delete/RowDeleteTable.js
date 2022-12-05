@@ -85,7 +85,7 @@ export const RowDeleteTable = () => {
 
   return (
       <>
-      {selectedFlatRows.length > 0 &&
+      {(selectedFlatRows.length > 0 || true) &&
           <SelectedRowsBox
               onEdit={handleBulkEditClick}
               onDelete={handleBulkDeleteClick}

@@ -11,17 +11,12 @@ const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
   const getRowIds = useCallback(() => {
     return selectedFlatRows.map(row => {
       return row.original.id;
-    })
+    });
   }, [selectedFlatRows]);
-
-  const handleBulkEditClick = () => {
-    setExpanded(!expanded);
-  }
 
   const handleSaveClick = () => {
     setExpanded(!expanded);
     const selectedIds = getRowIds();
-    // console.log(`selectedIds=${selectedIds}`);
     if (onEdit) {
       onEdit(selectedIds);
     }
@@ -45,24 +40,32 @@ const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
           flexDirection:"column",
           gap:"20px",
           padding:"10px",
-          border: "1px dashed red"
+          // border: "1px dashed red"
         }}
     >
       <div>
-        <button onClick={handleDeleteClick}>Bulk Delete</button>
+        <button
+            disabled={selectedFlatRows.length < 1}
+            onClick={handleDeleteClick}
+        >
+          Bulk Delete
+        </button>
       </div>
 
-      {bulkColumns.length > 0 && (
 
       <div style={{display:"flex"}}>
         <div style={{
           display:"flex",
           flexDirection:"column",
-          border:"1px dashed green",
           position: "relative"
         }}>
           <div>
-            <button onClick={handleBulkEditClick}>Bulk Edit</button>
+            <button
+                disabled={selectedFlatRows.length < 1}
+                onClick={e => setExpanded(!expanded)}
+            >
+              Bulk Edit
+            </button>
           </div>
 
           {/* Columns and Save button, can be part of expandable*/}
@@ -111,7 +114,6 @@ const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
           }
         </div>
       </div>
-      )}
 
     </div>
   );
