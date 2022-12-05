@@ -6,6 +6,7 @@ import {ShowObject} from "../../show";
 import BulkEditBox from "../bulk-edit-box/BulkEditBox";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
+import {FaTrash, FaPen } from "react-icons/fa";
 
 export const RowDeleteTable = () => {
   // eslint-disable-next-line
@@ -19,6 +20,12 @@ export const RowDeleteTable = () => {
   // Show Debug Window
   // eslint-disable-next-line
   const [output, setOutput] = useState('');
+
+  const onRowEditClick = useCallback(  (id) => {
+    console.log(`row edit click id=${id}`);
+
+    // eslint-disable-next-line
+  }, []);
 
   const onRowDeleteClick = useCallback(  (id) => {
     // console.log(`delete click id=${id}`);
@@ -79,12 +86,22 @@ export const RowDeleteTable = () => {
         },
         ...columns,
         {
-          Header: "Delete",
+          Header: "Modify",
           Cell: ({ row }) => (
-              <button onClick={e => onRowDeleteClick(row.original.id)}>
-                Delete
-              </button>
-          )
+            <div style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap:"10px"}}
+            >
+              <FaPen
+                  style={{color:"rebeccapurple", cursor: "pointer"}}
+                  onClick={e => onRowEditClick(row.original.id)}/>
+              <FaTrash
+                  style={{color:"mediumvioletred", cursor: "pointer"}}
+                  onClick={e => onRowDeleteClick(row.original.id)}/>
+            </div>
+          ),
         },
       ]
     })

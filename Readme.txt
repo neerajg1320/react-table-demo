@@ -4,3 +4,4 @@ npm start
 npm install react-table
 npm install redux react-redux
 npm install react-bootstrap bootstrap
+npm install react-icons
