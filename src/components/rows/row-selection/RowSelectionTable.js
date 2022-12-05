@@ -1,6 +1,6 @@
 import { useTable, useRowSelect } from "react-table";
 import MOCK_DATA from "../../../assets/MOCK_DATA.json";
-import { PRESET_COLUMNS, GROUPED_COLUMNS } from '../../../assets/PRESET_COLUMNS';
+import { PRESET_COLUMNS } from '../../../assets/PRESET_COLUMNS';
 import {useMemo} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";

@@ -3,10 +3,10 @@ import {useCallback,useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
 import {ShowObject} from "../../show";
-import BulkEditBox from "../bulk-edit-box/BulkEditBox";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
+import BulkEditBoxSelect from "../bulk-edit-box/BulkEditBoxSelect";
 
 export const RowDeleteTable = () => {
   // eslint-disable-next-line
@@ -110,7 +110,7 @@ export const RowDeleteTable = () => {
   return (
       <>
       <div>
-        <BulkEditBox
+        <BulkEditBoxSelect
             onEdit={handleBulkEditClick}
             onDelete={handleBulkDeleteClick}
             {...{selectedFlatRows, columns}}
