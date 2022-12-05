@@ -1,11 +1,16 @@
 import {useEffect, useState} from "react";
 
-const SelectedRowsEdit = ({ selectedFlatRows, columns }) => {
+const SelectedRowsBox = ({ selectedFlatRows, columns }) => {
   const [bulkColumns, setBulkColumns] = useState([]);
+  const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
     setBulkColumns(columns.filter(col => col.bulk));
   }, [columns]);
+
+  const handleBulkEditClick = () => {
+    setExpanded(!expanded);
+  }
 
   return (
     <div
@@ -28,12 +33,14 @@ const SelectedRowsEdit = ({ selectedFlatRows, columns }) => {
           display:"flex",
           flexDirection:"column",
           border:"1px dashed green",
+          position: "relative"
         }}>
           <div>
-            <button>Bulk Edit</button>
+            <button onClick={handleBulkEditClick}>Bulk Edit</button>
           </div>
 
           {/* Columns and Save button, can be part of expandable*/}
+          {expanded &&
           <div
               style={{
                 padding:"10px",
@@ -41,6 +48,10 @@ const SelectedRowsEdit = ({ selectedFlatRows, columns }) => {
                 flexDirection:"column",
                 gap:"10px",
                 border:"1px solid blue",
+                position: "absolute",
+                left: "40px",
+                top: "25px",
+                backgroundColor: "white"
               }}
           >
             {/* We can try grid here*/}
@@ -67,8 +78,8 @@ const SelectedRowsEdit = ({ selectedFlatRows, columns }) => {
             }}>
               <button>Save</button>
             </div>
-          </div> {/* Columns + Save button */}
-
+          </div>
+          }
         </div>
       </div>
       )}
@@ -77,4 +88,4 @@ const SelectedRowsEdit = ({ selectedFlatRows, columns }) => {
   );
 }
 
-export default SelectedRowsEdit;
+export default SelectedRowsBox;

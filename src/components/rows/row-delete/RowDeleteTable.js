@@ -5,7 +5,7 @@ import {useCallback, useEffect, useMemo, useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
 import {ShowObject} from "../../show";
-import SelectedRowsEdit from "../SelectedRowsBox";
+import SelectedRowsBox from "../SelectedRowsBox";
 
 export const RowDeleteTable = () => {
   const columns = useMemo(() => COLUMNS, []);
@@ -78,7 +78,7 @@ export const RowDeleteTable = () => {
   return (
       <>
       {selectedFlatRows.length > 0 &&
-          <SelectedRowsEdit {...{selectedFlatRows, columns}} />
+          <SelectedRowsBox {...{selectedFlatRows, columns}} />
       }
       <table {...getTableProps()}>
         <thead>
