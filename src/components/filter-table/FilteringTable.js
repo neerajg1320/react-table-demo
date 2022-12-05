@@ -1,5 +1,5 @@
 import { useTable, useGlobalFilter, useFilters } from "react-table";
-import MOCK_DATA from "../MOCK_DATA.json";
+import MOCK_DATA from "../../assets/MOCK_DATA.json";
 import { COLUMNS, GROUPED_COLUMNS } from '../columns';
 import {useMemo} from "react";
 import '../table.css';

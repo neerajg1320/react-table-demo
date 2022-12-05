@@ -1,18 +1,22 @@
 import { useTable, useRowSelect } from "react-table";
-import MOCK_DATA from "../../MOCK_DATA.json";
+import MOCK_DATA from "../../../assets/MOCK_SMALL.json";
 import { COLUMNS, GROUPED_COLUMNS } from '../../columns';
 import {useCallback, useEffect, useMemo, useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
 import {ShowObject} from "../../show";
 import SelectedRowsBox from "../SelectedRowsBox";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteRows} from "../../../redux/actions";
 
 export const RowDeleteTable = () => {
   const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => MOCK_DATA, []);
+  // const data = useMemo(() => MOCK_DATA, []);
   const [output, setOutput] = useState('');
+  const data = useSelector(state => state.rows);
+  const dispatch = useDispatch();
 
-  const onDeleteClick = (id) => {
+  const onRowDeleteClick = (id) => {
     setOutput(`delete click id=${id}`);
   }
 
@@ -26,6 +30,7 @@ export const RowDeleteTable = () => {
 
   const handleBulkDeleteClick = useCallback((ids) => {
     console.log(`handleBulkDeleteClick: ids=${ids}`);
+    dispatch(deleteRows(ids));
   }, []);
 
   const handleBulkEditClick = useCallback((ids) => {
@@ -67,21 +72,14 @@ export const RowDeleteTable = () => {
         {
           Header: "Delete",
           Cell: ({ row }) => (
-              <button onClick={e => onDeleteClick(row.id)}>Delete</button>
+              <button onClick={e => onRowDeleteClick(row.id)}>Delete</button>
           )
         },
       ]
     })
   });
 
-  useEffect(() => {
-    // console.log(`selectedFlatRows=${JSON.stringify(
-    //     selectedFlatRows.map((row) => row.original), null, 2)}
-    //   `);
-  }, [selectedFlatRows]);
 
-
-  const firstPageRows = rows.slice(0,10);
 
   return (
       <>
@@ -106,7 +104,7 @@ export const RowDeleteTable = () => {
         </thead>
         <tbody {...getTableBodyProps()}>
         {
-          firstPageRows.map(row => {
+          rows.map(row => {
             prepareRow(row);
             return (
                 <tr {...row.getRowProps()}>
