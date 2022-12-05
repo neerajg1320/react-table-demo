@@ -20,9 +20,17 @@ export const RowDeleteTable = () => {
     if (id === -1) {
       console.log('header clicked');
     } else {
-      console.log(`select click id=${id}`);
+      // console.log(`select click id=${id}`);
     }
   };
+
+  const handleBulkDeleteClick = useCallback((ids) => {
+    console.log(`handleBulkDeleteClick: ids=${ids}`);
+  }, []);
+
+  const handleBulkEditClick = useCallback((ids) => {
+    console.log(`handleBulkEditClick: ids=${ids}`);
+  }, []);
 
   const {
     getTableProps,
@@ -67,9 +75,9 @@ export const RowDeleteTable = () => {
   });
 
   useEffect(() => {
-    console.log(`selectedFlatRows=${JSON.stringify(
-        selectedFlatRows.map((row) => row.original), null, 2)}
-      `);
+    // console.log(`selectedFlatRows=${JSON.stringify(
+    //     selectedFlatRows.map((row) => row.original), null, 2)}
+    //   `);
   }, [selectedFlatRows]);
 
 
@@ -78,7 +86,11 @@ export const RowDeleteTable = () => {
   return (
       <>
       {selectedFlatRows.length > 0 &&
-          <SelectedRowsBox {...{selectedFlatRows, columns}} />
+          <SelectedRowsBox
+              onEdit={handleBulkEditClick}
+              onDelete={handleBulkDeleteClick}
+              {...{selectedFlatRows, columns}}
+          />
       }
       <table {...getTableProps()}>
         <thead>

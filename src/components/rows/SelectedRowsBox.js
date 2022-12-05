@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
-const SelectedRowsBox = ({ selectedFlatRows, columns }) => {
+const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
   const [bulkColumns, setBulkColumns] = useState([]);
   const [expanded, setExpanded] = useState(false)
 
@@ -8,8 +8,34 @@ const SelectedRowsBox = ({ selectedFlatRows, columns }) => {
     setBulkColumns(columns.filter(col => col.bulk));
   }, [columns]);
 
+  const getRowIds = useCallback(() => {
+    return selectedFlatRows.map(row => {
+      return row.original.id;
+    })
+  }, [selectedFlatRows]);
+
   const handleBulkEditClick = () => {
     setExpanded(!expanded);
+  }
+
+  const handleSaveClick = () => {
+    setExpanded(!expanded);
+    const selectedIds = getRowIds();
+    // console.log(`selectedIds=${selectedIds}`);
+    if (onEdit) {
+      onEdit(selectedIds);
+    }
+  }
+
+  const handleCancelClick = () => {
+    setExpanded(!expanded);
+  }
+
+  const handleDeleteClick = () => {
+    const selectedIds = getRowIds();
+    if (onDelete) {
+      onDelete(selectedIds);
+    }
   }
 
   return (
@@ -23,7 +49,7 @@ const SelectedRowsBox = ({ selectedFlatRows, columns }) => {
         }}
     >
       <div>
-        <button>Bulk Delete</button>
+        <button onClick={handleDeleteClick}>Bulk Delete</button>
       </div>
 
       {bulkColumns.length > 0 && (
@@ -55,15 +81,16 @@ const SelectedRowsBox = ({ selectedFlatRows, columns }) => {
               }}
           >
             {/* We can try grid here*/}
-            {bulkColumns.map(col => (
-                <div style={{display:"flex", flexDirection:"row", gap:"10px"}}>
+            {bulkColumns.map((col, col_idx) => (
+                <div key={col_idx} style={{display:"flex", flexDirection:"row", gap:"10px"}}>
                   <span style={{width: "80px"}}>{col.Header}</span>
                   <span>{(col.type === "input") ?
                       <input type="text"/> :
                       (col.type === "select") ?
                       <select>
-                        {col.choices.map(choice => (
-                        <option value={choice}>{choice}</option>
+                        {col.choices.map((choice, ch_idx) => (
+                            // TBD:
+                        <option key={ch_idx} value={choice}>{choice}</option>
                         ))}
                       </select>
                            :
@@ -74,9 +101,11 @@ const SelectedRowsBox = ({ selectedFlatRows, columns }) => {
             <div style={{
               display: "flex",
               justifyContent:"end",
-              paddingRight: "20px"
+              paddingRight: "20px",
+              gap: "10px"
             }}>
-              <button>Save</button>
+              <button onClick={handleCancelClick}>Cancel</button>
+              <button onClick={handleSaveClick}>Save</button>
             </div>
           </div>
           }
