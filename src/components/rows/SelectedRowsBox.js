@@ -55,7 +55,6 @@ const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
         </button>
       </div>
 
-
       <div style={{display:"flex"}}>
         <div style={{
           display:"flex",
@@ -122,6 +121,7 @@ const SelectedRowsBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
                   </div>
               )}
             )}
+
             <div style={{
               display: "flex",
               justifyContent:"end",

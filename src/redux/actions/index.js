@@ -18,6 +18,16 @@ export const deleteRows = (ids) => {
   }
 }
 
+export const editRows = (ids, values) => {
+  return {
+    'type': ActionTypes.EDIT_ROWS,
+    'payload': {
+      ids,
+      values
+    }
+  }
+}
+
 export const getRows = () => {
   return {
     'type': ActionTypes.GET_ROWS,

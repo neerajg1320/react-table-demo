@@ -1,4 +1,5 @@
 export const DELETE_ROWS = 'DELETE_ROWS';
+export const EDIT_ROWS = 'EDIT_ROWS';
 export const ADD_ROW = 'ADD_ROW';
 export const GET_ROWS = 'GET_ROWS';
 

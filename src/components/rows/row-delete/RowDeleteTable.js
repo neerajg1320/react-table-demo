@@ -1,13 +1,14 @@
 import { useTable, useRowSelect } from "react-table";
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useCallback,useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
 import {ShowObject} from "../../show";
 import SelectedRowsBox from "../SelectedRowsBox";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteRows} from "../../../redux/actions";
+import {deleteRows, editRows} from "../../../redux/actions";
 
 export const RowDeleteTable = () => {
+  // eslint-disable-next-line
   const [debugSelection, setDebugSelection] = useState(false);
 
   // Data variables
@@ -33,10 +34,13 @@ export const RowDeleteTable = () => {
   const handleBulkDeleteClick = useCallback((ids) => {
     console.log(`handleBulkDeleteClick: ids=${ids}`);
     dispatch(deleteRows(ids));
+    // eslint-disable-next-line
   }, []);
 
   const handleBulkEditClick = useCallback((ids, values) => {
     console.log(`handleBulkEditClick: ids=${ids} values=${JSON.stringify(values)}`);
+    dispatch(editRows(ids, values));
+    // eslint-disable-next-line
   }, []);
 
   const {
