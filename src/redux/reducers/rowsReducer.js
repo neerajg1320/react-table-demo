@@ -10,10 +10,8 @@ const rowsReducer =  (state=initialState, action) => {
 
         case ActionTypes.DELETE_ROWS:
             const ids = action.payload.ids;
-            return {
-                ...state,
-                rows: state.filter(item => !ids.includes(item.id))
-            }
+            return state.filter(item => !ids.includes(item.id))
+
 
         default:
             return state;
