@@ -5,7 +5,7 @@ const BulkEditBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
   const [bulkExpanded, setsetBulkExpanded] = useState(false);
   // We haven't used state here as we do not want to rerender the component
   // when setting the bulkValues
-  const bulkValues = {};
+  const bulkValues = [];
 
   useEffect(() => {
     setBulkColumns(columns.filter(col => col.bulk));
@@ -21,7 +21,10 @@ const BulkEditBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
     setsetBulkExpanded(!bulkExpanded);
     const selectedIds = getRowIds();
     if (onEdit) {
-      onEdit(selectedIds, bulkValues);
+      const modifiedFields = bulkValues
+                              .filter(item => item.active)
+                              .map(item => [item.name, item.value]);
+      onEdit(selectedIds, Object.fromEntries(modifiedFields));
     }
   }
 
@@ -87,23 +90,35 @@ const BulkEditBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
           >
             {/* We can try grid here*/}
             {bulkColumns.map((col, col_idx) => {
-                bulkValues[col.accessor] = col.defaultChoice;
+                bulkValues.push({
+                  active: false,
+                  name: col.accessor
+                });
+
                 return (
                   <div key={col_idx} style={{display:"flex", flexDirection:"row", gap:"10px"}}>
+                    <span>
+                      <input
+                          type="checkbox"
+                          onChange={e => {
+                            bulkValues[col_idx].active = e.target.checked;
+                          }}
+                      />
+                    </span>
                     <span style={{width: "80px"}}>{col.Header}</span>
                     <span>{(col.type === "input") ?
                         <input
                             type="text"
                             defaultValue=""
                             onChange={e => {
-                              bulkValues[col.accessor] = e.target.value;
+                              bulkValues[col_idx].value = e.target.value;
                             }}
                         /> :
                         (col.type === "select") ?
                         <select
                             defaultValue={bulkValues[col.accessor]}
                             onChange={e => {
-                                bulkValues[col.accessor] = e.target.value;
+                              bulkValues[col_idx].value = e.target.value;
                             }}
                         >
                           {col.choices.map((choice, ch_idx) => (
