@@ -6,9 +6,6 @@ const initialState = MOCK_DATA;
 const rowsReducer =  (state=initialState, action) => {
     let ids;
     switch (action.type) {
-        case ActionTypes.GET_ROWS:
-            return state;
-
         case ActionTypes.DELETE_ROWS:
             ids = action.payload.ids;
             return state.filter(item => !ids.includes(item.id))
@@ -26,7 +23,6 @@ const rowsReducer =  (state=initialState, action) => {
         default:
             return state;
     }
-
 }
 
 export default rowsReducer;

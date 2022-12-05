@@ -28,13 +28,6 @@ export const editRows = (ids, values) => {
   }
 }
 
-export const getRows = () => {
-  return {
-    'type': ActionTypes.GET_ROWS,
-    'payload': {
-    }
-  }
-}
 
 export const addColumn = (rows) => {
   return {
@@ -54,10 +47,12 @@ export const deleteColumns = (ids) => {
   }
 }
 
-export const getColumns = () => {
+export const editColumns = (ids, values) => {
   return {
-    'type': ActionTypes.GET_COLUMNS,
+    'type': ActionTypes.EDIT_ROWS,
     'payload': {
+      ids,
+      values
     }
   }
 }
