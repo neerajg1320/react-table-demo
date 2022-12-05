@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import { ColumnFilter } from "./filter-table/ColumnFilter";
 
 export const COLUMNS = [
   {
@@ -30,13 +29,22 @@ export const COLUMNS = [
     Header: 'Country',
     Footer: 'Country',
     accessor: 'country',
-    bulk: true
+    bulk: true,
+    type: "select",
+    choices: [
+      "Australia",
+      "India",
+      "UK",
+      "US"
+    ]
   },
   {
     Header: 'Phone',
     Footer: 'Phone',
     accessor: 'phone',
-    bulk: true
+    bulk: true,
+    type: "input",
+
   }
 ];
 
