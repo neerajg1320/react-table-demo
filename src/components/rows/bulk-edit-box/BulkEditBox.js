@@ -77,11 +77,11 @@ const BulkEditBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
           {bulkExpanded &&
           <div
               style={{
-                padding:"10px",
+                padding:"20px",
                 display: "flex",
                 flexDirection:"column",
-                gap:"10px",
-                border:"1px solid blue",
+                gap:"15px",
+                boxShadow: "rgba(0, 0, 0, 0.5) 0px 5px 15px",
                 position: "absolute",
                 left: "40px",
                 top: "25px",
@@ -96,7 +96,14 @@ const BulkEditBox = ({selectedFlatRows, columns, onDelete, onEdit}) => {
                 });
 
                 return (
-                  <div key={col_idx} style={{display:"flex", flexDirection:"row", gap:"10px"}}>
+                  <div key={col_idx}
+                       style={{
+                        display:"flex",
+                        flexDirection:"row",
+                        alignItems: "center",
+                        gap:"10px"
+                      }}
+                  >
                     <span>
                       <input
                           type="checkbox"

@@ -3,7 +3,7 @@ import {useCallback,useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
 import {ShowObject} from "../../show";
-import BulkEditBox from "../BulkEditBox";
+import BulkEditBox from "../bulk-edit-box/BulkEditBox";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
 
