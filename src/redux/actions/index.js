@@ -25,3 +25,29 @@ export const getRows = () => {
     }
   }
 }
+
+export const addColumn = (rows) => {
+  return {
+    'type': ActionTypes.ADD_COLUMN,
+    'payload': {
+      rows
+    }
+  }
+};
+
+export const deleteColumns = (ids) => {
+  return {
+    'type': ActionTypes.DELETE_COLUMNS,
+    'payload': {
+      ids
+    }
+  }
+}
+
+export const getColumns = () => {
+  return {
+    'type': ActionTypes.GET_COLUMNS,
+    'payload': {
+    }
+  }
+}

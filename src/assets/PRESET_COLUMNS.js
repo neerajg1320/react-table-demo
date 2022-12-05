@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 
-export const COLUMNS = [
+export const PRESET_COLUMNS = [
   {
     Header: 'Id',
     Footer: 'Id',

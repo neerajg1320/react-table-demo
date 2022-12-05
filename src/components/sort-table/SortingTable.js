@@ -1,11 +1,11 @@
 import { useTable, useSortBy } from "react-table";
 import MOCK_DATA from "../../assets/MOCK_DATA.json";
-import { COLUMNS, GROUPED_COLUMNS } from '../columns';
+import { PRESET_COLUMNS, GROUPED_COLUMNS } from '../../assets/PRESET_COLUMNS';
 import {useMemo} from "react";
 import '../table.css';
 
 export const SortingTable = () => {
-  const columns = useMemo(() => COLUMNS, []);
+  const columns = useMemo(() => PRESET_COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
 
   const {

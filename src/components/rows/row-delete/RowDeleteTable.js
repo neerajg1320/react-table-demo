@@ -1,6 +1,5 @@
 import { useTable, useRowSelect } from "react-table";
-import MOCK_DATA from "../../../assets/MOCK_SMALL.json";
-import { COLUMNS, GROUPED_COLUMNS } from '../../columns';
+import { PRESET_COLUMNS, GROUPED_COLUMNS } from '../../../assets/PRESET_COLUMNS';
 import {useCallback, useEffect, useMemo, useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
@@ -10,11 +9,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteRows} from "../../../redux/actions";
 
 export const RowDeleteTable = () => {
-  const columns = useMemo(() => COLUMNS, []);
-  // const data = useMemo(() => MOCK_DATA, []);
-  const [output, setOutput] = useState('');
+  // Data variables
   const data = useSelector(state => state.rows);
+  const columns = useSelector(state => state.columns);
   const dispatch = useDispatch();
+
+  // Debug Window
+  const [output, setOutput] = useState('');
 
   const onRowDeleteClick = (id) => {
     setOutput(`delete click id=${id}`);
@@ -83,13 +84,17 @@ export const RowDeleteTable = () => {
 
   return (
       <>
-      {(selectedFlatRows.length > 0 || true) &&
-          <SelectedRowsBox
-              onEdit={handleBulkEditClick}
-              onDelete={handleBulkDeleteClick}
-              {...{selectedFlatRows, columns}}
-          />
-      }
+      <div>
+        {(selectedFlatRows.length > 0 || true) &&
+            <SelectedRowsBox
+                onEdit={handleBulkEditClick}
+                onDelete={handleBulkDeleteClick}
+                {...{selectedFlatRows, columns}}
+            />
+        }
+      </div>
+
+      <div>
       <table {...getTableProps()}>
         <thead>
         {headerGroups.map(headerGroup => (
@@ -134,8 +139,12 @@ export const RowDeleteTable = () => {
         }
         </tfoot>
       </table>
-      <ShowObject object={output} />
-      <ShowObject object={selectedFlatRows.map((row) => row.original)} />
+      </div>
+
+      <div>
+        <ShowObject object={output} />
+        <ShowObject object={selectedFlatRows.map((row) => row.original)} />
+      </div>
       </>
   );
 }
