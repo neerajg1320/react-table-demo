@@ -5,7 +5,7 @@ import {useCallback, useEffect, useMemo, useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
 import {ShowObject} from "../../show";
-import SelectedRowsEdit from "../SelectedRowsEdit";
+import SelectedRowsEdit from "../SelectedRowsBox";
 
 export const RowDeleteTable = () => {
   const columns = useMemo(() => COLUMNS, []);

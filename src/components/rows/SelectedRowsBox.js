@@ -13,7 +13,8 @@ const SelectedRowsEdit = ({ selectedFlatRows, columns }) => {
           display: "flex",
           flexDirection:"column",
           gap:"20px",
-          padding:"10px"
+          padding:"10px",
+          border: "1px dashed red"
         }}
     >
       <div>
@@ -21,19 +22,25 @@ const SelectedRowsEdit = ({ selectedFlatRows, columns }) => {
       </div>
 
       {bulkColumns.length > 0 && (
+
       <div style={{display:"flex"}}>
-        <div>
+        <div style={{
+          display:"flex",
+          flexDirection:"column",
+          border:"1px dashed green",
+        }}>
           <div>
             <button>Bulk Edit</button>
           </div>
+
+          {/* Columns and Save button, can be part of expandable*/}
           <div
               style={{
-                border: "1px solid blue",
-                marginTop: "10px",
                 padding:"10px",
                 display: "flex",
                 flexDirection:"column",
-                gap:"10px"
+                gap:"10px",
+                border:"1px solid blue",
               }}
           >
             {/* We can try grid here*/}
@@ -53,7 +60,6 @@ const SelectedRowsEdit = ({ selectedFlatRows, columns }) => {
                   }</span>
                 </div>
             ))}
-
             <div style={{
               display: "flex",
               justifyContent:"end",
@@ -61,7 +67,8 @@ const SelectedRowsEdit = ({ selectedFlatRows, columns }) => {
             }}>
               <button>Save</button>
             </div>
-          </div>
+          </div> {/* Columns + Save button */}
+
         </div>
       </div>
       )}
