@@ -25,7 +25,6 @@ export const RowModifyFilterTable = () => {
   const [debugSelection, setDebugSelection] = useState(false);
   const [bulkEnabled, setBulkEnabled] = useState(false);
   const [bulkEditExpanded, setBulkEditExpanded] = useState(false);
-  const [currentRow, setCurrentRow] = useState(4);
 
   // Data variables
   const data = useSelector(state => state.rows);
@@ -46,7 +45,7 @@ export const RowModifyFilterTable = () => {
 
   const onRowEditClick = useCallback(  (id) => {
     console.log(`row edit click id=${id}`);
-    setCurrentRow(id);
+
     // eslint-disable-next-line
   }, []);
 
@@ -65,10 +64,9 @@ export const RowModifyFilterTable = () => {
   },[]);
 
   const updateMyData = (row, col, value) => {
-    console.log(`row=${row.index} col=${col.id} value=${value}`, col);
     const id = row.original.id;
+    // key is stored in col.id
     const values = {[col.id]: value};
-    console.log(`values=${JSON.stringify(values, null, 2)}`);
     dispatch(editRows([id], values));
   }
 
@@ -86,6 +84,7 @@ export const RowModifyFilterTable = () => {
     rows,
     prepareRow,
     selectedFlatRows,
+    toggleAllRowsSelected,
     state,
     setGlobalFilter
   } = useTable({
@@ -190,71 +189,75 @@ export const RowModifyFilterTable = () => {
     setBulkEditExpanded(false);
   }, [])
 
+  const handleClearSelectionClick = useCallback(() => {
+    // False clears all selected rows
+    toggleAllRowsSelected(false);
+  }, []);
+
   const { globalFilter } = state;
 
   return (
       <>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
       <div>
-        <div
-            style={{
-              display: "flex",
-              flexDirection:"row",
-              gap:"20px",
-              padding:"10px",
-            }}
-        >
-          <div>
+          <div style={{display:"flex", gap: "10px", padding:"20px"}}>
             <Button variant="danger" size="sm"
                     disabled={!bulkEnabled}
                     onClick={handleBulkDeleteClick}
             >
               Bulk Delete
             </Button>
-          </div>
 
-          <div style={{display:"flex"}}>
-            <div style={{
-              display:"flex",
-              flexDirection:"column",
-              position: "relative"
-            }}>
-              <div>
-                <Button variant="primary" size="sm"
-                        disabled={!bulkEnabled}
-                        onClick={e => setBulkEditExpanded(!bulkEditExpanded)}
-                >
-                  Bulk Edit
-                </Button>
-              </div>
-
-              {bulkEditExpanded &&
-                <div
-                    style={{
-                      padding:"20px",
-                      display: "flex",
-                      flexDirection:"column",
-                      gap:"15px",
-                      boxShadow: "rgba(0, 0, 0, 0.5) 0px 5px 15px",
-                      borderRadius: "4px",
-                      position: "absolute",
-                      left: "60px",
-                      top: "25px",
-                      backgroundColor: "white"
-                    }}
-                >
-                  <ColumnsEditBox
-                      columns={bulkColumns}
-                      onEdit={handleBulkEditSaveClick}
-                      onCancel={handleBulkEditCancelClick}
-                      disabled={!bulkEnabled}
-                  />
+            <div style={{display:"flex"}}>
+              <div style={{
+                display:"flex",
+                flexDirection:"column",
+                position: "relative"
+              }}>
+                <div>
+                  <Button variant="primary" size="sm"
+                          disabled={!bulkEnabled}
+                          onClick={e => setBulkEditExpanded(!bulkEditExpanded)}
+                  >
+                    Bulk Edit
+                  </Button>
                 </div>
-              }
-            </div>
-          </div>
 
-        </div>
+                {bulkEditExpanded &&
+                    <div
+                        style={{
+                          padding:"20px",
+                          display: "flex",
+                          flexDirection:"column",
+                          gap:"15px",
+                          boxShadow: "rgba(0, 0, 0, 0.5) 0px 5px 15px",
+                          borderRadius: "4px",
+                          position: "absolute",
+                          left: "60px",
+                          top: "25px",
+                          backgroundColor: "white"
+                        }}
+                    >
+                      <ColumnsEditBox
+                          columns={bulkColumns}
+                          onEdit={handleBulkEditSaveClick}
+                          onCancel={handleBulkEditCancelClick}
+                          disabled={!bulkEnabled}
+                      />
+                    </div>
+                }
+              </div>
+            </div>
+
+            <Button variant="outline-danger" size="sm"
+                    disabled={!bulkEnabled}
+                    onClick={handleClearSelectionClick}
+            >
+              Clear
+            </Button>
+
+
+          </div>
       </div>
 
       <div>
