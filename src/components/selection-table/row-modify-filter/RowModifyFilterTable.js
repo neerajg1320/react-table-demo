@@ -6,16 +6,17 @@ import {
 } from "react-table";
 import {useCallback, useEffect, useMemo, useState } from "react";
 import '../../table.css';
-import {RowCheckbox} from "../RowCheckbox";
+import {RowCheckbox} from "../../common/RowCheckbox";
 import {ShowObject} from "../../show";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
-import ColumnsEditBox from "../bulk-edit-box/ColumnsEditBox";
+import ColumnsEditBox from "../../common/ColumnsEditBox";
 import {GlobalFilter} from "../../common/GlobalFilter";
 import {ColumnFilter} from "../../common/ColumnFilter";
 import Button from "react-bootstrap/Button";
 import EditableCell from "../../common/editableCell";
+import SelectableCell from "../../common/selectableCell";
 
 export const RowModifyFilterTable = () => {
   // console.log(`Rendering <RowModifyFilterTable>`);
@@ -64,8 +65,11 @@ export const RowModifyFilterTable = () => {
   },[]);
 
   const updateMyData = (row, col, value) => {
-    // console.log(`row=${row.index} col=${col.Header} value=${value}`)
-    console.log(`row=${row.index} col=${col.Header} value=${value}`);
+    console.log(`row=${row.index} col=${col.id} value=${value}`, col);
+    const id = row.original.id;
+    const values = {[col.id]: value};
+    console.log(`values=${JSON.stringify(values, null, 2)}`);
+    dispatch(editRows([id], values));
   }
 
   const defaultColumn = useMemo(() => {
@@ -116,7 +120,13 @@ export const RowModifyFilterTable = () => {
 
         ...columns.map(col => {
           if (col.edit) {
-            col.Cell = EditableCell
+            if (col.type === 'input') {
+              col.Cell = EditableCell
+            } else if (col.type === 'select') {
+              col.Cell = (props) => {
+                return <SelectableCell choices={col.choices} {...props} />
+              }
+            }
           }
           return col;
         }),

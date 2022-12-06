@@ -3,9 +3,9 @@ import {BasicTable} from "./components/basic-table/BasicTable";
 import {SortingTable} from "./components/sort-table/SortingTable";
 import {FilteringTable} from "./components/filter-table/FilteringTable";
 import {PaginationTable} from "./components/paginated-table/PaginationTable";
-import {RowSelectionTable} from "./components/rows/row-selection/RowSelectionTable";
-import {RowModifyTable} from "./components/rows/row-modify/RowModifyTable";
-import {RowModifyFilterTable} from "./components/rows/row-modify-filter/RowModifyFilterTable";
+import {RowSelectionTable} from "./components/selection-table/row-selection/RowSelectionTable";
+import {RowModifyTable} from "./components/selection-table/row-modify/RowModifyTable";
+import {RowModifyFilterTable} from "./components/selection-table/row-modify-filter/RowModifyFilterTable";
 
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';

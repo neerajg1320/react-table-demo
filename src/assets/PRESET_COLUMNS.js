@@ -37,6 +37,10 @@ export const PRESET_COLUMNS = [
       "Select",
       "Australia",
       "India",
+      "Indonesia",
+      "Netherlands",
+      "Chile",
+      "Portugal",
       "UK",
       "US"
     ],

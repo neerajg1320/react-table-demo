@@ -3,7 +3,7 @@ import MOCK_DATA from "../../../assets/MOCK_DATA.json";
 import { PRESET_COLUMNS } from '../../../assets/PRESET_COLUMNS';
 import {useMemo} from "react";
 import '../../table.css';
-import {RowCheckbox} from "../RowCheckbox";
+import {RowCheckbox} from "../../common/RowCheckbox";
 import {ShowObject} from "../../show";
 
 export const RowSelectionTable = () => {

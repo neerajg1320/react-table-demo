@@ -1,12 +1,12 @@
 import { useTable, useRowSelect } from "react-table";
 import {useCallback,useState} from "react";
 import '../../table.css';
-import {RowCheckbox} from "../RowCheckbox";
+import {RowCheckbox} from "../../common/RowCheckbox";
 import {ShowObject} from "../../show";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
-import ColumnsEditBox from "../bulk-edit-box/ColumnsEditBox";
+import ColumnsEditBox from "../../common/ColumnsEditBox";
 
 export const RowModifyTable = () => {
   // eslint-disable-next-line
