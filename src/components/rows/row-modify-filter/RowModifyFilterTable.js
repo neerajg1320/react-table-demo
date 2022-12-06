@@ -1,5 +1,10 @@
-import { useTable, useRowSelect, useGlobalFilter } from "react-table";
-import {useCallback,useState} from "react";
+import {
+  useTable,
+  useRowSelect,
+  useGlobalFilter,
+  useFilters
+} from "react-table";
+import {useCallback, useMemo, useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
 import {ShowObject} from "../../show";
@@ -8,6 +13,7 @@ import {deleteRows, editRows} from "../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
 import BulkEditBoxSelect from "../bulk-edit-box/BulkEditBoxSelect";
 import {GlobalFilter} from "../../common/GlobalFilter";
+import {ColumnFilter} from "../../common/ColumnFilter";
 
 export const RowModifyFilterTable = () => {
   // eslint-disable-next-line
@@ -54,6 +60,12 @@ export const RowModifyFilterTable = () => {
     // eslint-disable-next-line
   }, []);
 
+  const defaultColumn = useMemo(() => {
+    return {
+      Filter: ColumnFilter
+    }
+  }, []);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -66,8 +78,10 @@ export const RowModifyFilterTable = () => {
     setGlobalFilter
   } = useTable({
     columns,
-    data
+    data,
+    defaultColumn
   },
+  useFilters,
   useGlobalFilter,
   useRowSelect,
   (hooks) => {
@@ -86,7 +100,8 @@ export const RowModifyFilterTable = () => {
                 {...row.getToggleRowSelectedProps()}
                 onClick={e => onSelectionChange(row.id)}
             />
-          )
+          ),
+          disableFilters: true
         },
         ...columns,
         {
@@ -106,6 +121,7 @@ export const RowModifyFilterTable = () => {
                   onClick={e => onRowDeleteClick(row.original.id)}/>
             </div>
           ),
+          disableFilters: true
         },
       ]
     })
@@ -131,7 +147,10 @@ export const RowModifyFilterTable = () => {
             <tr {...headerGroup.getHeaderGroupProps()}>
               {
                 headerGroup.headers.map(column => (
-                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                    <th {...column.getHeaderProps()}>
+                      {column.render('Header')}
+                      <div>{column.canFilter ? column.render('Filter') : null}</div>
+                    </th>
                 ))
               }
             </tr>

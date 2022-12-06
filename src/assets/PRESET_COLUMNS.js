@@ -10,12 +10,12 @@ export const PRESET_COLUMNS = [
   {
     Header: 'First Name',
     Footer: 'First Name',
-    accessor: 'first_name',
+    accessor: 'first_name'
   },
   {
     Header: 'Last Name',
     Footer: 'Last Name',
-    accessor: 'last_name',
+    accessor: 'last_name'
   },
   {
     Header: 'Date of Birth',
@@ -29,6 +29,7 @@ export const PRESET_COLUMNS = [
     Header: 'Country',
     Footer: 'Country',
     accessor: 'country',
+    edit: true,
     bulk: true,
     type: "select",
     choices: [
@@ -44,8 +45,17 @@ export const PRESET_COLUMNS = [
     Header: 'Phone',
     Footer: 'Phone',
     accessor: 'phone',
+    edit: true,
     bulk: true,
-    type: "input",
+    type: "input"
+  },
+  {
+    Header: 'Remarks',
+    Footer: 'Remarks',
+    accessor: 'remarks',
+    edit: true,
+    bulk: true,
+    type: "input"
   }
 ];
 
