@@ -6,7 +6,7 @@ import {ShowObject} from "../../show";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
-import BulkEditBoxSelect from "../bulk-edit-box/BulkEditBoxSelect";
+import ColumnsEditExpandableBox from "../bulk-edit-box/ColumnsEditExpandableBox";
 
 export const RowModifyTable = () => {
   // eslint-disable-next-line
@@ -110,7 +110,7 @@ export const RowModifyTable = () => {
   return (
       <>
       <div>
-        <BulkEditBoxSelect
+        <ColumnsEditExpandableBox
             onEdit={handleBulkEditClick}
             onDelete={handleBulkDeleteClick}
             {...{selectedFlatRows, columns}}

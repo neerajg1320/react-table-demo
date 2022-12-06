@@ -4,25 +4,33 @@ import {
   useGlobalFilter,
   useFilters
 } from "react-table";
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
 import {ShowObject} from "../../show";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
-import BulkEditBoxSelect from "../bulk-edit-box/BulkEditBoxSelect";
+import ColumnsEditExpandableBox from "../bulk-edit-box/ColumnsEditExpandableBox";
 import {GlobalFilter} from "../../common/GlobalFilter";
 import {ColumnFilter} from "../../common/ColumnFilter";
+import Button from "react-bootstrap/Button";
 
 export const RowModifyFilterTable = () => {
+  // console.log(`Rendering <RowModifyFilterTable>`);
+
   // eslint-disable-next-line
   const [debugSelection, setDebugSelection] = useState(false);
+  const [bulkEnabled, setBulkEnabled] = useState(false);
 
   // Data variables
   const data = useSelector(state => state.rows);
   const columns = useSelector(state => state.columns);
   const dispatch = useDispatch();
+
+  const bulkColumns = useMemo(() => {
+    return columns.filter(col => col.bulk)
+  }, []);
 
   // Show Debug Window
   // eslint-disable-next-line
@@ -48,17 +56,7 @@ export const RowModifyFilterTable = () => {
     }
   },[]);
 
-  const handleBulkDeleteClick = useCallback((ids) => {
-    console.log(`handleBulkDeleteClick: ids=${ids}`);
-    dispatch(deleteRows(ids));
-    // eslint-disable-next-line
-  }, []);
 
-  const handleBulkEditClick = useCallback((ids, values) => {
-    console.log(`handleBulkEditClick: ids=${ids} values=${JSON.stringify(values)}`);
-    dispatch(editRows(ids, values));
-    // eslint-disable-next-line
-  }, []);
 
   const defaultColumn = useMemo(() => {
     return {
@@ -127,17 +125,63 @@ export const RowModifyFilterTable = () => {
     })
   });
 
+  useEffect(() => {
+    if (selectedFlatRows.length > 0) {
+      if (!bulkEnabled)
+        setBulkEnabled(true);
+    } else {
+      if (bulkEnabled)
+        setBulkEnabled(false);
+    }
+  }, [selectedFlatRows]);
+
+  const getRowIds = useCallback((selRows) => {
+    return selRows.map(row => {
+      return row.original.id;
+    });
+  }, []);
+
+  const handleBulkDeleteClick = useCallback(() => {
+    const ids = getRowIds(selectedFlatRows);
+    console.log(`handleBulkDeleteClick: ids=${ids}`);
+    dispatch(deleteRows(ids));
+  }, [selectedFlatRows]);
+
+  const handleBulkEditClick = useCallback((values) => {
+    const ids = getRowIds(selectedFlatRows);
+    console.log(`handleBulkEditClick: ids=${ids} values=${JSON.stringify(values)}`);
+    dispatch(editRows(ids, values));
+  }, [selectedFlatRows]);
+
   const { globalFilter } = state;
 
   return (
       <>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
       <div>
-        <BulkEditBoxSelect
-            onEdit={handleBulkEditClick}
-            onDelete={handleBulkDeleteClick}
-            {...{selectedFlatRows, columns}}
-        />
+        <div
+            style={{
+              display: "flex",
+              flexDirection:"row",
+              gap:"20px",
+              padding:"10px",
+            }}
+        >
+          <div>
+            <Button variant="danger" size="sm"
+                    disabled={!bulkEnabled}
+                    onClick={handleBulkDeleteClick}
+            >
+              Bulk Delete
+            </Button>
+          </div>
+
+          <ColumnsEditExpandableBox
+              columns={bulkColumns}
+              onEdit={handleBulkEditClick}
+              disabled={!bulkEnabled}
+          />
+        </div>
       </div>
 
       <div>
