@@ -1,11 +1,17 @@
 import {BiSearchAlt} from "react-icons/bi";
 import {AiOutlineClose} from "react-icons/ai";
+import {TiTick} from "react-icons/ti";
 import ExpandableButton from "./expandableButton";
 import {useState} from "react";
 
 export const ColumnFilterIcon = ({ column }) => {
   const { filterValue, setFilter } = column;
   const [expanded, setExpanded] = useState(false);
+
+  const clearFilter = () => {
+    setExpanded(!expanded);
+    setFilter("");
+  }
 
   return (
       <>
@@ -16,7 +22,7 @@ export const ColumnFilterIcon = ({ column }) => {
           onChange={e => setExpanded(!expanded)}
           popupPosition={{bottom:"30px", left: "-100px"}}
       >
-        <div style={{color:"red", display:"flex", justifyContent: "space-between"}}>
+        <div style={{color:"red", display:"flex", justifyContent: "space-between", gap: "10px"}}>
           <div
               style={{
                 color:"black",
@@ -28,25 +34,29 @@ export const ColumnFilterIcon = ({ column }) => {
               }}
           >
             <span style={{color:"black", fontSize:".8em", fontWeight: "normal" }}>
-              Search
+              {column.Header}
             </span>
             <BiSearchAlt  />
           </div>
-          <AiOutlineClose onClick={e => setExpanded(!expanded)} style={{cursor: "pointer"}}/>
-        </div>
-        <div
-            style={{
-              display: "flex",
-              justifyContent:"space-between",
-              alignItems: "center",
-              gap: "10px"
-            }}
-        >
-          <span>
-            <input value={filterValue || ''} onChange={(e) => setFilter(e.target.value)} />
-          </span>
 
+          <div>
+            <TiTick
+                style={{color:"green", fontSize: "1.3em", cursor:"pointer"}}
+                onClick={e => setExpanded(!expanded)}
+            />
+            <AiOutlineClose
+                onClick={e => clearFilter()}
+                style={{cursor: "pointer"}}
+            />
+          </div>
         </div>
+
+        <input
+            className="form-control"
+            value={filterValue || ''}
+            onChange={(e) => setFilter(e.target.value)}
+            style={{width: "150px"}}
+        />
       </ExpandableButton>
       </>
   );
