@@ -49,7 +49,7 @@ export const PRESET_COLUMNS = [
     edit: true,
     bulk: true,
     type: "input",
-    Cell: EditableCell
+    // Cell: EditableCell
   },
   {
     Header: 'Remarks',
@@ -58,7 +58,7 @@ export const PRESET_COLUMNS = [
     edit: true,
     bulk: true,
     type: "input",
-    Cell: EditableCell
+    // Cell: EditableCell
   }
 ];
 

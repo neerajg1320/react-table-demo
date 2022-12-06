@@ -15,6 +15,7 @@ import ColumnsEditBox from "../bulk-edit-box/ColumnsEditBox";
 import {GlobalFilter} from "../../common/GlobalFilter";
 import {ColumnFilter} from "../../common/ColumnFilter";
 import Button from "react-bootstrap/Button";
+import EditableCell from "../../common/editableCell";
 
 export const RowModifyFilterTable = () => {
   // console.log(`Rendering <RowModifyFilterTable>`);
@@ -112,7 +113,14 @@ export const RowModifyFilterTable = () => {
           ),
           disableFilters: true
         },
-        ...columns,
+
+        ...columns.map(col => {
+          if (col.edit) {
+            col.Cell = EditableCell
+          }
+          return col;
+        }),
+
         {
           Header: "Modify",
           Cell: ({ row }) => (
