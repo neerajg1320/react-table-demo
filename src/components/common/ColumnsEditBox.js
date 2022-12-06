@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Select from "react-select";
 
-const ColumnsEditBox = ({columns, onEdit, onCancel}) => {
+const ColumnsEditBox = ({columns, onEdit, onCancel, onButtonClick}) => {
   // console.log(`Rendering <ColumnsEditBox>`);
 
   // We haven't used state here as we do not want to rerender the component
@@ -9,18 +9,26 @@ const ColumnsEditBox = ({columns, onEdit, onCancel}) => {
   const columnValues = [];
 
   const handleSaveClick = () => {
+    if (onButtonClick) {
+      onButtonClick();
+    }
     if (onEdit) {
       const modifiedFields = columnValues
                               .filter(item => item.active)
                               .map(item => [item.name, item.value]);
-      if (onEdit)
+      if (onEdit) {
         onEdit(Object.fromEntries(modifiedFields));
+      }
     }
   }
 
   const handleCancelClick = () => {
-    if (onCancel)
+    if (onButtonClick) {
+      onButtonClick();
+    }
+    if (onCancel) {
       onCancel();
+    }
   }
 
   return (

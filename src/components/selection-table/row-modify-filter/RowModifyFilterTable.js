@@ -17,6 +17,7 @@ import {ColumnFilter} from "../../common/ColumnFilter";
 import Button from "react-bootstrap/Button";
 import EditableCell from "../../common/editableCell";
 import SelectableCell from "../../common/selectableCell";
+import ExpandableButton from "../../common/expandableButton";
 
 export const RowModifyFilterTable = () => {
   // console.log(`Rendering <RowModifyFilterTable>`);
@@ -35,6 +36,8 @@ export const RowModifyFilterTable = () => {
     return columns.filter(col => col.bulk)
   }, [columns]);
 
+  // Kept for future reference
+  // eslint-disable-next-line
   const editColumns = useMemo(() => {
     return columns.filter(col => col.edit)
   }, [columns]);
@@ -178,7 +181,7 @@ export const RowModifyFilterTable = () => {
 
   const handleBulkEditSaveClick = useCallback((values) => {
     const ids = getRowIds(selectedFlatRows);
-    console.log(`handleBulkEditClick: ids=${ids} values=${JSON.stringify(values)}`);
+    console.log(`handleBulkEditSaveClick: ids=${ids} values=${JSON.stringify(values)}`);
     dispatch(editRows(ids, values));
     setBulkEditExpanded(false);
     // eslint-disable-next-line
@@ -192,6 +195,7 @@ export const RowModifyFilterTable = () => {
   const handleClearSelectionClick = useCallback(() => {
     // False clears all selected rows
     toggleAllRowsSelected(false);
+    // eslint-disable-next-line
   }, []);
 
   const { globalFilter } = state;
@@ -208,45 +212,51 @@ export const RowModifyFilterTable = () => {
               Bulk Delete
             </Button>
 
-            <div style={{display:"flex"}}>
-              <div style={{
-                display:"flex",
-                flexDirection:"column",
-                position: "relative"
-              }}>
-                <div>
-                  <Button variant="primary" size="sm"
-                          disabled={!bulkEnabled}
-                          onClick={e => setBulkEditExpanded(!bulkEditExpanded)}
-                  >
-                    Bulk Edit
-                  </Button>
-                </div>
+            {/* We should try and replace below */}
+            <ExpandableButton title="Bulk Button" disabled={!bulkEnabled}>
+              <ColumnsEditBox
+                  columns={bulkColumns}
+                  onEdit={handleBulkEditSaveClick}
+                  onCancel={handleBulkEditCancelClick}
+                  disabled={!bulkEnabled}
+              />
+            </ExpandableButton>
 
-                {bulkEditExpanded &&
-                    <div
-                        style={{
-                          padding:"20px",
-                          display: "flex",
-                          flexDirection:"column",
-                          gap:"15px",
-                          boxShadow: "rgba(0, 0, 0, 0.5) 0px 5px 15px",
-                          borderRadius: "4px",
-                          position: "absolute",
-                          left: "60px",
-                          top: "25px",
-                          backgroundColor: "white"
-                        }}
-                    >
-                      <ColumnsEditBox
-                          columns={bulkColumns}
-                          onEdit={handleBulkEditSaveClick}
-                          onCancel={handleBulkEditCancelClick}
-                          disabled={!bulkEnabled}
-                      />
-                    </div>
-                }
-              </div>
+            <div style={{
+              display:"flex",
+              flexDirection:"column",
+              position: "relative"
+            }}>
+              <Button variant="primary" size="sm"
+                      disabled={!bulkEnabled}
+                      onClick={e => setBulkEditExpanded(!bulkEditExpanded)}
+              >
+                Bulk Edit
+              </Button>
+
+              {bulkEditExpanded &&
+                  <div
+                      style={{
+                        padding:"20px",
+                        display: "flex",
+                        flexDirection:"column",
+                        gap:"15px",
+                        boxShadow: "rgba(0, 0, 0, 0.5) 0px 5px 15px",
+                        borderRadius: "4px",
+                        position: "absolute",
+                        left: "60px",
+                        top: "25px",
+                        backgroundColor: "white"
+                      }}
+                  >
+                    <ColumnsEditBox
+                        columns={bulkColumns}
+                        onEdit={handleBulkEditSaveClick}
+                        onCancel={handleBulkEditCancelClick}
+                        disabled={!bulkEnabled}
+                    />
+                  </div>
+              }
             </div>
 
             <Button variant="outline-danger" size="sm"
@@ -261,54 +271,57 @@ export const RowModifyFilterTable = () => {
       </div>
 
       <div>
-      <table {...getTableProps()}>
-        <thead>
-        {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {
-                headerGroup.headers.map(column => (
-                    <th {...column.getHeaderProps()}>
-                      {column.render('Header')}
-                      <div>{column.canFilter ? column.render('Filter') : null}</div>
-                    </th>
-                ))
-              }
-            </tr>
-        ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-        {
-          rows.map(row => {
-            prepareRow(row);
-            return (
-                <tr {...row.getRowProps()}>
-                  {
-                    row.cells.map(cell => {
-                      return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                    })
-                  }
-                </tr>
-            );
-          })
-        }
-        </tbody>
-        <tfoot>
-        {
-          footerGroups.map(footerGroup => (
-              <tr {...footerGroup.getFooterGroupProps()}>
+        <table {...getTableProps()}>
+          <thead>
+          {headerGroups.map(headerGroup => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
                 {
-                  footerGroup.headers.map(column => (
-                      <td {...column.getFooterProps()}>
-                        {column.render('Footer')}
-                      </td>
+                  headerGroup.headers.map(column => (
+                      <th {...column.getHeaderProps()}>
+                        {column.render('Header')}
+                        <div>{column.canFilter ? column.render('Filter') : null}</div>
+                      </th>
                   ))
                 }
               </tr>
-          ))
-        }
-        </tfoot>
-      </table>
+          ))}
+          </thead>
+
+          <tbody {...getTableBodyProps()}>
+          {
+            rows.map(row => {
+              prepareRow(row);
+              return (
+                  <tr {...row.getRowProps()}>
+                    {
+                      row.cells.map(cell => {
+                        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                      })
+                    }
+                  </tr>
+              );
+            })
+          }
+          </tbody>
+
+          <tfoot>
+          {
+            footerGroups.map(footerGroup => (
+                <tr {...footerGroup.getFooterGroupProps()}>
+                  {
+                    footerGroup.headers.map(column => (
+                        <td {...column.getFooterProps()}>
+                          {column.render('Footer')}
+                        </td>
+                    ))
+                  }
+                </tr>
+            ))
+          }
+          </tfoot>
+        </table>
       </div>
+
       {debugSelection &&
         <div>
           <ShowObject object={output} />
