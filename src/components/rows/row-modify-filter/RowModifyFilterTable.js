@@ -4,7 +4,7 @@ import {
   useGlobalFilter,
   useFilters
 } from "react-table";
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useState } from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
 import {ShowObject} from "../../show";
@@ -23,6 +23,7 @@ export const RowModifyFilterTable = () => {
   const [debugSelection, setDebugSelection] = useState(false);
   const [bulkEnabled, setBulkEnabled] = useState(false);
   const [bulkEditExpanded, setBulkEditExpanded] = useState(false);
+  const [currentRow, setCurrentRow] = useState(4);
 
   // Data variables
   const data = useSelector(state => state.rows);
@@ -43,7 +44,7 @@ export const RowModifyFilterTable = () => {
 
   const onRowEditClick = useCallback(  (id) => {
     console.log(`row edit click id=${id}`);
-
+    setCurrentRow(id);
     // eslint-disable-next-line
   }, []);
 
@@ -61,7 +62,10 @@ export const RowModifyFilterTable = () => {
     }
   },[]);
 
-
+  const updateMyData = (row, col, value) => {
+    // console.log(`row=${row.index} col=${col.Header} value=${value}`)
+    console.log(`row=${row.index} col=${col.Header} value=${value}`);
+  }
 
   const defaultColumn = useMemo(() => {
     return {
@@ -82,11 +86,13 @@ export const RowModifyFilterTable = () => {
   } = useTable({
     columns,
     data,
-    defaultColumn
+    defaultColumn,
+    updateMyData
   },
   useFilters,
   useGlobalFilter,
   useRowSelect,
+
   (hooks) => {
     hooks.visibleColumns.push((columns) => {
       return [
@@ -116,9 +122,14 @@ export const RowModifyFilterTable = () => {
               alignItems: "center",
               gap:"10px"}}
             >
-              <FaPen
-                  style={{color:"rebeccapurple", cursor: "pointer"}}
-                  onClick={e => onRowEditClick(row.original.id)}/>
+              <div style={{position: "relative"}}>
+                <FaPen
+                    style={{color:"rebeccapurple", cursor: "pointer"}}
+                    onClick={e => {
+                      onRowEditClick(row.original.id);
+                    }}
+                />
+              </div>
               <FaTrash
                   style={{color:"mediumvioletred", cursor: "pointer"}}
                   onClick={e => onRowDeleteClick(row.original.id)}/>

@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import EditableCell from "../components/common/editableCell";
 
 export const PRESET_COLUMNS = [
   {
@@ -47,7 +48,8 @@ export const PRESET_COLUMNS = [
     accessor: 'phone',
     edit: true,
     bulk: true,
-    type: "input"
+    type: "input",
+    Cell: EditableCell
   },
   {
     Header: 'Remarks',
@@ -55,7 +57,8 @@ export const PRESET_COLUMNS = [
     accessor: 'remarks',
     edit: true,
     bulk: true,
-    type: "input"
+    type: "input",
+    Cell: EditableCell
   }
 ];
 

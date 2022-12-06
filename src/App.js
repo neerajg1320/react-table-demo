@@ -14,7 +14,7 @@ function App() {
   return (
       <div style={{display:"flex", justifyContent:"center"}}>
         <div style={{
-            width: "80%",
+            width: "90%",
             borderRadius: "4px",
             padding: "30px",
             margin: "20px",
@@ -24,24 +24,24 @@ function App() {
           }}
         >
           <Tabs className="mb-3" defaultActiveKey="rowModifyFilter">
-            <Tab eventKey="basic" title="Basic">
-              <BasicTable />
-            </Tab>
-            <Tab eventKey="sorting" title="Sorting">
-              <SortingTable />
-            </Tab>
-            <Tab eventKey="filtering" title="Filtering">
-              <FilteringTable />
-            </Tab>
-            <Tab eventKey="pagination" title="Pagination">
-              <PaginationTable />
-            </Tab>
-            <Tab eventKey="rowSelection" title="Row Selection">
-              <RowSelectionTable />
-            </Tab>
-            <Tab eventKey="rowModify" title="Row Modify">
-              <RowModifyTable />
-            </Tab>
+            {/*<Tab eventKey="basic" title="Basic">*/}
+            {/*  <BasicTable />*/}
+            {/*</Tab>*/}
+            {/*<Tab eventKey="sorting" title="Sorting">*/}
+            {/*  <SortingTable />*/}
+            {/*</Tab>*/}
+            {/*<Tab eventKey="filtering" title="Filtering">*/}
+            {/*  <FilteringTable />*/}
+            {/*</Tab>*/}
+            {/*<Tab eventKey="pagination" title="Pagination">*/}
+            {/*  <PaginationTable />*/}
+            {/*</Tab>*/}
+            {/*<Tab eventKey="rowSelection" title="Row Selection">*/}
+            {/*  <RowSelectionTable />*/}
+            {/*</Tab>*/}
+            {/*<Tab eventKey="rowModify" title="Row Modify">*/}
+            {/*  <RowModifyTable />*/}
+            {/*</Tab>*/}
             <Tab eventKey="rowModifyFilter" title="Row Modify Filter">
               <RowModifyFilterTable />
             </Tab>
