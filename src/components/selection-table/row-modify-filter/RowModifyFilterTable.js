@@ -195,6 +195,7 @@ export const RowModifyFilterTable = () => {
   const handleClearSelectionClick = useCallback(() => {
     // False clears all selected rows
     toggleAllRowsSelected(false);
+    setBulkEditExpanded(false);
     // eslint-disable-next-line
   }, []);
 
@@ -213,7 +214,12 @@ export const RowModifyFilterTable = () => {
             </Button>
 
             {/* We should try and replace below */}
-            <ExpandableButton title="Bulk Button" disabled={!bulkEnabled}>
+            <ExpandableButton
+                title="Bulk Edit"
+                disabled={!bulkEnabled}
+                value={bulkEditExpanded}
+                onChange={exp => setBulkEditExpanded(exp)}
+            >
               <ColumnsEditBox
                   columns={bulkColumns}
                   onEdit={handleBulkEditSaveClick}
@@ -222,44 +228,7 @@ export const RowModifyFilterTable = () => {
               />
             </ExpandableButton>
 
-            <div style={{
-              display:"flex",
-              flexDirection:"column",
-              position: "relative"
-            }}>
-              <Button variant="primary" size="sm"
-                      disabled={!bulkEnabled}
-                      onClick={e => setBulkEditExpanded(!bulkEditExpanded)}
-              >
-                Bulk Edit
-              </Button>
-
-              {bulkEditExpanded &&
-                  <div
-                      style={{
-                        padding:"20px",
-                        display: "flex",
-                        flexDirection:"column",
-                        gap:"15px",
-                        boxShadow: "rgba(0, 0, 0, 0.5) 0px 5px 15px",
-                        borderRadius: "4px",
-                        position: "absolute",
-                        left: "60px",
-                        top: "25px",
-                        backgroundColor: "white"
-                      }}
-                  >
-                    <ColumnsEditBox
-                        columns={bulkColumns}
-                        onEdit={handleBulkEditSaveClick}
-                        onCancel={handleBulkEditCancelClick}
-                        disabled={!bulkEnabled}
-                    />
-                  </div>
-              }
-            </div>
-
-            <Button variant="outline-danger" size="sm"
+            <Button variant="outline-dark" size="sm"
                     disabled={!bulkEnabled}
                     onClick={handleClearSelectionClick}
             >

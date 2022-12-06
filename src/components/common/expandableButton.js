@@ -1,17 +1,16 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 
-import {useState} from "react";
-
-const ExpandableButton = ({ children, title, disabled }) => {
-  const [expanded, setExpanded] = useState(false);
+// Currently its a controlled component
+const ExpandableButton = ({ children, title, disabled, value, onChange }) => {
+  console.log(`Rendering <ExpandableButton> value=${value}`);
 
   const onButtonClick = (e) => {
     console.log('onButtonClick called')
-    setExpanded(!expanded);
+    onChange(!value)
   }
 
-  const childrenWithProps = React.Children.map(children, child => {
+  const childrenWithProps =  React.Children.map(children, child => {
     // https://stackoverflow.com/questions/32370994/how-to-pass-props-to-this-props-children
     // avoids typescript error as well
     if (React.isValidElement(child)) {
@@ -28,12 +27,13 @@ const ExpandableButton = ({ children, title, disabled }) => {
       }}>
         <Button variant="primary" size="sm"
                 disabled={disabled}
-                onClick={e => setExpanded(!expanded)}
+                onClick={e => onButtonClick(!value)}
         >
           {title}
         </Button>
 
-        {expanded &&
+        {/*<p>{value ? "T" : "F"}</p>*/}
+        {value &&
             <div
                 style={{
                   padding:"20px",
