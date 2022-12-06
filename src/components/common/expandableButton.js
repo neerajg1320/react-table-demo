@@ -2,7 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 
 // Currently its a controlled component
-const ExpandableButton = ({ children, title, disabled, value, onChange }) => {
+const ExpandableButton = ({ children, title, icon, disabled, value, onChange, popupPosition}) => {
   console.log(`Rendering <ExpandableButton> value=${value}`);
 
   const onButtonClick = (e) => {
@@ -25,14 +25,17 @@ const ExpandableButton = ({ children, title, disabled, value, onChange }) => {
         flexDirection:"column",
         position: "relative"
       }}>
-        <Button variant="primary" size="sm"
-                disabled={disabled}
-                onClick={e => onButtonClick(!value)}
-        >
-          {title}
-        </Button>
+        {icon}
 
-        {/*<p>{value ? "T" : "F"}</p>*/}
+        {!icon &&
+          <Button variant="primary" size="sm"
+                  disabled={disabled}
+                  onClick={e => onButtonClick(!value)}
+          >
+            {title}
+          </Button>
+        }
+
         {value &&
             <div
                 style={{
@@ -43,9 +46,8 @@ const ExpandableButton = ({ children, title, disabled, value, onChange }) => {
                   boxShadow: "rgba(0, 0, 0, 0.5) 0px 5px 15px",
                   borderRadius: "4px",
                   position: "absolute",
-                  left: "60px",
-                  top: "25px",
-                  backgroundColor: "white"
+                  backgroundColor: "white",
+                  ...{...popupPosition}
                 }}
             >
               {childrenWithProps}

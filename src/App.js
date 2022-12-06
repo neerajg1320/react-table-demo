@@ -9,6 +9,7 @@ import {RowModifyFilterTable} from "./components/selection-table/row-modify-filt
 
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import {RowModifyFilterIconTable} from "./components/selection-table/row-modify-filtericon/RowModifyFilterIconTable";
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
             {/*</Tab>*/}
             <Tab eventKey="rowModifyFilter" title="Row Modify Filter">
               <RowModifyFilterTable />
+            </Tab>
+            <Tab eventKey="rowModifyFilterIcon" title="Row Modify Filter">
+              <RowModifyFilterIconTable />
             </Tab>
           </Tabs>
         </div>
