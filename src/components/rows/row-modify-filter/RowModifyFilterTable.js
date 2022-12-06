@@ -1,4 +1,4 @@
-import { useTable, useRowSelect } from "react-table";
+import { useTable, useRowSelect, useGlobalFilter } from "react-table";
 import {useCallback,useState} from "react";
 import '../../table.css';
 import {RowCheckbox} from "../RowCheckbox";
@@ -7,8 +7,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
 import BulkEditBoxSelect from "../bulk-edit-box/BulkEditBoxSelect";
+import {GlobalFilter} from "../../common/GlobalFilter";
 
-export const RowDeleteTable = () => {
+export const RowModifyFilterTable = () => {
   // eslint-disable-next-line
   const [debugSelection, setDebugSelection] = useState(false);
 
@@ -60,11 +61,14 @@ export const RowDeleteTable = () => {
     footerGroups,
     rows,
     prepareRow,
-    selectedFlatRows
+    selectedFlatRows,
+    state,
+    setGlobalFilter
   } = useTable({
     columns,
     data
   },
+  useGlobalFilter,
   useRowSelect,
   (hooks) => {
     hooks.visibleColumns.push((columns) => {
@@ -107,8 +111,11 @@ export const RowDeleteTable = () => {
     })
   });
 
+  const { globalFilter } = state;
+
   return (
       <>
+      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
       <div>
         <BulkEditBoxSelect
             onEdit={handleBulkEditClick}

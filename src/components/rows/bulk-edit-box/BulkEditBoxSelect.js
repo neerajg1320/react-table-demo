@@ -106,23 +106,34 @@ const BulkEditBoxSelect = ({selectedFlatRows, columns, onDelete, onEdit}) => {
                         gap:"10px"
                       }}
                   >
-                    <span>
+                    <div>
                       <input
                           type="checkbox"
                           onChange={e => {
                             bulkValues[col_idx].active = e.target.checked;
                           }}
                       />
-                    </span>
-                    <span style={{width: "80px"}}>{col.Header}</span>
-                    <span>{(col.type === "input") ?
-                        <input
-                            type="text"
-                            defaultValue=""
-                            onChange={e => {
-                              bulkValues[col_idx].value = e.target.value;
-                            }}
-                        /> :
+                    </div>
+
+                    <div style={{minWidth:"80px"}}>
+                      {col.Header}
+                    </div>
+
+                    <div>{(col.type === "input") ?
+                        <form>
+                          <div className="form-group">
+                            <input
+                                type="email"
+                                className="form-control"
+                                aria-describedby="emailHelp"
+                                placeholder="Enter phone"
+                                onChange={e => {
+                                  bulkValues[col_idx].value = e.target.value;
+                                }}
+                            />
+                          </div>
+                        </form>
+                        :
                         (col.type === "select") ?
 
                         <Select
@@ -133,11 +144,11 @@ const BulkEditBoxSelect = ({selectedFlatRows, columns, onDelete, onEdit}) => {
                                 ...provided,
                                 width: 150
                               })}}
+                            // isDisabled={false}
                         />
-
                              :
                             ""
-                    }</span>
+                    }</div>
                   </div>
               )}
             )}

@@ -4,7 +4,8 @@ import {SortingTable} from "./components/sort-table/SortingTable";
 import {FilteringTable} from "./components/filter-table/FilteringTable";
 import {PaginationTable} from "./components/paginated-table/PaginationTable";
 import {RowSelectionTable} from "./components/rows/row-selection/RowSelectionTable";
-import {RowDeleteTable} from "./components/rows/row-delete/RowDeleteTable";
+import {RowModifyTable} from "./components/rows/row-modify/RowModifyTable";
+import {RowModifyFilterTable} from "./components/rows/row-modify-filter/RowModifyFilterTable";
 
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -40,8 +41,11 @@ function App() {
             <Tab eventKey="rowSelection" title="Row Selection">
               <RowSelectionTable />
             </Tab>
-            <Tab eventKey="rowDelete" title="Row Delete">
-              <RowDeleteTable />
+            <Tab eventKey="rowModify" title="Row Modify">
+              <RowModifyTable />
+            </Tab>
+            <Tab eventKey="rowModifyFilter" title="Row Modify Filter">
+              <RowModifyFilterTable />
             </Tab>
           </Tabs>
         </div>

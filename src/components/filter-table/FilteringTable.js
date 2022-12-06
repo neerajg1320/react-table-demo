@@ -3,8 +3,8 @@ import MOCK_DATA from "../../assets/MOCK_DATA.json";
 import { PRESET_COLUMNS } from '../../assets/PRESET_COLUMNS';
 import {useMemo} from "react";
 import '../table.css';
-import {GlobalFilter} from "./GlobalFilter";
-import {ColumnFilter} from "./ColumnFilter";
+import {GlobalFilter} from "../common/GlobalFilter";
+import {ColumnFilter} from "../common/ColumnFilter";
 
 
 export const FilteringTable = () => {
