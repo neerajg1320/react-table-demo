@@ -205,39 +205,46 @@ export const RowModifyFilterIconTable = () => {
   return (
       <>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
-      <div>
-          <div style={{display:"flex", gap: "10px", padding:"20px"}}>
-            <Button variant="danger" size="sm"
-                    disabled={!bulkEnabled}
-                    onClick={handleBulkDeleteClick}
-            >
-              Bulk Delete
-            </Button>
-
-            {/* We should try and replace below */}
-            <ExpandableButton
-                title="Bulk Edit"
-                disabled={!bulkEnabled}
-                value={bulkEditExpanded}
-                onChange={exp => setBulkEditExpanded(exp)}
-            >
-              <ColumnsEditBox
-                  columns={bulkColumns}
-                  onEdit={handleBulkEditSaveClick}
-                  onCancel={handleBulkEditCancelClick}
+      <div style={{display: "flex", justifyContent:"space-between", alignItems:"center"}}>
+        <div style={{display:"flex", gap: "10px", padding:"20px"}}>
+          <Button variant="danger" size="sm"
                   disabled={!bulkEnabled}
-              />
-            </ExpandableButton>
+                  onClick={handleBulkDeleteClick}
+          >
+            Bulk Delete
+          </Button>
 
-            <Button variant="outline-dark" size="sm"
-                    disabled={!bulkEnabled}
-                    onClick={handleClearSelectionClick}
-            >
-              Clear
-            </Button>
+          {/* We should try and replace below */}
+          <ExpandableButton
+              title="Bulk Edit"
+              disabled={!bulkEnabled}
+              value={bulkEditExpanded}
+              onChange={exp => setBulkEditExpanded(exp)}
+          >
+            <ColumnsEditBox
+                columns={bulkColumns}
+                onEdit={handleBulkEditSaveClick}
+                onCancel={handleBulkEditCancelClick}
+                disabled={!bulkEnabled}
+            />
+          </ExpandableButton>
 
+          <Button variant="outline-dark" size="sm"
+                  disabled={!bulkEnabled}
+                  onClick={handleClearSelectionClick}
+          >
+            Clear
+          </Button>
+        </div>
 
-          </div>
+        <div style={{padding: "20px"}}>
+          <Button variant="outline-dark" size="sm"
+                  disabled={!bulkEnabled}
+                  onClick={handleClearSelectionClick}
+          >
+            Clear Filter
+          </Button>
+        </div>
       </div>
 
       <div>
