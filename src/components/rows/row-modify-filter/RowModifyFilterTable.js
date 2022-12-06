@@ -22,6 +22,7 @@ export const RowModifyFilterTable = () => {
   // eslint-disable-next-line
   const [debugSelection, setDebugSelection] = useState(false);
   const [bulkEnabled, setBulkEnabled] = useState(false);
+  const [bulkEditExpanded, setBulkEditExpanded] = useState(false);
 
   // Data variables
   const data = useSelector(state => state.rows);
@@ -30,6 +31,10 @@ export const RowModifyFilterTable = () => {
 
   const bulkColumns = useMemo(() => {
     return columns.filter(col => col.bulk)
+  }, []);
+
+  const editColumns = useMemo(() => {
+    return columns.filter(col => col.edit)
   }, []);
 
   // Show Debug Window
@@ -145,13 +150,20 @@ export const RowModifyFilterTable = () => {
     const ids = getRowIds(selectedFlatRows);
     console.log(`handleBulkDeleteClick: ids=${ids}`);
     dispatch(deleteRows(ids));
+    setBulkEditExpanded(false);
   }, [selectedFlatRows]);
 
-  const handleBulkEditClick = useCallback((values) => {
+  const handleBulkEditSaveClick = useCallback((values) => {
     const ids = getRowIds(selectedFlatRows);
     console.log(`handleBulkEditClick: ids=${ids} values=${JSON.stringify(values)}`);
     dispatch(editRows(ids, values));
+    setBulkEditExpanded(false);
   }, [selectedFlatRows]);
+
+  const handleBulkEditCancelClick = useCallback(() => {
+    console.log(`handleBulkEditCancelClick`);
+    setBulkEditExpanded(false);
+  }, [])
 
   const { globalFilter } = state;
 
@@ -176,11 +188,30 @@ export const RowModifyFilterTable = () => {
             </Button>
           </div>
 
-          <ColumnsEditExpandableBox
-              columns={bulkColumns}
-              onEdit={handleBulkEditClick}
-              disabled={!bulkEnabled}
-          />
+          <div style={{display:"flex"}}>
+            <div style={{
+              display:"flex",
+              flexDirection:"column",
+              position: "relative"
+            }}>
+              <div>
+                <Button variant="primary" size="sm"
+                        disabled={!bulkEnabled}
+                        onClick={e => setBulkEditExpanded(!bulkEditExpanded)}
+                >
+                  Bulk Edit
+                </Button>
+              </div>
+
+              {bulkEditExpanded && <ColumnsEditExpandableBox
+                  columns={bulkColumns}
+                  onEdit={handleBulkEditSaveClick}
+                  onCancel={handleBulkEditCancelClick}
+                  disabled={!bulkEnabled}
+              />}
+            </div>
+          </div>
+
         </div>
       </div>
 
