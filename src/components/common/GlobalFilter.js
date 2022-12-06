@@ -6,13 +6,13 @@ export const GlobalFilter = ({ filter, setFilter}) => {
 
   const [value, setValue] = useState(filter || "");
   const onChange = useAsyncDebounce(val => {
-    console.log(`val=${val}`);
+    // console.log(`val=${val}`);
     setFilter(val)
   }, 100);
 
   // If the value changes from outside
   useEffect(() => {
-    console.log(`filter=${filter}`);
+    // console.log(`filter=${filter}`);
     setValue(filter || "");
   }, [filter]);
 

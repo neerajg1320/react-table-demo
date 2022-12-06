@@ -201,9 +201,9 @@ export const RowModifyFilterIconTable = () => {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    console.log(`state=${JSON.stringify(state, null, 2)}`);
-  }, [state]);
+  // useEffect(() => {
+  //   console.log(`state=${JSON.stringify(state, null, 2)}`);
+  // }, [state]);
 
   const { globalFilter, filters } = state;
 
@@ -230,6 +230,7 @@ export const RowModifyFilterIconTable = () => {
               disabled={!bulkEnabled}
               value={bulkEditExpanded}
               onChange={exp => setBulkEditExpanded(exp)}
+              popupPosition={{left: "60px", top: "25px"}}
           >
             <ColumnsEditBox
                 columns={bulkColumns}

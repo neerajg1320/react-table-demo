@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 
 // Currently its a controlled component
 const ExpandableButton = ({ children, title, icon, disabled, value, onChange, popupPosition}) => {
-  console.log(`Rendering <ExpandableButton> value=${value}`);
+  // console.log(`Rendering <ExpandableButton> value=${value}`);
 
   const onButtonClick = (e) => {
     console.log('onButtonClick called')
@@ -14,7 +14,7 @@ const ExpandableButton = ({ children, title, icon, disabled, value, onChange, po
     // https://stackoverflow.com/questions/32370994/how-to-pass-props-to-this-props-children
     // avoids typescript error as well
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, {onButtonClick});
+      return React.cloneElement(child, {onClick: onButtonClick});
     }
     return child;
   });
@@ -47,6 +47,7 @@ const ExpandableButton = ({ children, title, icon, disabled, value, onChange, po
                   borderRadius: "4px",
                   position: "absolute",
                   backgroundColor: "white",
+                  zIndex: "1",
                   ...{...popupPosition}
                 }}
             >
