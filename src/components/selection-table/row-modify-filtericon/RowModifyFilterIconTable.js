@@ -90,7 +90,8 @@ export const RowModifyFilterIconTable = () => {
     selectedFlatRows,
     toggleAllRowsSelected,
     state,
-    setGlobalFilter
+    setGlobalFilter,
+    setAllFilters
   } = useTable({
     columns,
     data,
@@ -200,11 +201,20 @@ export const RowModifyFilterIconTable = () => {
     // eslint-disable-next-line
   }, []);
 
-  const { globalFilter } = state;
+  useEffect(() => {
+    console.log(`state=${JSON.stringify(state, null, 2)}`);
+  }, [state]);
+
+  const { globalFilter, filters } = state;
+
+  const handleClearFiltersClick = useCallback(() => {
+    setAllFilters([]);
+    setGlobalFilter("");
+  }, [filters, globalFilter]);
 
   return (
       <>
-      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
+
       <div style={{display: "flex", justifyContent:"space-between", alignItems:"center"}}>
         <div style={{display:"flex", gap: "10px", padding:"20px"}}>
           <Button variant="danger" size="sm"
@@ -237,12 +247,13 @@ export const RowModifyFilterIconTable = () => {
           </Button>
         </div>
 
-        <div style={{padding: "20px"}}>
+        <div style={{display: "flex", gap:"20px", padding: "20px", alignItems: "center"}}>
+          <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
           <Button variant="outline-dark" size="sm"
-                  disabled={!bulkEnabled}
-                  onClick={handleClearSelectionClick}
+                  disabled={!filters.length > 0 && !globalFilter}
+                  onClick={handleClearFiltersClick}
           >
-            Clear Filter
+            Clear Filters
           </Button>
         </div>
       </div>
