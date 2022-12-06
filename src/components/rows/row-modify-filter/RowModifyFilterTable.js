@@ -31,11 +31,11 @@ export const RowModifyFilterTable = () => {
 
   const bulkColumns = useMemo(() => {
     return columns.filter(col => col.bulk)
-  }, []);
+  }, [columns]);
 
   const editColumns = useMemo(() => {
     return columns.filter(col => col.edit)
-  }, []);
+  }, [columns]);
 
   // Show Debug Window
   // eslint-disable-next-line
@@ -131,13 +131,7 @@ export const RowModifyFilterTable = () => {
   });
 
   useEffect(() => {
-    if (selectedFlatRows.length > 0) {
-      if (!bulkEnabled)
-        setBulkEnabled(true);
-    } else {
-      if (bulkEnabled)
-        setBulkEnabled(false);
-    }
+    setBulkEnabled(selectedFlatRows.length > 0);
   }, [selectedFlatRows]);
 
   const getRowIds = useCallback((selRows) => {
@@ -151,6 +145,7 @@ export const RowModifyFilterTable = () => {
     console.log(`handleBulkDeleteClick: ids=${ids}`);
     dispatch(deleteRows(ids));
     setBulkEditExpanded(false);
+    // eslint-disable-next-line
   }, [selectedFlatRows]);
 
   const handleBulkEditSaveClick = useCallback((values) => {
@@ -158,6 +153,7 @@ export const RowModifyFilterTable = () => {
     console.log(`handleBulkEditClick: ids=${ids} values=${JSON.stringify(values)}`);
     dispatch(editRows(ids, values));
     setBulkEditExpanded(false);
+    // eslint-disable-next-line
   }, [selectedFlatRows]);
 
   const handleBulkEditCancelClick = useCallback(() => {
@@ -203,12 +199,29 @@ export const RowModifyFilterTable = () => {
                 </Button>
               </div>
 
-              {bulkEditExpanded && <ColumnsEditExpandableBox
-                  columns={bulkColumns}
-                  onEdit={handleBulkEditSaveClick}
-                  onCancel={handleBulkEditCancelClick}
-                  disabled={!bulkEnabled}
-              />}
+              {bulkEditExpanded &&
+                <div
+                    style={{
+                      padding:"20px",
+                      display: "flex",
+                      flexDirection:"column",
+                      gap:"15px",
+                      boxShadow: "rgba(0, 0, 0, 0.5) 0px 5px 15px",
+                      borderRadius: "4px",
+                      position: "absolute",
+                      left: "60px",
+                      top: "25px",
+                      backgroundColor: "white"
+                    }}
+                >
+                  <ColumnsEditExpandableBox
+                      columns={bulkColumns}
+                      onEdit={handleBulkEditSaveClick}
+                      onCancel={handleBulkEditCancelClick}
+                      disabled={!bulkEnabled}
+                  />
+                </div>
+              }
             </div>
           </div>
 
