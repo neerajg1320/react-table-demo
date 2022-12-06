@@ -1,8 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Select from "react-select";
 
-const ColumnsEditExpandableBox = ({columns, onEdit, onCancel}) => {
-  // console.log(`Rendering <ColumnsEditExpandableBox>`);
+const ColumnsEditBox = ({columns, onEdit, onCancel}) => {
+  // console.log(`Rendering <ColumnsEditBox>`);
 
   // We haven't used state here as we do not want to rerender the component
   // when setting the columnValues
@@ -113,4 +113,4 @@ const ColumnsEditExpandableBox = ({columns, onEdit, onCancel}) => {
   );
 }
 
-export default ColumnsEditExpandableBox;
+export default ColumnsEditBox;

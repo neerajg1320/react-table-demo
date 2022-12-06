@@ -11,7 +11,7 @@ import {ShowObject} from "../../show";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
-import ColumnsEditExpandableBox from "../bulk-edit-box/ColumnsEditExpandableBox";
+import ColumnsEditBox from "../bulk-edit-box/ColumnsEditBox";
 import {GlobalFilter} from "../../common/GlobalFilter";
 import {ColumnFilter} from "../../common/ColumnFilter";
 import Button from "react-bootstrap/Button";
@@ -225,7 +225,7 @@ export const RowModifyFilterTable = () => {
                       backgroundColor: "white"
                     }}
                 >
-                  <ColumnsEditExpandableBox
+                  <ColumnsEditBox
                       columns={bulkColumns}
                       onEdit={handleBulkEditSaveClick}
                       onCancel={handleBulkEditCancelClick}

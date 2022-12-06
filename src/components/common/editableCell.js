@@ -18,11 +18,14 @@ const EditableCell = ({value: initialValue, row, column, updateMyData}) => {
 
   return (
     <>
-      <input
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          onBlur={(e) => updateMyData(row, column, value)}
-      />
+      <form>
+        <input
+            className="form-control"
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            onBlur={(e) => updateMyData(row, column, value)}
+        />
+      </form>
     </>
   );
 }
