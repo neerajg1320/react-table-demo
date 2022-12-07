@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import {sampleFilter} from "../components/common/customFilter";
 
 export const PRESET_COLUMNS = [
   {
@@ -60,8 +59,7 @@ export const PRESET_COLUMNS = [
     accessor: 'remarks',
     edit: true,
     bulk: true,
-    type: "input",
-    filter: sampleFilter
+    type: "input"
   }
 ];
 

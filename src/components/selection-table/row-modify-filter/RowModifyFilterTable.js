@@ -12,12 +12,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
 import ColumnsEditBox from "../../common/ColumnsEditBox";
-import {GlobalFilter} from "../../common/GlobalFilter";
-import {ColumnFilter} from "../../common/ColumnFilter";
+import {GlobalFilter} from "../../common/filter/GlobalFilter";
+import {ColumnFilter} from "../../common/filter/ColumnFilter";
 import Button from "react-bootstrap/Button";
-import EditableCell from "../../common/editableCell";
-import SelectableCell from "../../common/selectableCell";
-import ExpandableButton from "../../common/expandableButton";
+import EditableCell from "../../common/cells/editableCell";
+import SelectableCell from "../../common/cells/selectableCell";
+import ExpandableButton from "../../common/ExpandableButton";
 
 export const RowModifyFilterTable = () => {
   // console.log(`Rendering <RowModifyFilterTable>`);

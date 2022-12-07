@@ -2,7 +2,7 @@ import {BiSearchAlt} from "react-icons/bi";
 import {FaSearchPlus} from "react-icons/fa";
 import {AiOutlineClose} from "react-icons/ai";
 import {TiTick} from "react-icons/ti";
-import ExpandableButton from "./expandableButton";
+import ExpandableButton from "../ExpandableButton";
 import {useCallback, useEffect, useState} from "react";
 
 export const ColumnFilterWithIcon = ({ column }) => {

@@ -1,4 +1,4 @@
-export const sampleFilter = (rows, columnIds, filterValue) => {
+export const filterEmptyValues = (rows, columnIds, filterValue) => {
   // console.log(`rows[]=${rows.length} columnsIds=${JSON.stringify(columnIds, null, 2)} filterValue=${filterValue}`);
 
   if (filterValue === undefined) {
@@ -11,13 +11,13 @@ export const sampleFilter = (rows, columnIds, filterValue) => {
 
   let flagBlank = false;
   if (filterValue === '"') {
-    console.log("Need to return blank remarks");
     flagBlank = true;
   }
 
   const filteredRows = rows.filter((row, row_idx) => {
+    // We can change below to for loop to use early termination
+    // Doesn't make much difference now as we use only one column
     const filteredCols = columnIds.filter(colId => {
-      // console.log(`row.values[colId]=${row.values[colId]} ${!row.values[colId]}`);
       if (flagBlank) {
         if (!row.values[colId]) {
           return true;
@@ -34,7 +34,7 @@ export const sampleFilter = (rows, columnIds, filterValue) => {
     return filteredCols.length > 0;
   });
 
-  console.log(`Filtered Rows`, filteredRows);
+  // console.log(`Filtered Rows`, filteredRows);
   return filteredRows;
 
 }

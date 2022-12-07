@@ -12,12 +12,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteRows, editRows} from "../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
 import ColumnsEditBox from "../../common/ColumnsEditBox";
-import {GlobalFilter} from "../../common/GlobalFilter";
-import {ColumnFilterWithIcon} from "../../common/ColumnFilterWithIcon";
+import {GlobalFilter} from "../../common/filter/GlobalFilter";
+import {ColumnFilterWithIcon} from "../../common/filter/ColumnFilterWithIcon";
 import Button from "react-bootstrap/Button";
-import EditableCell from "../../common/editableCell";
-import SelectableCell from "../../common/selectableCell";
-import ExpandableButton from "../../common/expandableButton";
+import EditableCell from "../../common/cells/editableCell";
+import SelectableCell from "../../common/cells/selectableCell";
+import ExpandableButton from "../../common/ExpandableButton";
+import {filterEmptyValues} from "../../common/filter/customFilter";
 
 
 export const RowModifyFilterIconTable = () => {
@@ -76,7 +77,8 @@ export const RowModifyFilterIconTable = () => {
 
   const defaultColumn = useMemo(() => {
     return {
-      Filter: ColumnFilterWithIcon
+      Filter: ColumnFilterWithIcon,
+      filter: filterEmptyValues
     }
   }, []);
 
