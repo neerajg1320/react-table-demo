@@ -1,7 +1,7 @@
 import {RxLetterCaseCapitalize} from "react-icons/rx";
 import {TbLetterW} from "react-icons/tb";
 import {SiExpress} from "react-icons/si";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import FlagIcon from "./FlagIcon";
 import './inputIcons.css';
 
@@ -9,12 +9,20 @@ const InputWithIcons = ({value, onChange, disabled}) => {
   const [caps, setCaps] = useState(false);
   const [word, setWord] = useState(false);
   const [regex, setRegex] = useState(false);
+  const [input, setInput] = useState("");
 
-  const handleInputChange = (e) => {
+  useEffect(() => {
     if (onChange) {
-      onChange(e);
+      onChange({
+        text: input,
+        flags: {
+          caps,
+          word,
+          regex
+        }
+      });
     }
-  }
+  }, [input, caps, word, regex, onChange]);
 
   return (
       <div
@@ -27,12 +35,19 @@ const InputWithIcons = ({value, onChange, disabled}) => {
           }}
       >
         <input
-            disabled={disabled}
             className="form-control"
-            value={value}
-            onChange={handleInputChange}
+            value={input}
+            onChange={e => setInput(e.target.value)}
             style={{width: "200px"}}
         />
+
+        {/*<input*/}
+        {/*    disabled={disabled}*/}
+        {/*    className="form-control"*/}
+        {/*    value={value}*/}
+        {/*    onChange={handleInputChange}*/}
+        {/*    style={{width: "200px"}}*/}
+        {/*/>*/}
 
         <div
             className="filter-flags"

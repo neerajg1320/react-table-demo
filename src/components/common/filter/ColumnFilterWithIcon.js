@@ -29,7 +29,8 @@ export const ColumnFilterWithIcon = ({ column }) => {
     setFilter(undefined);
   }, [expanded]);
 
-  const searchIcon = (filterValue?.flagBlank || filterValue?.filterText) ?
+  const searchIcon = (filterValue?.flagBlank ||
+      (filterValue?.flagText && filterValue?.filterText)) ?
       <FaSearchPlus
           onClick={e => setExpanded(!expanded)}
           style={{cursor: "pointer"}}
@@ -88,8 +89,8 @@ export const ColumnFilterWithIcon = ({ column }) => {
             <InputWithIcons
                 disabled={!textEnabled}
                 value={filterValue?.filterText || ''}
-                onChange={(e) => {
-                  setFilterText(e.target.value);
+                onChange={({text, flags}) => {
+                  setFilterText(text);
                 }}
             />
           </div>
