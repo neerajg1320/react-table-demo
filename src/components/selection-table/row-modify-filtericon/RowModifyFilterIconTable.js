@@ -13,7 +13,7 @@ import {deleteRows, editRows} from "../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
 import ColumnsEditBox from "../../common/ColumnsEditBox";
 import {GlobalFilter} from "../../common/GlobalFilter";
-import {ColumnFilterIcon} from "../../common/ColumnFilterIcon";
+import {ColumnFilterWithIcon} from "../../common/ColumnFilterWithIcon";
 import Button from "react-bootstrap/Button";
 import EditableCell from "../../common/editableCell";
 import SelectableCell from "../../common/selectableCell";
@@ -76,7 +76,7 @@ export const RowModifyFilterIconTable = () => {
 
   const defaultColumn = useMemo(() => {
     return {
-      Filter: ColumnFilterIcon
+      Filter: ColumnFilterWithIcon
     }
   }, []);
 

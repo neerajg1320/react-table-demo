@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import EditableCell from "../components/common/editableCell";
+import {sampleFilter} from "../components/common/customFilter";
 
 export const PRESET_COLUMNS = [
   {
@@ -53,7 +53,6 @@ export const PRESET_COLUMNS = [
     edit: true,
     bulk: true,
     type: "input",
-    // Cell: EditableCell
   },
   {
     Header: 'Remarks',
@@ -62,7 +61,7 @@ export const PRESET_COLUMNS = [
     edit: true,
     bulk: true,
     type: "input",
-    // Cell: EditableCell
+    filter: sampleFilter
   }
 ];
 
