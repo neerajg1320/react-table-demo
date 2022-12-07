@@ -5,24 +5,14 @@ import {useEffect, useState} from "react";
 import FlagIcon from "./FlagIcon";
 import './inputIcons.css';
 
-const InputWithIcons = ({value, onChange, disabled}) => {
+const InputWithIcons = ({defaultValue, onChange, disabled}) => {
   const [caps, setCaps] = useState(false);
   const [word, setWord] = useState(false);
   const [regex, setRegex] = useState(false);
-  const [input, setInput] = useState("");
 
-  useEffect(() => {
-    if (onChange) {
-      onChange({
-        text: input,
-        flags: {
-          caps,
-          word,
-          regex
-        }
-      });
-    }
-  }, [input, caps, word, regex, onChange]);
+  const handleInputChange = (e) => {
+    onChange({text: e.target.value, flags:{}})
+  }
 
   return (
       <div
@@ -34,20 +24,15 @@ const InputWithIcons = ({value, onChange, disabled}) => {
             alignItems:"start"
           }}
       >
+
+
         <input
+            disabled={disabled}
             className="form-control"
-            value={input}
-            onChange={e => setInput(e.target.value)}
+            defaultValue={defaultValue.text}
+            onChange={handleInputChange}
             style={{width: "200px"}}
         />
-
-        {/*<input*/}
-        {/*    disabled={disabled}*/}
-        {/*    className="form-control"*/}
-        {/*    value={value}*/}
-        {/*    onChange={handleInputChange}*/}
-        {/*    style={{width: "200px"}}*/}
-        {/*/>*/}
 
         <div
             className="filter-flags"

@@ -88,7 +88,7 @@ export const ColumnFilterWithIcon = ({ column }) => {
             />
             <InputWithIcons
                 disabled={!textEnabled}
-                value={filterValue?.filterText || ''}
+                defaultValue={{text: filterValue?.filterText, flags:{} }}
                 onChange={({text, flags}) => {
                   setFilterText(text);
                 }}
