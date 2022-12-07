@@ -17,18 +17,21 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
   console.log(`textFlags=${JSON.stringify(textFlags, null, 2)}`);
 
   let finalFilterText;
-  if (textFlags.caps) {
+  let re;
+
+  if (!textFlags.regex && textFlags.caps) {
     finalFilterText = filterText;
   } else {
     finalFilterText = filterText.toLowerCase();
   }
 
-  let re;
-  try {
-    re = new RegExp(finalFilterText);
-  } catch (err) {
-    console.log(`${finalFilterText} is not a valid regex`);
-    return [];
+  if (textFlags.regex) {
+    try {
+      re = new RegExp(finalFilterText);
+    } catch (err) {
+      console.log(`${filterText} is not a valid regex`);
+      return [];
+    }
   }
 
   const filteredRows = rows.filter((row, row_idx) => {
@@ -49,7 +52,8 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
       if (flagText) {
         if (filterText) {
           if (row.values[colId]) {
-            if (textFlags.caps) {
+
+            if (!textFlags.regex && textFlags.caps) {
               finalCellText = row.values[colId];
             } else {
               finalCellText = row.values[colId].toLowerCase();
