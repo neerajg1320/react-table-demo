@@ -45,6 +45,15 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
 
             if (textFlags.regex) {
               console.log(`apply regex search`);
+              try {
+                const re = new RegExp(finalFilterText);
+                const match = finalCellText.match(re)
+                if (match) {
+                  return true;
+                }
+              } catch (err) {
+                console.log(`row=${row_idx} ${finalFilterText} is not a valid regex`)
+              }
             } else {
               if (textFlags.word) {
                 if (finalCellText === finalFilterText)
