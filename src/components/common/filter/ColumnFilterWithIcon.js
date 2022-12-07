@@ -13,12 +13,15 @@ export const ColumnFilterWithIcon = ({ column }) => {
   const [blankEnabled, setBlankEnabled] = useState(false);
   const [filterText, setFilterText] = useState("");
 
-  // Check if we need state
-  const filterObject = {
-    flagBlank: blankEnabled,
-    flagText: textEnabled,
-    filterText,
-  }
+  useEffect(() => {
+    // Check if we need state
+    const filterObject = {
+      flagBlank: blankEnabled,
+      flagText: textEnabled,
+      filterText,
+    }
+    setFilter(filterObject);
+  }, [blankEnabled, textEnabled, filterText]);
 
   const clearFilter = useCallback(() => {
     setExpanded(!expanded);
@@ -79,7 +82,6 @@ export const ColumnFilterWithIcon = ({ column }) => {
                    defaultChecked={true}
                    onChange={e => {
                      setTextEnabled(e.target.checked);
-                     setFilter({...filterObject, flagText:e.target.checked})
                    }}
             />
             <input
@@ -88,7 +90,6 @@ export const ColumnFilterWithIcon = ({ column }) => {
                 value={filterValue?.filterText || ''}
                 onChange={(e) => {
                   setFilterText(e.target.value);
-                  setFilter({...filterObject, filterText: e.target.value})
                 }}
                 style={{width: "150px"}}
             />
@@ -100,7 +101,6 @@ export const ColumnFilterWithIcon = ({ column }) => {
             <input type="checkbox"
                    onChange={e => {
                      setBlankEnabled(e.target.checked);
-                     setFilter({...filterObject, flagBlank:e.target.checked})
                    }}
             />
             <label >Blanks</label>
