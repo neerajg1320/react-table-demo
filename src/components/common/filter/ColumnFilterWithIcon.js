@@ -13,6 +13,7 @@ export const ColumnFilterWithIcon = ({ column }) => {
   const [textEnabled, setTextEnabled] = useState(true);
   const [blankEnabled, setBlankEnabled] = useState(false);
   const [filterText, setFilterText] = useState("");
+  const [textFlags, setTextFlags] = useState({});
 
   useEffect(() => {
     // Check if we need state
@@ -20,9 +21,10 @@ export const ColumnFilterWithIcon = ({ column }) => {
       flagBlank: blankEnabled,
       flagText: textEnabled,
       filterText,
+      textFlags
     }
     setFilter(filterObject);
-  }, [blankEnabled, textEnabled, filterText]);
+  }, [blankEnabled, textEnabled, filterText, textFlags]);
 
   const clearFilter = useCallback(() => {
     setExpanded(!expanded);
@@ -88,9 +90,11 @@ export const ColumnFilterWithIcon = ({ column }) => {
             />
             <InputWithIcons
                 disabled={!textEnabled}
-                defaultValue={{text: filterValue?.filterText, flags:{} }}
+                defaultValue={{text: filterValue?.filterText, flags:filterValue?.textFlags }}
                 onChange={({text, flags}) => {
+                  console.log(`text=${text} flags=${JSON.stringify(flags, null, 2)}`)
                   setFilterText(text);
+                  setTextFlags(flags);
                 }}
             />
           </div>

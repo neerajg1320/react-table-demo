@@ -1,18 +1,28 @@
 import {RxLetterCaseCapitalize} from "react-icons/rx";
 import {TbLetterW} from "react-icons/tb";
 import {SiExpress} from "react-icons/si";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import FlagIcon from "./FlagIcon";
 import './inputIcons.css';
 
 const InputWithIcons = ({defaultValue, onChange, disabled}) => {
+  console.log(`Rendering <InputWithIcons>`);
+
   const [caps, setCaps] = useState(false);
   const [word, setWord] = useState(false);
   const [regex, setRegex] = useState(false);
+  const inputRef = useRef();
 
-  const handleInputChange = (e) => {
-    onChange({text: e.target.value, flags:{}})
-  }
+  useEffect(() => {
+    if (inputRef.current.value) {
+      // console.log(`input=${inputRef.current.value}`);
+      onChange({text: inputRef.current.value, flags:{caps, word, regex}});
+    }
+  }, [caps, word, regex]);
+
+  const handleInputChange = useCallback((e) => {
+    onChange({text: e.target.value, flags:{caps, word, regex}})
+  }, [caps, word, regex]);
 
   return (
       <div
@@ -24,9 +34,8 @@ const InputWithIcons = ({defaultValue, onChange, disabled}) => {
             alignItems:"start"
           }}
       >
-
-
         <input
+            ref={inputRef}
             disabled={disabled}
             className="form-control"
             defaultValue={defaultValue.text}

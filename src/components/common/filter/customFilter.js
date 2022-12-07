@@ -2,11 +2,19 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
   // console.log(`rows[]=${rows.length} columnsIds=${JSON.stringify(columnIds, null, 2)}`);
   // console.log(`filterValue=${JSON.stringify(filterValue, null, 2)}`);
 
-  const { flagBlank, flagText, filterText } = filterValue;
+  const { flagBlank, flagText, filterText, textFlags } = filterValue;
 
+  // None of the filters is active
   if (!flagText && !flagBlank) {
     return rows;
   }
+
+  // Blank filter is not active, Text filter is active but textbox is empty
+  if (!flagBlank && (flagText && !filterText)) {
+    return rows;
+  }
+
+  console.log(`textFlags=${JSON.stringify(textFlags, null, 2)}`);
 
   const filteredRows = rows.filter((row, row_idx) => {
     // We can change below to for loop to use early termination
