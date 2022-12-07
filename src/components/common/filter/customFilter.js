@@ -1,10 +1,10 @@
 export const filterEmptyValues = (rows, columnIds, filterValue) => {
-  console.log(`rows[]=${rows.length} columnsIds=${JSON.stringify(columnIds, null, 2)}`);
-  console.log(`filterValue=${JSON.stringify(filterValue, null, 2)}`);
+  // console.log(`rows[]=${rows.length} columnsIds=${JSON.stringify(columnIds, null, 2)}`);
+  // console.log(`filterValue=${JSON.stringify(filterValue, null, 2)}`);
 
   const { flagBlank, flagText, filterText } = filterValue;
 
-  if (!filterText && !flagBlank) {
+  if (!flagText && !flagBlank) {
     return rows;
   }
 
@@ -33,7 +33,7 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
       return false;
     })
 
-    console.log(`row:${row_idx} filteredCols=${JSON.stringify(filteredCols)}`);
+    // console.log(`row:${row_idx} filteredCols=${JSON.stringify(filteredCols)}`);
     return filteredCols.length > 0;
   });
 
