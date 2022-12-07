@@ -29,10 +29,31 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
         }
       }
 
+      let finalCellText;
+      let finalFilterText;
+
       if (flagText) {
         if (filterText) {
-          if (row.values[colId] && row.values[colId].includes(filterText)) {
-            return true;
+          if (row.values[colId]) {
+            if (textFlags.caps) {
+              finalCellText = row.values[colId];
+              finalFilterText = filterText;
+            } else {
+              finalCellText = row.values[colId].toLowerCase();
+              finalFilterText = filterText.toLowerCase();
+            }
+
+            if (textFlags.regex) {
+              console.log(`apply regex search`);
+            } else {
+              if (textFlags.word) {
+                if (finalCellText === finalFilterText)
+                  return true;
+              } else {
+                if (finalCellText.includes(finalFilterText))
+                  return true;
+              }
+            }
           }
         } else {
           return true;
