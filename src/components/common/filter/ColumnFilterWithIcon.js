@@ -7,8 +7,21 @@ import {useCallback, useEffect, useState} from "react";
 
 export const ColumnFilterWithIcon = ({ column }) => {
   const { filterValue, setFilter } = column;
-  const [blank, setBlank] = useState(false);
+  // const [blank, setBlank] = useState(false);
+  // const [filterText, setFilterText] = useState("");
   const [expanded, setExpanded] = useState(false);
+
+  // We need to fix it for the first time
+  // const { blank, filterText } = filterValue || {blank:false, filterText:""};
+
+  useEffect(() => {
+    console.log(`filterValue=${JSON.stringify(filterValue, null, 2)}`);
+    if (filterValue) {
+      if (!filterValue.blank && !filterValue.text) {
+        // setFilter(undefined);
+      }
+    }
+  }, [filterValue]);
 
   // useEffect(() => {
   //   if (column.id === "remarks") {
@@ -23,12 +36,20 @@ export const ColumnFilterWithIcon = ({ column }) => {
   //   }
   // }, [blank])
 
+  // useEffect(() => {
+  //   console.log(`useEffect[]: ${filterText}`);
+  //   setFilter({
+  //     blank,
+  //     filterText
+  //   })
+  // }, [filterText]);
+
   const clearFilter = useCallback(() => {
     setExpanded(!expanded);
     setFilter(undefined);
   }, [expanded]);
 
-  const searchIcon = filterValue ?
+  const searchIcon = (filterValue?.blank || filterValue?.filterText) ?
       <FaSearchPlus
           onClick={e => setExpanded(!expanded)}
           style={{cursor: "pointer"}}
@@ -79,15 +100,17 @@ export const ColumnFilterWithIcon = ({ column }) => {
 
           <input
               className="form-control"
-              value={filterValue || ''}
-              onChange={(e) => setFilter(e.target.value)}
+              value={filterValue?.filterText || ''}
+              onChange={(e) => setFilter({blank: filterValue?.blank, filterText: e.target.value})}
               style={{width: "150px"}}
           />
 
           <div style={{display:"flex", alignItems:"center", gap:"10px",
                        fontSize:"0.9em", fontWeight: "normal", marginTop: "5px"}}
           >
-            <input type="checkbox" onChange={e => setBlank(e.target.checked)}/>
+            <input type="checkbox"
+                   onChange={e => setFilter({blank:e.target.checked, filterText: filterValue?.filterText})}
+            />
             <label >Blanks</label>
           </div>
         </div>
