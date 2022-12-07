@@ -2,42 +2,38 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
   console.log(`rows[]=${rows.length} columnsIds=${JSON.stringify(columnIds, null, 2)}`);
   console.log(`filterValue=${JSON.stringify(filterValue, null, 2)}`);
 
-  const { blank, filterText } = filterValue;
-  
-  // if (filterText === undefined) {
-  //   return rows;
-  // }
+  const { flagBlank, flagText, filterText } = filterValue;
 
-  if (!filterText && !blank) {
+  if (!filterText && !flagBlank) {
     return rows;
   }
-
-  // let flagBlank = false;
-  // if (filterText === '"' || blank) {
-  //   flagBlank = true;
-  // }
-
 
   const filteredRows = rows.filter((row, row_idx) => {
     // We can change below to for loop to use early termination
     // Doesn't make much difference now as we use only one column
     const filteredCols = columnIds.filter(colId => {
-      console.log(`blank=${blank} filterText=${filterText}`);
+      // console.log(`flagBlank=${flagBlank} filterText=${filterText}`);
 
       // If blank is set then look for blank match as well
-      if (blank) {
+      if (flagBlank) {
         if (!row.values[colId]) {
           return true;
         }
       }
 
-      if (row.values[colId] && row.values[colId].includes(filterText)) {
-        return true;
+      if (flagText) {
+        if (filterText) {
+          if (row.values[colId] && row.values[colId].includes(filterText)) {
+            return true;
+          }
+        } else {
+          return true;
+        }
       }
-
       return false;
     })
 
+    console.log(`row:${row_idx} filteredCols=${JSON.stringify(filteredCols)}`);
     return filteredCols.length > 0;
   });
 

@@ -7,49 +7,25 @@ import {useCallback, useEffect, useState} from "react";
 
 export const ColumnFilterWithIcon = ({ column }) => {
   const { filterValue, setFilter } = column;
-  // const [blank, setBlank] = useState(false);
-  // const [filterText, setFilterText] = useState("");
   const [expanded, setExpanded] = useState(false);
 
-  // We need to fix it for the first time
-  // const { blank, filterText } = filterValue || {blank:false, filterText:""};
+  const [textEnabled, setTextEnabled] = useState(true);
+  const [blankEnabled, setBlankEnabled] = useState(false);
+  const [filterText, setFilterText] = useState("");
 
-  useEffect(() => {
-    console.log(`filterValue=${JSON.stringify(filterValue, null, 2)}`);
-    if (filterValue) {
-      if (!filterValue.blank && !filterValue.text) {
-        // setFilter(undefined);
-      }
-    }
-  }, [filterValue]);
-
-  // useEffect(() => {
-  //   if (column.id === "remarks") {
-  //     console.log(`${column.id}: filterValue=${filterValue}`);
-  //   }
-  //
-  // }, [filterValue]);
-  //
-  // useEffect(() => {
-  //   if (column.id === "remarks") {
-  //     console.log(`${column.id}: blank=${blank}`);
-  //   }
-  // }, [blank])
-
-  // useEffect(() => {
-  //   console.log(`useEffect[]: ${filterText}`);
-  //   setFilter({
-  //     blank,
-  //     filterText
-  //   })
-  // }, [filterText]);
+  // Check if we need state
+  const filterObject = {
+    flagBlank: blankEnabled,
+    flagText: textEnabled,
+    filterText,
+  }
 
   const clearFilter = useCallback(() => {
     setExpanded(!expanded);
     setFilter(undefined);
   }, [expanded]);
 
-  const searchIcon = (filterValue?.blank || filterValue?.filterText) ?
+  const searchIcon = (filterValue?.flagBlank || filterValue?.filterText) ?
       <FaSearchPlus
           onClick={e => setExpanded(!expanded)}
           style={{cursor: "pointer"}}
@@ -98,18 +74,34 @@ export const ColumnFilterWithIcon = ({ column }) => {
             </div>
           </div>
 
-          <input
-              className="form-control"
-              value={filterValue?.filterText || ''}
-              onChange={(e) => setFilter({blank: filterValue?.blank, filterText: e.target.value})}
-              style={{width: "150px"}}
-          />
+          <div style={{display:"flex", flexDirection:"row", gap: "10px"}}>
+            <input type="checkbox"
+                   defaultChecked={true}
+                   onChange={e => {
+                     setTextEnabled(e.target.checked);
+                     setFilter({...filterObject, flagText:e.target.checked})
+                   }}
+            />
+            <input
+                disabled={!textEnabled}
+                className="form-control"
+                value={filterValue?.filterText || ''}
+                onChange={(e) => {
+                  setFilterText(e.target.value);
+                  setFilter({...filterObject, filterText: e.target.value})
+                }}
+                style={{width: "150px"}}
+            />
+          </div>
 
           <div style={{display:"flex", alignItems:"center", gap:"10px",
                        fontSize:"0.9em", fontWeight: "normal", marginTop: "5px"}}
           >
             <input type="checkbox"
-                   onChange={e => setFilter({blank:e.target.checked, filterText: filterValue?.filterText})}
+                   onChange={e => {
+                     setBlankEnabled(e.target.checked);
+                     setFilter({...filterObject, flagBlank:e.target.checked})
+                   }}
             />
             <label >Blanks</label>
           </div>
