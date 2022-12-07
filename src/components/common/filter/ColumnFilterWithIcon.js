@@ -4,7 +4,7 @@ import {AiOutlineClose} from "react-icons/ai";
 import {TiTick} from "react-icons/ti";
 import ExpandableButton from "../ExpandableButton";
 import {useCallback, useEffect, useState} from "react";
-import InputWithIcons from "../basic/InputWithIcons";
+import InputWithIcons from "../basic/input-icons/InputWithIcons";
 
 export const ColumnFilterWithIcon = ({ column }) => {
   const { filterValue, setFilter } = column;
