@@ -10,7 +10,11 @@ const InputWithIcons = ({value, onChange, disabled}) => {
   const [word, setWord] = useState(false);
   const [regex, setRegex] = useState(false);
 
-
+  const handleInputChange = (e) => {
+    if (onChange) {
+      onChange(e);
+    }
+  }
 
   return (
       <div
@@ -26,7 +30,7 @@ const InputWithIcons = ({value, onChange, disabled}) => {
             disabled={disabled}
             className="form-control"
             value={value}
-            onChange={onChange}
+            onChange={handleInputChange}
             style={{width: "200px"}}
         />
 
@@ -36,8 +40,7 @@ const InputWithIcons = ({value, onChange, disabled}) => {
               display:"flex",
               flexDirection:"row",
               gap:"4px",
-              // border:"1px dashed red",
-              // position: "absolute",
+              position: "absolute",
               right: "5px"
             }}
         >
