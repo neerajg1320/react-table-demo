@@ -177,7 +177,7 @@ export const RowModifyFilterIconTable = () => {
 
   const handleBulkDeleteClick = useCallback(() => {
     const ids = getRowIds(selectedFlatRows);
-    console.log(`handleBulkDeleteClick: ids=${ids}`);
+    // console.log(`handleBulkDeleteClick: ids=${ids}`);
     dispatch(deleteRows(ids));
     setBulkEditExpanded(false);
     // eslint-disable-next-line
@@ -185,7 +185,7 @@ export const RowModifyFilterIconTable = () => {
 
   const handleBulkEditSaveClick = useCallback((values) => {
     const ids = getRowIds(selectedFlatRows);
-    console.log(`handleBulkEditSaveClick: ids=${ids} values=${JSON.stringify(values)}`);
+    // console.log(`handleBulkEditSaveClick: ids=${ids} values=${JSON.stringify(values)}`);
     dispatch(editRows(ids, values));
     setBulkEditExpanded(false);
     // eslint-disable-next-line

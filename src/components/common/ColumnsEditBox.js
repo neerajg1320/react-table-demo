@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Select from "react-select";
 
 const ColumnsEditBox = ({columns, onEdit, onCancel, onButtonClick}) => {
-  console.log(`Rendering <ColumnsEditBox>`);
+  // console.log(`Rendering <ColumnsEditBox>`);
 
   // We haven't used state here as we do not want to rerender the component
   // when setting the columnValues

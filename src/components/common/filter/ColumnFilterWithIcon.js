@@ -4,6 +4,7 @@ import {AiOutlineClose} from "react-icons/ai";
 import {TiTick} from "react-icons/ti";
 import ExpandableButton from "../ExpandableButton";
 import {useCallback, useEffect, useState} from "react";
+import InputWithIcons from "../basic/InputWithIcons";
 
 export const ColumnFilterWithIcon = ({ column }) => {
   const { filterValue, setFilter } = column;
@@ -77,25 +78,23 @@ export const ColumnFilterWithIcon = ({ column }) => {
             </div>
           </div>
 
-          <div style={{display:"flex", flexDirection:"row", gap: "10px"}}>
+          <div style={{display:"flex", flexDirection:"row", justifyContent: "space-between", gap:"10px"}}>
             <input type="checkbox"
                    defaultChecked={true}
                    onChange={e => {
                      setTextEnabled(e.target.checked);
                    }}
             />
-            <input
+            <InputWithIcons
                 disabled={!textEnabled}
-                className="form-control"
                 value={filterValue?.filterText || ''}
                 onChange={(e) => {
                   setFilterText(e.target.value);
                 }}
-                style={{width: "150px"}}
             />
           </div>
 
-          <div style={{display:"flex", alignItems:"center", gap:"10px",
+          <div style={{display:"flex", alignItems:"center", gap:"5px",
                        fontSize:"0.9em", fontWeight: "normal", marginTop: "5px"}}
           >
             <input type="checkbox"
