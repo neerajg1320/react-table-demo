@@ -5,16 +5,12 @@ import Button from "react-bootstrap/Button";
 const ExpandableButton = ({ children, title, icon, disabled, value, onChange, popupPosition}) => {
   // console.log(`Rendering <ExpandableButton> value=${value}`);
 
-  const onButtonClick = (e) => {
-    console.log('onButtonClick called')
-    onChange(!value)
-  }
-
+  // The followed function can be use when we need to inject or remove props in child
   const childrenWithProps =  React.Children.map(children, child => {
     // https://stackoverflow.com/questions/32370994/how-to-pass-props-to-this-props-children
     // avoids typescript error as well
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, {onClick: onButtonClick});
+      return React.cloneElement(child);
     }
     return child;
   });
@@ -30,7 +26,7 @@ const ExpandableButton = ({ children, title, icon, disabled, value, onChange, po
         {!icon &&
           <Button variant="primary" size="sm"
                   disabled={disabled}
-                  onClick={e => onButtonClick(!value)}
+                  onClick={e => onChange(!value)}
           >
             {title}
           </Button>
