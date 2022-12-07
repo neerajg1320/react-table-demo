@@ -10,18 +10,18 @@ export const ColumnFilterWithIcon = ({ column }) => {
   const [blank, setBlank] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
-  useEffect(() => {
-    if (column.id === "remarks") {
-      console.log(`${column.id}: filterValue=${filterValue}`);
-    }
-
-  }, [filterValue]);
-
-  useEffect(() => {
-    if (column.id === "remarks") {
-      console.log(`${column.id}: blank=${blank}`);
-    }
-  }, [blank])
+  // useEffect(() => {
+  //   if (column.id === "remarks") {
+  //     console.log(`${column.id}: filterValue=${filterValue}`);
+  //   }
+  //
+  // }, [filterValue]);
+  //
+  // useEffect(() => {
+  //   if (column.id === "remarks") {
+  //     console.log(`${column.id}: blank=${blank}`);
+  //   }
+  // }, [blank])
 
   const clearFilter = useCallback(() => {
     setExpanded(!expanded);

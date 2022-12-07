@@ -1,5 +1,5 @@
 export const sampleFilter = (rows, columnIds, filterValue) => {
-  console.log(`rows[]=${rows.length} columnsIds=${JSON.stringify(columnIds, null, 2)} filterValue=${filterValue}`);
+  // console.log(`rows[]=${rows.length} columnsIds=${JSON.stringify(columnIds, null, 2)} filterValue=${filterValue}`);
 
   if (filterValue === undefined) {
     return rows;
@@ -14,9 +14,6 @@ export const sampleFilter = (rows, columnIds, filterValue) => {
     console.log("Need to return blank remarks");
     flagBlank = true;
   }
-
-  // columnIds = columnIds.concat(['country']);
-  // console.log(`columnIds=${columnIds}`);
 
   const filteredRows = rows.filter((row, row_idx) => {
     const filteredCols = columnIds.filter(colId => {
