@@ -16,6 +16,21 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
 
   console.log(`textFlags=${JSON.stringify(textFlags, null, 2)}`);
 
+  let finalFilterText;
+  if (textFlags.caps) {
+    finalFilterText = filterText;
+  } else {
+    finalFilterText = filterText.toLowerCase();
+  }
+
+  let re;
+  try {
+    re = new RegExp(finalFilterText);
+  } catch (err) {
+    console.log(`${finalFilterText} is not a valid regex`);
+    return [];
+  }
+
   const filteredRows = rows.filter((row, row_idx) => {
     // We can change below to for loop to use early termination
     // Doesn't make much difference now as we use only one column
@@ -30,29 +45,22 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
       }
 
       let finalCellText;
-      let finalFilterText;
 
       if (flagText) {
         if (filterText) {
           if (row.values[colId]) {
             if (textFlags.caps) {
               finalCellText = row.values[colId];
-              finalFilterText = filterText;
             } else {
               finalCellText = row.values[colId].toLowerCase();
-              finalFilterText = filterText.toLowerCase();
             }
 
             if (textFlags.regex) {
               console.log(`apply regex search`);
-              try {
-                const re = new RegExp(finalFilterText);
-                const match = finalCellText.match(re)
-                if (match) {
-                  return true;
-                }
-              } catch (err) {
-                console.log(`row=${row_idx} ${finalFilterText} is not a valid regex`)
+
+              const match = finalCellText.match(re)
+              if (match) {
+                return true;
               }
             } else {
               if (textFlags.word) {
