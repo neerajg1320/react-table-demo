@@ -34,3 +34,12 @@ export function excelToJson (file) {
     fileReader.readAsBinaryString(file);
   });
 }
+
+export function  exportJsonToExcel(json, fileName='') {
+  const dataType = 'application/vnd.ms-excel';
+  const ws = XLSX.utils.json_to_sheet(json);
+  const wb = XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(wb, ws, 'test');
+  XLSX.writeFile(wb, fileName);
+}

@@ -2,12 +2,14 @@ import Button from "react-bootstrap/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {useCallback, useEffect} from "react";
 import {addColumn} from "../../../redux/actions";
+import {exportJsonToExcel} from "../../excel/xlsx/excel";
 
 export const SmartFeatures = () => {
   console.log(`Rendering <SmartFeatures>`);
 
   const dispatch = useDispatch();
   const columns = useSelector(state => state.columns);
+  const rows = useSelector(state => state.rows);
 
   const categoryPresent = useCallback(() => {
     const catCol = columns.filter(col => col.Header === "Category");
@@ -42,9 +44,10 @@ export const SmartFeatures = () => {
     dispatch(addColumn(categoryRTColumn));
   };
 
-  const handleSaveClick = (e) => {
+  const handleSaveClick = useCallback((e) => {
     console.log(`File to be saved`);
-  };
+    exportJsonToExcel(rows, "file.xlsx");
+  }, [rows]);
 
   return (
       <div
