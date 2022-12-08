@@ -35,13 +35,15 @@ export const RowModifyFilterIconTable = () => {
   const dispatch = useDispatch();
 
   const bulkColumns = useMemo(() => {
-    return columns.filter(col => col.bulk)
+    console.log(`columns.type=${typeof columns}`);
+    console.log(`columns=${JSON.stringify(columns, null, 2)}`);
+    return columns?.length ? columns.filter(col => col.bulk) : [];
   }, [columns]);
 
   // Kept for future reference
   // eslint-disable-next-line
   const editColumns = useMemo(() => {
-    return columns.filter(col => col.edit)
+    return columns?.length ? columns.filter(col => col.edit) : []
   }, [columns]);
 
   // Show Debug Window
@@ -81,6 +83,8 @@ export const RowModifyFilterIconTable = () => {
       filter: filterEmptyValues
     }
   }, []);
+
+
 
   const {
     getTableProps,
@@ -164,6 +168,8 @@ export const RowModifyFilterIconTable = () => {
       ]
     })
   });
+
+  // return (<div>Temprary</div>);
 
   useEffect(() => {
     setBulkEnabled(selectedFlatRows.length > 0);

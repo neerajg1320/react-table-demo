@@ -68,6 +68,6 @@ export function getColumns(data, sampleSize=0) {
     }
   });
 
-  console.log(`columns=`, JSON.stringify(columns, null, 2));
+  // console.log(`columns=`, JSON.stringify(columns, null, 2));
   return columns;
 }

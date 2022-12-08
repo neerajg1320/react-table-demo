@@ -23,7 +23,9 @@ const ReadExcel = () => {
       const sheetJsons = await excelToJson(files[0]);
       sheetJsons.forEach(sheetJson => {
         const columns = getColumns(sheetJson.data);
+        console.log(`columns=${JSON.stringify(columns, null, 2)}`);
         const reactColumns = columns.map(col => { return {Header: col.label, accessor:col.key}});
+        console.log(`reactColumns=${JSON.stringify(reactColumns, null, 2)}`);
 
         dispatch(setColumns(reactColumns));
         dispatch(setRows(sheetJson.data));
