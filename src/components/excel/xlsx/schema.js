@@ -3,9 +3,11 @@ export function getKeyFromLabel(label) {
   return label.toLowerCase().replaceAll(/[\s./]/g, '_')
 }
 
-function insertProp(prop, list, before) {
-  const propObj = {"label": prop, "key": prop};
+export function getPropObj(prop) {
+  return {"label": prop, "key": prop};
+}
 
+export function insertProp(propObj, list, before) {
   if (before) {
     const index = list.findIndex(item => item.label === before);
     // console.log(`Insert at ${index}`);
@@ -58,7 +60,7 @@ export function getColumns(data, sampleSize=0) {
     if (missingPropsAll.length) {
       missingPropsAll.forEach(({key, before}) => {
         // console.log(`key=${key} before=${before}`);
-        insertProp(key, columns, before);
+        insertProp(getPropObj(key), columns, before);
       });
 
       missingPropsAll = [];

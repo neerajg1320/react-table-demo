@@ -12,6 +12,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import {RowModifyFilterIconTable} from "./components/tables/selection-table/row-modify-filtericon/RowModifyFilterIconTable";
 import ReadExcel from "./components/excel/xlsx/ReadExcel";
 import {useState} from "react";
+import {SmartTable} from "./components/smart-tables/column-modify/SmartTable";
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
                 onSelect={k => setTabKey(k)}
           >
             <Tab eventKey="readExcel" title="Read Excel">
-              <ReadExcel onComplete={e => {setTabKey("rowModifyFilterIcon")}}/>
+              <ReadExcel onComplete={e => {setTabKey("addCategory")}}/>
             </Tab>
             {/*<Tab eventKey="basic" title="Basic">*/}
             {/*  <BasicTable />*/}
@@ -59,6 +60,9 @@ function App() {
             {/*</Tab>*/}
             <Tab eventKey="rowModifyFilterIcon" title="Row Modify Filter">
               <RowModifyFilterIconTable />
+            </Tab>
+            <Tab eventKey="addCategory" title="Add Category">
+              <SmartTable />
             </Tab>
           </Tabs>
         </div>

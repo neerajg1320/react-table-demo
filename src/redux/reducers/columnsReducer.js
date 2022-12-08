@@ -1,5 +1,6 @@
 import {PRESET_COLUMNS} from "../../assets/PRESET_COLUMNS";
 import * as ActionTypes from '../actionTypes';
+import {insertProp} from "../../components/excel/xlsx/schema";
 
 const initialState = PRESET_COLUMNS;
 
@@ -7,6 +8,13 @@ const columnsReducer =  (state=initialState, action) => {
   let ids;
 
   switch (action.type) {
+    case ActionTypes.ADD_COLUMN:
+      const {column, before} = action.payload;
+      console.log(`${column} ${before}`);
+      insertProp(column, state, before)
+      console.log(JSON.stringify(state, null, 2));
+      return [...state];
+
     case ActionTypes.DELETE_COLUMNS:
       ids = action.payload.ids;
       return state.filter(item => !ids.includes(item.id));

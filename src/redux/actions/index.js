@@ -35,11 +35,12 @@ export const setRows = (rows) => {
   }
 }
 
-export const addColumn = (rows) => {
+export const addColumn = (column, before) => {
   return {
     'type': ActionTypes.ADD_COLUMN,
     'payload': {
-      rows
+      column,
+      before
     }
   }
 };
