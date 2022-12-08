@@ -1,6 +1,7 @@
 import {useRef, useState} from "react";
 import Button from "react-bootstrap/Button";
 import {excelToJson} from "./excel";
+import {getColumns} from "./schema";
 
 const ReadExcel = () => {
   const inputRef = useRef();
@@ -18,7 +19,8 @@ const ReadExcel = () => {
 
       const sheetJsons = await excelToJson(files[0]);
       sheetJsons.forEach(sheetJson => {
-        console.log(JSON.stringify(sheetJson, null, 2));
+        // console.log(JSON.stringify(sheetJson, null, 2));
+        const columns = getColumns(sheetJson.data);
       })
     }
   };

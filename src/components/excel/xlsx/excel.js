@@ -31,6 +31,7 @@ export function excelToJson (file) {
       console.log('Error reading excel file')
     }
 
+    // We are reading an uploaded file
     fileReader.readAsBinaryString(file);
   });
 }
