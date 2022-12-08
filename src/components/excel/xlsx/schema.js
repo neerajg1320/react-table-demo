@@ -3,6 +3,10 @@ export function getKeyFromLabel(label) {
   return label.toLowerCase().replaceAll(/[\s./]/g, '_')
 }
 
+function insertKey(key, list) {
+  list.push(key);
+}
+
 export function getColumns(data, sampleSize=0) {
   console.log(data);
 
@@ -19,7 +23,8 @@ export function getColumns(data, sampleSize=0) {
           "label": property,
           "key": property
         }
-        columns.push(col);
+        // columns.push(col);
+        insertKey(col, columns);
       }
     }
   });
