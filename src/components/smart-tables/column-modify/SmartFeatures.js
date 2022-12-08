@@ -40,7 +40,11 @@ export const SmartFeatures = () => {
     };
 
     dispatch(addColumn(categoryRTColumn));
-  }
+  };
+
+  const handleSaveClick = (e) => {
+    console.log(`File to be saved`);
+  };
 
   return (
       <div
@@ -61,7 +65,7 @@ export const SmartFeatures = () => {
           <Button
               className="btn-outline-primary bg-transparent"
               size="sm"
-              onClick={handleAddCategoryClick}
+              onClick={handleSaveClick}
           >
             Save Table
           </Button>
