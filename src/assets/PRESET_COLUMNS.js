@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import {valToString} from "../utils/types";
 
 export const PRESET_COLUMNS = [
   {
@@ -22,7 +22,7 @@ export const PRESET_COLUMNS = [
     Footer: 'Date of Birth',
     accessor: 'date_of_birth',
     Cell: ({ value }) => {
-      return format(new Date(value), 'dd/MM/yyyy');
+      return  valToString(new Date(value));
     }
   },
   {

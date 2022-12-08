@@ -4,6 +4,7 @@ import {excelToJson} from "./excel";
 import {getColumns} from "./schema";
 import {useDispatch} from "react-redux";
 import {setColumns, setRows} from "../../../redux/actions";
+import {format} from "date-fns";
 
 const ReadExcel = () => {
   const inputRef = useRef();
@@ -22,15 +23,23 @@ const ReadExcel = () => {
 
       const sheetJsons = await excelToJson(files[0]);
       sheetJsons.forEach(sheetJson => {
-        console.log(`sheetJson=${JSON.stringify(sheetJson, null, 2)}`);
+        // console.log(`sheetJson=${JSON.stringify(sheetJson, null, 2)}`);
 
         const columns = getColumns(sheetJson.data);
         const reactColumns = columns.map(col => {
-          return {
+          const reactCol = {
             Header: col.label,
             accessor:(row) => row[col.key],
-            bulk: false, edit:false
+            bulk: false,
+            edit:false,
+          };
+
+          if (col.label.toLowerCase().includes('date')) {
+            reactCol.Cell = ({ value }) => {
+              return format(new Date(value), 'dd/MM/yyyy');
+            }
           }
+          return reactCol;
         });
         dispatch(setColumns(reactColumns));
 

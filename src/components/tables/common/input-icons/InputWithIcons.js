@@ -6,7 +6,7 @@ import FlagIcon from "./FlagIcon";
 import './inputIcons.css';
 
 const InputWithIcons = ({defaultValue, onChange, disabled}) => {
-  console.log(`Rendering <InputWithIcons>`);
+  // console.log(`Rendering <InputWithIcons>`);
 
   const [caps, setCaps] = useState(false);
   const [word, setWord] = useState(false);

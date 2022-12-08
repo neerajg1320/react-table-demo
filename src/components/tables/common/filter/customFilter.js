@@ -1,4 +1,4 @@
-import {isString} from "../../../../utils/types";
+import {isString, valToString} from "../../../../utils/types";
 
 export const filterEmptyValues = (rows, columnIds, filterValue) => {
   // console.log(`rows[]=${rows.length} columnsIds=${JSON.stringify(columnIds, null, 2)}`);
@@ -16,7 +16,7 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
     return rows;
   }
 
-  console.log(`textFlags=${JSON.stringify(textFlags, null, 2)}`);
+  // console.log(`textFlags=${JSON.stringify(textFlags, null, 2)}`);
 
   let finalFilterText;
   let re;
@@ -56,14 +56,12 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
           if (row.values[colId]) {
 
             if (textFlags.regex || textFlags.caps || !isString(row.values[colId])) {
-              finalCellText = row.values[colId].toString();
+              finalCellText = valToString(row.values[colId]);
             } else {
               finalCellText = row.values[colId]?.toLowerCase();
             }
 
             if (textFlags.regex) {
-              console.log(`apply regex search`);
-
               const match = finalCellText.match(re)
               if (match) {
                 return true;
@@ -73,6 +71,7 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
                 if (finalCellText === finalFilterText)
                   return true;
               } else {
+                // console.log(`finalCellText=${finalCellText} finalFilterText=${finalFilterText}`);
                 if (finalCellText.includes(finalFilterText))
                   return true;
               }

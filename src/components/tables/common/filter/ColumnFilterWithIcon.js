@@ -4,7 +4,7 @@ import {AiOutlineClose} from "react-icons/ai";
 import {TiTick} from "react-icons/ti";
 import ExpandableButton from "../ExpandableButton";
 import {useCallback, useEffect, useState} from "react";
-import InputWithIcons from "../basic/input-icons/InputWithIcons";
+import InputWithIcons from "../input-icons/InputWithIcons";
 
 export const ColumnFilterWithIcon = ({ column }) => {
   const { filterValue, setFilter } = column;
@@ -92,7 +92,7 @@ export const ColumnFilterWithIcon = ({ column }) => {
                 disabled={!textEnabled}
                 defaultValue={{text: filterValue?.filterText, flags:filterValue?.textFlags }}
                 onChange={({text, flags}) => {
-                  console.log(`text=${text} flags=${JSON.stringify(flags, null, 2)}`)
+                  // console.log(`text=${text} flags=${JSON.stringify(flags, null, 2)}`)
                   setFilterText(text);
                   setTextFlags(flags);
                 }}
