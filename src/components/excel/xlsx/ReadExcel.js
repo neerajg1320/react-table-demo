@@ -4,7 +4,7 @@ import {excelToJson} from "./excel";
 import {getColumns} from "./schema";
 import {useDispatch} from "react-redux";
 import {setColumns, setRows} from "../../../redux/actions";
-import {format} from "date-fns";
+import {valToString} from "../../../utils/types";
 
 const ReadExcel = () => {
   const inputRef = useRef();
@@ -36,7 +36,7 @@ const ReadExcel = () => {
 
           if (col.label.toLowerCase().includes('date')) {
             reactCol.Cell = ({ value }) => {
-              return format(new Date(value), 'dd/MM/yyyy');
+              return valToString(value);
             }
           }
           return reactCol;
