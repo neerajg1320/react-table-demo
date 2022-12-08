@@ -20,6 +20,9 @@ const rowsReducer =  (state=initialState, action) => {
                 return {...item};
             })
 
+        case ActionTypes.SET_ROWS:
+            return action.payload;
+
         default:
             return state;
     }

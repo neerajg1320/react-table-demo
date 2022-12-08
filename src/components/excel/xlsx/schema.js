@@ -19,7 +19,8 @@ export function getColumns(data, sampleSize=0) {
         if (!columns.includes(property)) {
           const col = {
             "label": property,
-            "key": getKeyFromLabel(property)
+            // "key": getKeyFromLabel(property)
+            "key": property
           }
           columns.push(col);
         }
@@ -28,4 +29,5 @@ export function getColumns(data, sampleSize=0) {
   });
 
   console.log(`columns=`, JSON.stringify(columns, null, 2));
+  return columns;
 }

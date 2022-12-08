@@ -28,6 +28,12 @@ export const editRows = (ids, values) => {
   }
 }
 
+export const setRows = (rows) => {
+  return {
+    'type': ActionTypes.SET_ROWS,
+    'payload': rows
+  }
+}
 
 export const addColumn = (rows) => {
   return {
@@ -54,5 +60,12 @@ export const editColumns = (ids, values) => {
       ids,
       values
     }
+  }
+}
+
+export const setColumns = (columns) => {
+  return {
+    'type': ActionTypes.SET_COLUMNS,
+    'payload': columns
   }
 }

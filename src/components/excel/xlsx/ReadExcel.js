@@ -2,10 +2,13 @@ import {useRef, useState} from "react";
 import Button from "react-bootstrap/Button";
 import {excelToJson} from "./excel";
 import {getColumns} from "./schema";
+import {useDispatch} from "react-redux";
+import {setColumns, setRows} from "../../../redux/actions";
 
 const ReadExcel = () => {
   const inputRef = useRef();
   const [files, setFiles] = useState([]);
+  const dispatch = useDispatch();
 
   const onChange = (e) => {
     const files = [...e.target.files].map(file => file);
@@ -21,6 +24,12 @@ const ReadExcel = () => {
       sheetJsons.forEach(sheetJson => {
         // console.log(JSON.stringify(sheetJson, null, 2));
         const columns = getColumns(sheetJson.data);
+
+        const reactColumns = columns.map(col => { return {Header: col.label, accessor:col.key}});
+        dispatch(setColumns(reactColumns));
+
+        console.log(sheetJson.data);
+        dispatch(setRows(sheetJson.data));
       })
     }
   };

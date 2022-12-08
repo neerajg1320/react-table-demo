@@ -11,7 +11,7 @@ const columnsReducer =  (state=initialState, action) => {
       ids = action.payload.ids;
       return state.filter(item => !ids.includes(item.id));
 
-    case ActionTypes.EDIT_ROWS:
+    case ActionTypes.EDIT_COLUMNS:
       ids = action.payload.ids;
       const values = action.payload.values;
       return state.map(item => {
@@ -20,6 +20,9 @@ const columnsReducer =  (state=initialState, action) => {
         }
         return {...item};
       })
+
+    case ActionTypes.SET_COLUMNS:
+      return action.payload;
 
     default:
       return state;
