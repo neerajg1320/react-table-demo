@@ -3,8 +3,11 @@ export function getKeyFromLabel(label) {
   return label.toLowerCase().replaceAll(/[\s./]/g, '_')
 }
 
-function insertKey(key, list) {
-  list.push(key);
+function insertKey(property, list) {
+  list.push({
+    "label": property,
+    "key": property
+  });
 }
 
 export function getColumns(data, sampleSize=0) {
@@ -16,15 +19,20 @@ export function getColumns(data, sampleSize=0) {
   }
 
   const columns = [];
+
   finalData.forEach((row, index) => {
+    const missing = []
+
     for (const property in row) {
+      let missing_col = null;
+
       if (!columns.map(col => col.label).includes(property)) {
-        const col = {
-          "label": property,
-          "key": property
-        }
+        missing_col = property;
+
         // columns.push(col);
-        insertKey(col, columns);
+        insertKey(property, columns);
+      } else {
+
       }
     }
   });
