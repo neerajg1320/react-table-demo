@@ -11,11 +11,15 @@ const ReadExcel = () => {
     setFiles(files);
   };
 
-  const handleSubmitClick = (e) => {
+  const handleSubmitClick = async (e) => {
     if (files.length > 0) {
-      const data = excelToJson(files[0]);
       setFiles([]);
       inputRef.current.value = null;
+
+      const sheetJsons = await excelToJson(files[0]);
+      sheetJsons.forEach(sheetJson => {
+        console.log(JSON.stringify(sheetJson, null, 2));
+      })
     }
   };
 
