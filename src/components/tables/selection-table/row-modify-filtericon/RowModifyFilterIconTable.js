@@ -35,8 +35,6 @@ export const RowModifyFilterIconTable = () => {
   const dispatch = useDispatch();
 
   const bulkColumns = useMemo(() => {
-    console.log(`columns.type=${typeof columns}`);
-    console.log(`columns=${JSON.stringify(columns, null, 2)}`);
     return columns?.length ? columns.filter(col => col.bulk) : [];
   }, [columns]);
 

@@ -22,13 +22,16 @@ const ReadExcel = () => {
 
       const sheetJsons = await excelToJson(files[0]);
       sheetJsons.forEach(sheetJson => {
-        const columns = getColumns(sheetJson.data);
-        // console.log(`columns=${JSON.stringify(columns, null, 2)}`);
-        const reactColumns = columns.map(col => {
-          return {Header: col.label, accessor:col.key, bulk: false, edit:false}
-        });
-        // console.log(`reactColumns=${JSON.stringify(reactColumns, null, 2)}`);
+        console.log(`sheetJson=${JSON.stringify(sheetJson, null, 2)}`);
 
+        const columns = getColumns(sheetJson.data);
+        const reactColumns = columns.map(col => {
+          return {
+            Header: col.label,
+            accessor:(row) => row[col.key],
+            bulk: false, edit:false
+          }
+        });
         dispatch(setColumns(reactColumns));
 
         const dataWithIds = sheetJson.data.map((item, item_idx) => {

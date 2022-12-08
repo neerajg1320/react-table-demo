@@ -8,7 +8,7 @@ function insertProp(prop, list, before) {
 
   if (before) {
     const index = list.findIndex(item => item.label === before);
-    console.log(`Insert at ${index}`);
+    // console.log(`Insert at ${index}`);
     list.splice(index, 0, propObj);
 
   } else {
@@ -17,8 +17,6 @@ function insertProp(prop, list, before) {
 }
 
 export function getColumns(data, sampleSize=0) {
-  console.log(data);
-
   let finalData = data;
   if (sampleSize > 0) {
     finalData.slice(0, sampleSize);
@@ -59,8 +57,7 @@ export function getColumns(data, sampleSize=0) {
 
     if (missingPropsAll.length) {
       missingPropsAll.forEach(({key, before}) => {
-        // insertProp(key, columns, before);
-        console.log(`key=${key} before=${before}`);
+        // console.log(`key=${key} before=${before}`);
         insertProp(key, columns, before);
       });
 
