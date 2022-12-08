@@ -13,17 +13,13 @@ export function getColumns(data, sampleSize=0) {
 
   const columns = [];
   finalData.forEach((row, index) => {
-    // console.log(`${JSON.stringify(row, null, 2)}`);
-    if (index < 1) {
-      for (const property in row) {
-        if (!columns.includes(property)) {
-          const col = {
-            "label": property,
-            // "key": getKeyFromLabel(property)
-            "key": property
-          }
-          columns.push(col);
+    for (const property in row) {
+      if (!columns.map(col => col.label).includes(property)) {
+        const col = {
+          "label": property,
+          "key": property
         }
+        columns.push(col);
       }
     }
   });
