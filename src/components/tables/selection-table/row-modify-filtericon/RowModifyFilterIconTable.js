@@ -196,7 +196,6 @@ export const RowModifyFilterIconTable = () => {
   }, [selectedFlatRows]);
 
   const handleBulkEditCancelClick = useCallback(() => {
-    console.log(`handleBulkEditCancelClick`);
     setBulkEditExpanded(false);
   }, [])
 
@@ -233,7 +232,7 @@ export const RowModifyFilterIconTable = () => {
           {/* We should try and replace below */}
           <ExpandableButton
               title="Bulk Edit"
-              disabled={!bulkEnabled}
+              disabled={!bulkColumns.length || !bulkEnabled}
               value={bulkEditExpanded}
               onChange={exp => setBulkEditExpanded(exp)}
               popupPosition={{left: "60px", top: "25px"}}
