@@ -21,7 +21,7 @@ import ExpandableButton from "../../common/ExpandableButton";
 import {filterEmptyValues} from "../../common/filter/customFilter";
 
 
-export const RowModifyFilterIconTable = () => {
+export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
   // console.log(`Rendering <RowModifyFilterTable>`);
 
   // eslint-disable-next-line

@@ -10,9 +10,9 @@ const columnsReducer =  (state=initialState, action) => {
   switch (action.type) {
     case ActionTypes.ADD_COLUMN:
       const {column, before} = action.payload;
-      console.log(`${column} ${before}`);
+      // console.log(`${column} ${before}`);
       insertProp(column, state, before)
-      console.log(JSON.stringify(state, null, 2));
+      // console.log(JSON.stringify(state, null, 2));
       return [...state];
 
     case ActionTypes.DELETE_COLUMNS:
