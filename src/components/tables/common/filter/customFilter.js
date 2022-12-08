@@ -1,3 +1,5 @@
+import {isString} from "../../../../utils/types";
+
 export const filterEmptyValues = (rows, columnIds, filterValue) => {
   // console.log(`rows[]=${rows.length} columnsIds=${JSON.stringify(columnIds, null, 2)}`);
   // console.log(`filterValue=${JSON.stringify(filterValue, null, 2)}`);
@@ -53,10 +55,10 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
         if (filterText) {
           if (row.values[colId]) {
 
-            if (!textFlags.regex && textFlags.caps) {
-              finalCellText = row.values[colId];
+            if (textFlags.regex || textFlags.caps || !isString(row.values[colId])) {
+              finalCellText = row.values[colId].toString();
             } else {
-              finalCellText = row.values[colId].toLowerCase();
+              finalCellText = row.values[colId]?.toLowerCase();
             }
 
             if (textFlags.regex) {
