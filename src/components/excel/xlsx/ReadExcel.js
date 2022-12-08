@@ -8,7 +8,7 @@ import {convertToReactCol} from "../../adapters/reactTableAdapter";
 import {AiOutlineClose} from "react-icons/ai";
 import './readExcel.css';
 
-const ReadExcel = () => {
+const ReadExcel = ({onComplete}) => {
   const inputRef = useRef();
   const [files, setFiles] = useState([]);
   const dispatch = useDispatch();
@@ -41,6 +41,10 @@ const ReadExcel = () => {
         });
         dispatch(setRows(dataWithIds));
       })
+
+      if (onComplete) {
+        onComplete();
+      }
     }
   };
 

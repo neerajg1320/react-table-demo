@@ -11,8 +11,12 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import {RowModifyFilterIconTable} from "./components/tables/selection-table/row-modify-filtericon/RowModifyFilterIconTable";
 import ReadExcel from "./components/excel/xlsx/ReadExcel";
+import {useState} from "react";
 
 function App() {
+
+  const [tabKey, setTabKey] = useState("readExcel");
+
   return (
       <div style={{display:"flex", justifyContent:"center", height:"100%"}}>
         <div style={{
@@ -25,9 +29,12 @@ function App() {
             boxShadow: "rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px"
           }}
         >
-          <Tabs className="mb-3" defaultActiveKey="readExcel">
+          <Tabs className="mb-3"
+                activeKey={tabKey}
+                onSelect={k => setTabKey(k)}
+          >
             <Tab eventKey="readExcel" title="Read Excel">
-              <ReadExcel />
+              <ReadExcel onComplete={e => {setTabKey("rowModifyFilterIcon")}}/>
             </Tab>
             {/*<Tab eventKey="basic" title="Basic">*/}
             {/*  <BasicTable />*/}
