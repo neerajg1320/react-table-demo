@@ -5,21 +5,23 @@ import {
   useFilters
 } from "react-table";
 import {useCallback, useEffect, useMemo, useState } from "react";
-import '../../table.css';
+import '../../../table.css';
 import {RowCheckbox} from "../../common/RowCheckbox";
-import {ShowObject} from "../../show";
+import {ShowObject} from "../../../show";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteRows, editRows} from "../../../redux/actions";
+import {deleteRows, editRows} from "../../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
 import ColumnsEditBox from "../../common/ColumnsEditBox";
 import {GlobalFilter} from "../../common/filter/GlobalFilter";
-import {ColumnFilter} from "../../common/filter/ColumnFilter";
+import {ColumnFilterWithIcon} from "../../common/filter/ColumnFilterWithIcon";
 import Button from "react-bootstrap/Button";
 import EditableCell from "../../common/cells/editableCell";
 import SelectableCell from "../../common/cells/selectableCell";
 import ExpandableButton from "../../common/ExpandableButton";
+import {filterEmptyValues} from "../../common/filter/customFilter";
 
-export const RowModifyFilterTable = () => {
+
+export const RowModifyFilterIconTable = () => {
   // console.log(`Rendering <RowModifyFilterTable>`);
 
   // eslint-disable-next-line
@@ -75,7 +77,8 @@ export const RowModifyFilterTable = () => {
 
   const defaultColumn = useMemo(() => {
     return {
-      Filter: ColumnFilter
+      Filter: ColumnFilterWithIcon,
+      filter: filterEmptyValues
     }
   }, []);
 
@@ -89,7 +92,8 @@ export const RowModifyFilterTable = () => {
     selectedFlatRows,
     toggleAllRowsSelected,
     state,
-    setGlobalFilter
+    setGlobalFilter,
+    setAllFilters
   } = useTable({
     columns,
     data,
@@ -173,7 +177,7 @@ export const RowModifyFilterTable = () => {
 
   const handleBulkDeleteClick = useCallback(() => {
     const ids = getRowIds(selectedFlatRows);
-    console.log(`handleBulkDeleteClick: ids=${ids}`);
+    // console.log(`handleBulkDeleteClick: ids=${ids}`);
     dispatch(deleteRows(ids));
     setBulkEditExpanded(false);
     // eslint-disable-next-line
@@ -181,7 +185,7 @@ export const RowModifyFilterTable = () => {
 
   const handleBulkEditSaveClick = useCallback((values) => {
     const ids = getRowIds(selectedFlatRows);
-    console.log(`handleBulkEditSaveClick: ids=${ids} values=${JSON.stringify(values)}`);
+    // console.log(`handleBulkEditSaveClick: ids=${ids} values=${JSON.stringify(values)}`);
     dispatch(editRows(ids, values));
     setBulkEditExpanded(false);
     // eslint-disable-next-line
@@ -199,44 +203,62 @@ export const RowModifyFilterTable = () => {
     // eslint-disable-next-line
   }, []);
 
-  const { globalFilter } = state;
+  // useEffect(() => {
+  //   console.log(`state=${JSON.stringify(state, null, 2)}`);
+  // }, [state]);
+
+  const { globalFilter, filters } = state;
+
+  const handleClearFiltersClick = useCallback(() => {
+    setAllFilters([]);
+    setGlobalFilter("");
+  }, [filters, globalFilter]);
 
   return (
       <>
-      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
-      <div>
-          <div style={{display:"flex", gap: "10px", padding:"20px"}}>
-            <Button variant="danger" size="sm"
-                    disabled={!bulkEnabled}
-                    onClick={handleBulkDeleteClick}
-            >
-              Bulk Delete
-            </Button>
 
-            {/* We should try and replace below */}
-            <ExpandableButton
-                title="Bulk Edit"
-                disabled={!bulkEnabled}
-                value={bulkEditExpanded}
-                onChange={exp => setBulkEditExpanded(exp)}
-            >
-              <ColumnsEditBox
-                  columns={bulkColumns}
-                  onEdit={handleBulkEditSaveClick}
-                  onCancel={handleBulkEditCancelClick}
+      <div style={{display: "flex", justifyContent:"space-between", alignItems:"center"}}>
+        <div style={{display:"flex", gap: "10px", padding:"20px"}}>
+          <Button variant="danger" size="sm"
                   disabled={!bulkEnabled}
-              />
-            </ExpandableButton>
+                  onClick={handleBulkDeleteClick}
+          >
+            Bulk Delete
+          </Button>
 
-            <Button variant="outline-dark" size="sm"
-                    disabled={!bulkEnabled}
-                    onClick={handleClearSelectionClick}
-            >
-              Clear
-            </Button>
+          {/* We should try and replace below */}
+          <ExpandableButton
+              title="Bulk Edit"
+              disabled={!bulkEnabled}
+              value={bulkEditExpanded}
+              onChange={exp => setBulkEditExpanded(exp)}
+              popupPosition={{left: "60px", top: "25px"}}
+          >
+            <ColumnsEditBox
+                columns={bulkColumns}
+                onEdit={handleBulkEditSaveClick}
+                onCancel={handleBulkEditCancelClick}
+                disabled={!bulkEnabled}
+            />
+          </ExpandableButton>
 
+          <Button variant="outline-dark" size="sm"
+                  disabled={!bulkEnabled}
+                  onClick={handleClearSelectionClick}
+          >
+            Clear
+          </Button>
+        </div>
 
-          </div>
+        <div style={{display: "flex", gap:"20px", padding: "20px", alignItems: "center"}}>
+          <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
+          <Button variant="outline-dark" size="sm"
+                  disabled={!filters.length > 0 && !globalFilter}
+                  onClick={handleClearFiltersClick}
+          >
+            Clear Filters
+          </Button>
+        </div>
       </div>
 
       <div>
@@ -247,8 +269,15 @@ export const RowModifyFilterTable = () => {
                 {
                   headerGroup.headers.map(column => (
                       <th {...column.getHeaderProps()}>
-                        {column.render('Header')}
-                        <div>{column.canFilter ? column.render('Filter') : null}</div>
+                        <div
+                            style={{display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center"
+                            }}
+                        >
+                          {column.render('Header')}
+                          <span>{column.canFilter ? column.render('Filter') : null}</span>
+                        </div>
                       </th>
                   ))
                 }

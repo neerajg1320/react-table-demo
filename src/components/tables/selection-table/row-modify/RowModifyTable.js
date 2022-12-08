@@ -1,10 +1,10 @@
 import { useTable, useRowSelect } from "react-table";
 import {useCallback,useState} from "react";
-import '../../table.css';
+import '../../../table.css';
 import {RowCheckbox} from "../../common/RowCheckbox";
-import {ShowObject} from "../../show";
+import {ShowObject} from "../../../show";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteRows, editRows} from "../../../redux/actions";
+import {deleteRows, editRows} from "../../../../redux/actions";
 import {FaTrash, FaPen } from "react-icons/fa";
 import ColumnsEditBox from "../../common/ColumnsEditBox";
 

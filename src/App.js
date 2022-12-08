@@ -1,19 +1,20 @@
 import './App.css';
-import {BasicTable} from "./components/basic-table/BasicTable";
-import {SortingTable} from "./components/sort-table/SortingTable";
-import {FilteringTable} from "./components/filter-table/FilteringTable";
-import {PaginationTable} from "./components/paginated-table/PaginationTable";
-import {RowSelectionTable} from "./components/selection-table/row-selection/RowSelectionTable";
-import {RowModifyTable} from "./components/selection-table/row-modify/RowModifyTable";
-import {RowModifyFilterTable} from "./components/selection-table/row-modify-filter/RowModifyFilterTable";
+import {BasicTable} from "./components/tables/basic-table/BasicTable";
+import {SortingTable} from "./components/tables/sort-table/SortingTable";
+import {FilteringTable} from "./components/tables/filter-table/FilteringTable";
+import {PaginationTable} from "./components/tables/paginated-table/PaginationTable";
+import {RowSelectionTable} from "./components/tables/selection-table/row-selection/RowSelectionTable";
+import {RowModifyTable} from "./components/tables/selection-table/row-modify/RowModifyTable";
+import {RowModifyFilterTable} from "./components/tables/selection-table/row-modify-filter/RowModifyFilterTable";
 
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import {RowModifyFilterIconTable} from "./components/selection-table/row-modify-filtericon/RowModifyFilterIconTable";
+import {RowModifyFilterIconTable} from "./components/tables/selection-table/row-modify-filtericon/RowModifyFilterIconTable";
+import ReadExcel from "./components/excel/xlsx/ReadExcel";
 
 function App() {
   return (
-      <div style={{display:"flex", justifyContent:"center"}}>
+      <div style={{display:"flex", justifyContent:"center", height:"100%"}}>
         <div style={{
             width: "90%",
             borderRadius: "4px",
@@ -24,7 +25,10 @@ function App() {
             boxShadow: "rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px"
           }}
         >
-          <Tabs className="mb-3" defaultActiveKey="rowModifyFilterIcon">
+          <Tabs className="mb-3" defaultActiveKey="readExcel">
+            <Tab eventKey="readExcel" title="Read Excel">
+              <ReadExcel />
+            </Tab>
             {/*<Tab eventKey="basic" title="Basic">*/}
             {/*  <BasicTable />*/}
             {/*</Tab>*/}
@@ -43,9 +47,9 @@ function App() {
             {/*<Tab eventKey="rowModify" title="Row Modify">*/}
             {/*  <RowModifyTable />*/}
             {/*</Tab>*/}
-            <Tab eventKey="rowModifyFilter" title="Row Modify Filter">
-              <RowModifyFilterTable />
-            </Tab>
+            {/*<Tab eventKey="rowModifyFilter" title="Row Modify Filter">*/}
+            {/*  <RowModifyFilterTable />*/}
+            {/*</Tab>*/}
             <Tab eventKey="rowModifyFilterIcon" title="Row Modify Filter">
               <RowModifyFilterIconTable />
             </Tab>

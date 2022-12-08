@@ -1,10 +1,10 @@
 import { useTable, useRowSelect } from "react-table";
-import MOCK_DATA from "../../../assets/MOCK_DATA.json";
-import { PRESET_COLUMNS } from '../../../assets/PRESET_COLUMNS';
+import MOCK_DATA from "../../../../assets/MOCK_DATA.json";
+import { PRESET_COLUMNS } from '../../../../assets/PRESET_COLUMNS';
 import {useMemo} from "react";
-import '../../table.css';
+import '../../../table.css';
 import {RowCheckbox} from "../../common/RowCheckbox";
-import {ShowObject} from "../../show";
+import {ShowObject} from "../../../show";
 
 export const RowSelectionTable = () => {
   const columns = useMemo(() => PRESET_COLUMNS, []);
