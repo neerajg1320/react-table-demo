@@ -1,11 +1,12 @@
-import {useRef, useState} from "react";
+import {useCallback, useRef, useState} from "react";
 import Button from "react-bootstrap/Button";
 import {excelToJson} from "./excel";
 import {getColumns} from "./schema";
 import {useDispatch} from "react-redux";
 import {setColumns, setRows} from "../../../redux/actions";
-import {valToString} from "../../../utils/types";
-import {convertToReactCol} from "./reactTableAdapter";
+import {convertToReactCol} from "../../adapters/reactTableAdapter";
+import {AiOutlineClose} from "react-icons/ai";
+import './readExcel.css';
 
 const ReadExcel = () => {
   const inputRef = useRef();
@@ -17,10 +18,14 @@ const ReadExcel = () => {
     setFiles(files);
   };
 
+  const clearState = useCallback(() => {
+    setFiles([]);
+    inputRef.current.value = null;
+  }, []);
+
   const handleSubmitClick = async (e) => {
     if (files.length > 0) {
-      setFiles([]);
-      inputRef.current.value = null;
+      clearState();
 
       const sheetJsons = await excelToJson(files[0]);
       sheetJsons.forEach(sheetJson => {
@@ -30,6 +35,7 @@ const ReadExcel = () => {
         const reactColumns = columns.map(convertToReactCol);
         dispatch(setColumns(reactColumns));
 
+        // We add the id field as our react table expects it for edit and delete operations
         const dataWithIds = sheetJson.data.map((item, item_idx) => {
           return {id: item_idx, ...item};
         });
@@ -47,20 +53,36 @@ const ReadExcel = () => {
       >
         <div style={{borderRadius:"4px", padding:"5px",
           display:"flex", flexDirection:"column", gap: "30px", justifyContent:"center", alignItems:"center"}}>
-          <form >
-            {/*<label htmlFor="upload">Upload File</label>*/}
-            <input
-                ref={inputRef}
-                className="form-control"
-                type="file"
-                name="upload"
-                id="upload"
-                // multiple
-                onChange={onChange}
-            />
-          </form>
+
+          <div
+              className="file-input-control"
+              style={{display:"flex", flexDirection:"row", alignItems:"center", position:"relative"}}
+          >
+            <form >
+              <input
+                  ref={inputRef}
+                  className="form-control"
+                  type="file"
+                  name="upload"
+                  id="upload"
+                  // multiple
+                  onChange={onChange}
+              />
+            </form>
+            <div
+                className={`icon ${files.length ? "active" : ""}`}
+                style={{position:"absolute", right:"10px"}}
+            >
+              <AiOutlineClose onClick={e => clearState()}/>
+            </div>
+          </div>
+
           <div>
-            <Button className="btn-primary" onClick={handleSubmitClick}>
+            <Button
+                className="btn-primary"
+                onClick={handleSubmitClick}
+                disabled={!files.length}
+            >
               Submit
             </Button>
           </div>

@@ -1,4 +1,4 @@
-import {valToString} from "../../../utils/types";
+import {valToString} from "../../utils/types";
 
 export function convertToReactCol (colObj) {
   const reactColObj = {

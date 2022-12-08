@@ -15,7 +15,6 @@ const InputWithIcons = ({defaultValue, onChange, disabled}) => {
 
   useEffect(() => {
     if (inputRef.current.value) {
-      // console.log(`input=${inputRef.current.value}`);
       onChange({text: inputRef.current.value, flags:{caps, word, regex}});
     }
   }, [caps, word, regex]);
