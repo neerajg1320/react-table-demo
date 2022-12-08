@@ -16,7 +16,7 @@ export const SmartFeatures = () => {
     return catCol.length > 0
   }, [columns]);
 
-  const handleAddCategoryClick = (e) => {
+  const handleAddCategoryClick = useCallback((e) => {
     console.log(`Need to add a new column`);
     const categoryColumn = {
       label: "Category",
@@ -42,12 +42,18 @@ export const SmartFeatures = () => {
     };
 
     dispatch(addColumn(categoryRTColumn));
-  };
+  }, []);
 
   const handleSaveClick = useCallback((e) => {
-    console.log(`File to be saved`);
-    exportJsonToExcel(rows, "file.xlsx");
-  }, [rows]);
+    const header = columns.map(col => col.Header);
+
+    const data = rows.map(row => {
+      const rowCopy = {...row};
+      delete rowCopy.id;
+      return rowCopy;
+    });
+    exportJsonToExcel(data, "file.xlsx", header);
+  }, [rows, columns]);
 
   return (
       <div

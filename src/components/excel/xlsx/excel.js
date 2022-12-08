@@ -35,9 +35,9 @@ export function excelToJson (file) {
   });
 }
 
-export function  exportJsonToExcel(json, fileName='') {
+export function  exportJsonToExcel(json, fileName='', header) {
   const dataType = 'application/vnd.ms-excel';
-  const ws = XLSX.utils.json_to_sheet(json);
+  const ws = XLSX.utils.json_to_sheet(json, {header});
   const wb = XLSX.utils.book_new();
 
   XLSX.utils.book_append_sheet(wb, ws, 'test');
