@@ -3,11 +3,17 @@ export function getKeyFromLabel(label) {
   return label.toLowerCase().replaceAll(/[\s./]/g, '_')
 }
 
-function insertKey(property, list) {
-  list.push({
-    "label": property,
-    "key": property
-  });
+function insertProp(prop, list, before) {
+  const propObj = {"label": prop, "key": prop};
+
+  if (before) {
+    const index = list.findIndex(item => item.label === before);
+    console.log(`Insert at ${index}`);
+    list.splice(index, 0, propObj);
+
+  } else {
+    list.push(propObj);
+  }
 }
 
 export function getColumns(data, sampleSize=0) {
@@ -20,20 +26,45 @@ export function getColumns(data, sampleSize=0) {
 
   const columns = [];
 
+  // List of objects: [{missingKey, beforeKey}]
+  let missingPropsAll = [];
+
+  // List of keys: [missingKey]
+  let missingPropsConsecutive = [];
   finalData.forEach((row, index) => {
-    const missing = []
-
     for (const property in row) {
-      let missing_col = null;
-
-      if (!columns.map(col => col.label).includes(property)) {
-        missing_col = property;
-
-        // columns.push(col);
-        insertKey(property, columns);
+      if (index < 1) {
+        missingPropsConsecutive.push(property);
       } else {
+        if (!columns.map(col => col.label).includes(property)) {
+          missingPropsConsecutive.push(property);
+        } else {
+          missingPropsConsecutive.forEach(mProp => {
+            missingPropsAll.push({key: mProp, before: property})
+          });
 
+          missingPropsConsecutive = [];
+        }
       }
+    }
+
+    // These consecutive missing props were at tail
+    if (missingPropsConsecutive.length) {
+      missingPropsConsecutive.forEach(mProp => {
+        missingPropsAll.push({key: mProp, before: null})
+      });
+
+      missingPropsConsecutive = [];
+    }
+
+    if (missingPropsAll.length) {
+      missingPropsAll.forEach(({key, before}) => {
+        // insertProp(key, columns, before);
+        console.log(`key=${key} before=${before}`);
+        insertProp(key, columns, before);
+      });
+
+      missingPropsAll = [];
     }
   });
 
