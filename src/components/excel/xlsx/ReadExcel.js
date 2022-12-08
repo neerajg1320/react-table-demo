@@ -5,6 +5,7 @@ import {getColumns} from "./schema";
 import {useDispatch} from "react-redux";
 import {setColumns, setRows} from "../../../redux/actions";
 import {valToString} from "../../../utils/types";
+import {convertToReactCol} from "./reactTableAdapter";
 
 const ReadExcel = () => {
   const inputRef = useRef();
@@ -23,24 +24,10 @@ const ReadExcel = () => {
 
       const sheetJsons = await excelToJson(files[0]);
       sheetJsons.forEach(sheetJson => {
-        // console.log(`sheetJson=${JSON.stringify(sheetJson, null, 2)}`);
 
+        // TBD: We can probably move the column detection outside
         const columns = getColumns(sheetJson.data);
-        const reactColumns = columns.map(col => {
-          const reactCol = {
-            Header: col.label,
-            accessor:(row) => row[col.key],
-            bulk: false,
-            edit:false,
-          };
-
-          if (col.label.toLowerCase().includes('date')) {
-            reactCol.Cell = ({ value }) => {
-              return valToString(value);
-            }
-          }
-          return reactCol;
-        });
+        const reactColumns = columns.map(convertToReactCol);
         dispatch(setColumns(reactColumns));
 
         const dataWithIds = sheetJson.data.map((item, item_idx) => {
