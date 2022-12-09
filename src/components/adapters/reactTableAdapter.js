@@ -3,6 +3,7 @@ import {valToString} from "../../utils/types";
 export function colToRTCol (colObj) {
   const reactColObj = {
     "Header": colObj['label'],
+    // We need accessor as a function when we have . (dot) in the key name
     "accessor": (row) => {return row[colObj['key']]},
     ...colObj
   }
@@ -14,7 +15,9 @@ export function colToRTCol (colObj) {
   }
 
   delete reactColObj['label'];
-  delete reactColObj['key'];
+
+  // Keep the key field as we need it during bulkEdit operation
+  // delete reactColObj['key'];
 
   return reactColObj;
 }

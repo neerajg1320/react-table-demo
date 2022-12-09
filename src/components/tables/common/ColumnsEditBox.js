@@ -15,10 +15,12 @@ const ColumnsEditBox = ({columns, onEdit, onCancel, onButtonClick}) => {
     if (onEdit) {
       const modifiedFields = columnValues
                               .filter(item => item.active)
-                              .map(item => [item.name, item.value]);
-      if (onEdit) {
-        onEdit(Object.fromEntries(modifiedFields));
-      }
+                              .map(item => {
+                                console.log(item);
+                                console.log(typeof item.name === 'function');
+                                return [item.name, item.value]
+                              });
+      onEdit(Object.fromEntries(modifiedFields));
     }
   }
 
@@ -37,7 +39,7 @@ const ColumnsEditBox = ({columns, onEdit, onCancel, onButtonClick}) => {
     {columns.map((col, col_idx) => {
       columnValues.push({
         active: false,
-        name: col.accessor
+        name: col.key
       });
 
       return (

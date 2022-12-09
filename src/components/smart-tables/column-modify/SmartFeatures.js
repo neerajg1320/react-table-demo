@@ -7,7 +7,7 @@ import {presetColumns} from "../../../features/presetColumns";
 import {colToRTCol} from "../../adapters/reactTableAdapter";
 
 export const SmartFeatures = () => {
-  console.log(`Rendering <SmartFeatures>`);
+  // console.log(`Rendering <SmartFeatures>`);
 
   const dispatch = useDispatch();
   const columns = useSelector(state => state.columns);

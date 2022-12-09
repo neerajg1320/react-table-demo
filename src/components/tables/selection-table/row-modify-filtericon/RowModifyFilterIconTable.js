@@ -23,7 +23,7 @@ import {colToRTCol} from "../../../adapters/reactTableAdapter";
 import {presetColumns} from "../../../../features/presetColumns";
 
 export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
-  console.log(`Rendering <RowModifyFilterIconTable>`);
+  // console.log(`Rendering <RowModifyFilterIconTable>`);
 
   // eslint-disable-next-line
   const [debugSelection, setDebugSelection] = useState(false);
@@ -39,7 +39,6 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
     const mPresetCols = presetColumns.filter(pcol=> pcol.key === col.key);
 
     if (mPresetCols.length) {
-      console.log(`Found column '${col.key}' in preset columns`);
       col = mPresetCols[0];
     }
 
@@ -196,7 +195,7 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
 
   const handleBulkEditSaveClick = useCallback((values) => {
     const ids = getRowIds(selectedFlatRows);
-    // console.log(`handleBulkEditSaveClick: ids=${ids} values=${JSON.stringify(values)}`);
+    console.log(`handleBulkEditSaveClick: ids=${ids} values=${JSON.stringify(values)}`);
     dispatch(editRows(ids, values));
     setBulkEditExpanded(false);
     // eslint-disable-next-line
