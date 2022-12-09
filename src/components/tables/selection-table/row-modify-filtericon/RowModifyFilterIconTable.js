@@ -2,7 +2,8 @@ import {
   useTable,
   useRowSelect,
   useGlobalFilter,
-  useFilters
+  useFilters,
+  useBlockLayout
 } from "react-table";
 import {useCallback, useEffect, useMemo, useState } from "react";
 import '../../../table.css';
@@ -88,7 +89,8 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
   const defaultColumn = useMemo(() => {
     return {
       Filter: ColumnFilterWithIcon,
-      filter: filterEmptyValues
+      filter: filterEmptyValues,
+      minWidth: "150px"
     }
   }, []);
 
@@ -113,6 +115,7 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
   useFilters,
   useGlobalFilter,
   useRowSelect,
+
 
   (hooks) => {
     hooks.visibleColumns.push((columns) => {
@@ -197,7 +200,7 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
 
   const handleBulkEditSaveClick = useCallback((values) => {
     const ids = getRowIds(selectedFlatRows);
-    console.log(`handleBulkEditSaveClick: ids=${ids} values=${JSON.stringify(values)}`);
+    // console.log(`handleBulkEditSaveClick: ids=${ids} values=${JSON.stringify(values)}`);
     dispatch(editRows(ids, values));
     setBulkEditExpanded(false);
     // eslint-disable-next-line
