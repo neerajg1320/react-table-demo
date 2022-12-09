@@ -4,7 +4,7 @@ import {excelToJson} from "./excel";
 import {getColumns} from "./schema";
 import {useDispatch} from "react-redux";
 import {setColumns, setRows} from "../../../redux/actions";
-import {convertToReactCol} from "../../adapters/reactTableAdapter";
+import {colToRTCol} from "../../adapters/reactTableAdapter";
 import {AiOutlineClose} from "react-icons/ai";
 import './readExcel.css';
 

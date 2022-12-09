@@ -19,7 +19,7 @@ import EditableCell from "../../common/cells/editableCell";
 import SelectableCell from "../../common/cells/selectableCell";
 import ExpandableButton from "../../common/ExpandableButton";
 import {filterEmptyValues} from "../../common/filter/customFilter";
-import {convertToReactCol} from "../../../adapters/reactTableAdapter";
+import {colToRTCol} from "../../../adapters/reactTableAdapter";
 
 
 export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
@@ -35,17 +35,11 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
   const columns = useSelector(state => state.columns);
   const dispatch = useDispatch();
 
-  const [rtColumns, setRTColumns] = useState(columns.map(convertToReactCol));
+  const [rtColumns, setRTColumns] = useState(columns.map(colToRTCol));
 
   const bulkColumns = useMemo(() => {
-    setRTColumns(columns.map(convertToReactCol));
+    setRTColumns(columns.map(colToRTCol));
     return columns?.length ? columns.filter(col => col.bulk) : [];
-  }, [columns]);
-
-  // Kept for future reference
-  // eslint-disable-next-line
-  const editColumns = useMemo(() => {
-    return columns?.length ? columns.filter(col => col.edit) : []
   }, [columns]);
 
   // Show Debug Window
@@ -85,8 +79,6 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
       filter: filterEmptyValues
     }
   }, []);
-
-
 
   const {
     getTableProps,

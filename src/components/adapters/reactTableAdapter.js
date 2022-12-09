@@ -1,6 +1,6 @@
 import {valToString} from "../../utils/types";
 
-export function convertToReactCol (colObj) {
+export function colToRTCol (colObj) {
   const reactColObj = {
     "Header": colObj['label'],
     "accessor": colObj['key'],
