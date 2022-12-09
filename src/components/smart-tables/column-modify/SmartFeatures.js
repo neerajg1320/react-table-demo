@@ -35,8 +35,6 @@ export const SmartFeatures = () => {
       delete rowCopy.id;
       return rowCopy;
     });
-    console.log(header);
-    console.log(data);
     exportJsonToExcel(data, "file.xlsx", header);
   }, [rows, columns]);
 

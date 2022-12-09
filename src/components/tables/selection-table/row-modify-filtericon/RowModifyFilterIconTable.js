@@ -48,8 +48,9 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
   const [rtColumns, setRTColumns] = useState(columns.map(createRTCol));
 
   const bulkColumns = useMemo(() => {
-    setRTColumns(columns.map(createRTCol));
-    return columns?.length ? columns.filter(col => col.bulk) : [];
+    const reactTableColumns = columns.map(createRTCol);
+    setRTColumns(reactTableColumns);
+    return reactTableColumns?.length ? reactTableColumns.filter(col => col.bulk) : [];
   }, [columns]);
 
   // Show Debug Window
