@@ -20,10 +20,10 @@ import SelectableCell from "../../common/cells/selectableCell";
 import ExpandableButton from "../../common/ExpandableButton";
 import {filterEmptyValues} from "../../common/filter/customFilter";
 import {colToRTCol} from "../../../adapters/reactTableAdapter";
-
+import {presetColumns} from "../../../../features/presetColumns";
 
 export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
-  console.log(`Rendering <RowModifyFilterTable>`);
+  console.log(`Rendering <RowModifyFilterIconTable>`);
 
   // eslint-disable-next-line
   const [debugSelection, setDebugSelection] = useState(false);
@@ -35,10 +35,22 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
   const columns = useSelector(state => state.columns);
   const dispatch = useDispatch();
 
-  const [rtColumns, setRTColumns] = useState(columns.map(colToRTCol));
+  const createRTCol = useCallback((col, index) => {
+    // if (index == 0) {
+    //   console.log(`presetColumns=${JSON.stringify(presetColumns.map(pcol => pcol.key), null, 2)}`);
+    // }
+    // console.log(`col=${JSON.stringify(col, null, 2)}`)
+
+    if (presetColumns.map(pcol => pcol.key).includes(col.key)) {
+      console.log(`column ${col.key} found in presetColumns`);
+    }
+    return colToRTCol(col);
+  }, [])
+
+  const [rtColumns, setRTColumns] = useState(columns.map(createRTCol));
 
   const bulkColumns = useMemo(() => {
-    setRTColumns(columns.map(colToRTCol));
+    setRTColumns(columns.map(createRTCol));
     return columns?.length ? columns.filter(col => col.bulk) : [];
   }, [columns]);
 

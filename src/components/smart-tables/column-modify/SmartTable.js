@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {SmartFeatures} from "./SmartFeatures";
 
 export const SmartTable = () => {
+  console.log(`Rendering <SmartTable>`);
 
   return (
     <div >

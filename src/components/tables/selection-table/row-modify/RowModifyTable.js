@@ -9,6 +9,8 @@ import {FaTrash, FaPen } from "react-icons/fa";
 import ColumnsEditBox from "../../common/ColumnsEditBox";
 
 export const RowModifyTable = () => {
+  console.log(`Rendering <RowModifyTable>`);
+
   // eslint-disable-next-line
   const [debugSelection, setDebugSelection] = useState(false);
 

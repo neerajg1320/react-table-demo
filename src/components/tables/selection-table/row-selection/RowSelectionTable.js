@@ -7,6 +7,8 @@ import {RowCheckbox} from "../../common/RowCheckbox";
 import {ShowObject} from "../../../show";
 
 export const RowSelectionTable = () => {
+  console.log(`Rendering <RowSelectionTable>`);
+
   const columns = useMemo(() => MOCK_COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
   const debugSelection = false;

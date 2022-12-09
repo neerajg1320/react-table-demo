@@ -1,5 +1,5 @@
-const presetColumns = {
-  "category": {
+export const presetColumns = [
+  {
     label: "Category",
     key: "Category",
     edit: true,
@@ -9,4 +9,4 @@ const presetColumns = {
       'Stationary', 'Salary', 'Travel'
     ]
   }
-}
+];

@@ -20,7 +20,7 @@ import SelectableCell from "../../common/cells/selectableCell";
 import ExpandableButton from "../../common/ExpandableButton";
 
 export const RowModifyFilterTable = () => {
-  // console.log(`Rendering <RowModifyFilterTable>`);
+  console.log(`Rendering <RowModifyFilterTable>`);
 
   // eslint-disable-next-line
   const [debugSelection, setDebugSelection] = useState(false);
