@@ -16,8 +16,6 @@ const ColumnsEditBox = ({columns, onEdit, onCancel, onButtonClick}) => {
       const modifiedFields = columnValues
                               .filter(item => item.active)
                               .map(item => {
-                                console.log(item);
-                                console.log(typeof item.name === 'function');
                                 return [item.name, item.value]
                               });
       onEdit(Object.fromEntries(modifiedFields));

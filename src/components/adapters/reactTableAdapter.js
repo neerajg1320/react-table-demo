@@ -14,7 +14,7 @@ export function colToRTCol (colObj) {
     }
   }
 
-  delete reactColObj['label'];
+  // delete reactColObj['label'];
 
   // Keep the key field as we need it during bulkEdit operation
   // delete reactColObj['key'];

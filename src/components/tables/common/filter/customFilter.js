@@ -16,12 +16,12 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
     return rows;
   }
 
-  // console.log(`textFlags=${JSON.stringify(textFlags, null, 2)}`);
+  console.log(`textFlags=${JSON.stringify(textFlags, null, 2)}`);
 
   let finalFilterText;
   let re;
 
-  if (!textFlags.regex && textFlags.caps) {
+  if (textFlags.regex || textFlags.caps) {
     finalFilterText = filterText;
   } else {
     finalFilterText = filterText.toLowerCase();
@@ -62,6 +62,7 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
             }
 
             if (textFlags.regex) {
+              console.log(`finalCellText=${finalCellText} finalFilterText=${finalFilterText}`);
               const match = finalCellText.match(re)
               if (match) {
                 return true;
