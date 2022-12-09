@@ -101,7 +101,7 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
     setGlobalFilter,
     setAllFilters
   } = useTable({
-    columns,
+    columns: rtColumns,
     data,
     defaultColumn,
     updateMyData

@@ -32,8 +32,9 @@ const ReadExcel = ({onComplete}) => {
 
         // TBD: We can probably move the column detection outside
         const columns = getColumns(sheetJson.data);
-        const reactColumns = columns.map(convertToReactCol);
-        dispatch(setColumns(reactColumns));
+        // const reactColumns = columns.map(convertToReactCol);
+        // dispatch(setColumns(reactColumns));
+        dispatch(setColumns(columns));
 
         // We add the id field as our react table expects it for edit and delete operations
         const dataWithIds = sheetJson.data.map((item, item_idx) => {
