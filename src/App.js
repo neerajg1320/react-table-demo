@@ -58,9 +58,9 @@ function App() {
             {/*<Tab eventKey="rowModifyFilter" title="Row Modify Filter">*/}
             {/*  <RowModifyFilterTable />*/}
             {/*</Tab>*/}
-            <Tab eventKey="rowModifyFilterIcon" title="Row Modify Filter">
-              <RowModifyFilterIconTable />
-            </Tab>
+            {/*<Tab eventKey="rowModifyFilterIcon" title="Row Modify Filter">*/}
+            {/*  <RowModifyFilterIconTable />*/}
+            {/*</Tab>*/}
             <Tab eventKey="addCategory" title="Add Category">
               <SmartTable />
             </Tab>

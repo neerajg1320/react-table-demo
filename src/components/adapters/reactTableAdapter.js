@@ -3,18 +3,18 @@ import {valToString} from "../../utils/types";
 export function colToRTCol (colObj) {
   const reactColObj = {
     "Header": colObj['label'],
-    "accessor": colObj['key'],
+    "accessor": (row) => {return row[colObj['key']]},
     ...colObj
   }
 
-  delete reactColObj['label'];
-  delete reactColObj['key'];
-
-  if (reactColObj.accessor.toLowerCase().includes('date')) {
+  if (String(colObj.key).toLowerCase().includes('date')) {
     reactColObj.Cell = ({ value }) => {
       return valToString(value);
     }
   }
+
+  delete reactColObj['label'];
+  delete reactColObj['key'];
 
   return reactColObj;
 }

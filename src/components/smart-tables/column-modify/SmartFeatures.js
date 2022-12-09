@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {useCallback, useEffect} from "react";
 import {addColumn} from "../../../redux/actions";
 import {exportJsonToExcel} from "../../excel/xlsx/excel";
+import {presetColumns} from "../../../features/presetColumns";
+import {colToRTCol} from "../../adapters/reactTableAdapter";
 
 export const SmartFeatures = () => {
   console.log(`Rendering <SmartFeatures>`);
@@ -17,32 +19,24 @@ export const SmartFeatures = () => {
   }, [columns]);
 
   const handleAddCategoryClick = useCallback((e) => {
-    console.log(`Need to add a new column`);
-
-
-    const categoryRTColumn = {
-      Header: "Category",
-      accessor: "Category",
-      width: "150",
-      edit: true,
-      bulk: true,
-      type: 'select',
-      choices: [
-        'Stationary', 'Salary', 'Travel'
-      ]
-    };
-
-    dispatch(addColumn(categoryRTColumn));
+    // console.log(`Need to add a new column`);
+    const categoryColumn = presetColumns.filter(col => col.key.toLowerCase() === 'category');
+    if (categoryColumn.length) {
+      const categoryRTColumn = colToRTCol(categoryColumn[0]);
+      dispatch(addColumn(categoryRTColumn));
+    }
   }, []);
 
   const handleSaveClick = useCallback((e) => {
-    const header = columns.map(col => col.Header);
+    const header = columns.map(col => col.label).filter(col => !!col);
 
     const data = rows.map(row => {
       const rowCopy = {...row};
       delete rowCopy.id;
       return rowCopy;
     });
+    console.log(header);
+    console.log(data);
     exportJsonToExcel(data, "file.xlsx", header);
   }, [rows, columns]);
 

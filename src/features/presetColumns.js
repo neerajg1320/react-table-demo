@@ -6,7 +6,7 @@ export const presetColumns = [
     bulk: true,
     type: 'select',
     choices: [
-      'Stationary', 'Salary', 'Travel'
+      'Conveyance', 'Lodging', 'Stationary', 'Salary', 'Travel'
     ]
   }
 ];
