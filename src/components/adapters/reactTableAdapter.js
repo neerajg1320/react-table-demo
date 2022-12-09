@@ -10,7 +10,7 @@ export function convertToReactCol (colObj) {
   delete reactColObj['label'];
   delete reactColObj['key'];
 
-  if (colObj.label.toLowerCase().includes('date')) {
+  if (reactColObj.accessor.toLowerCase().includes('date')) {
     reactColObj.Cell = ({ value }) => {
       return valToString(value);
     }

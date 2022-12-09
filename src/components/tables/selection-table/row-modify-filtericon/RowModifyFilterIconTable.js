@@ -19,10 +19,11 @@ import EditableCell from "../../common/cells/editableCell";
 import SelectableCell from "../../common/cells/selectableCell";
 import ExpandableButton from "../../common/ExpandableButton";
 import {filterEmptyValues} from "../../common/filter/customFilter";
+import {convertToReactCol} from "../../../adapters/reactTableAdapter";
 
 
 export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
-  // console.log(`Rendering <RowModifyFilterTable>`);
+  console.log(`Rendering <RowModifyFilterTable>`);
 
   // eslint-disable-next-line
   const [debugSelection, setDebugSelection] = useState(false);
@@ -34,7 +35,10 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
   const columns = useSelector(state => state.columns);
   const dispatch = useDispatch();
 
+  const [rtColumns, setRTColumns] = useState(columns.map(convertToReactCol));
+
   const bulkColumns = useMemo(() => {
+    setRTColumns(columns.map(convertToReactCol));
     return columns?.length ? columns.filter(col => col.bulk) : [];
   }, [columns]);
 
