@@ -16,7 +16,7 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
     return rows;
   }
 
-  console.log(`textFlags=${JSON.stringify(textFlags, null, 2)}`);
+  // console.log(`textFlags=${JSON.stringify(textFlags, null, 2)}`);
 
   let finalFilterText;
   let re;
@@ -29,7 +29,11 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
 
   if (textFlags.regex) {
     try {
-      re = new RegExp(finalFilterText);
+      let reFlags = "";
+      if (!textFlags.caps) {
+        reFlags = reFlags.concat("i");
+      }
+      re = new RegExp(finalFilterText, reFlags);
     } catch (err) {
       console.log(`${filterText} is not a valid regex`);
       return [];
@@ -62,7 +66,7 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
             }
 
             if (textFlags.regex) {
-              console.log(`finalCellText=${finalCellText} finalFilterText=${finalFilterText}`);
+              // console.log(`finalCellText=${finalCellText} finalFilterText=${finalFilterText}`);
               const match = finalCellText.match(re)
               if (match) {
                 return true;
