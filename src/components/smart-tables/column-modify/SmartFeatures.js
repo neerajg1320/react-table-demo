@@ -14,7 +14,7 @@ export const SmartFeatures = () => {
   const rows = useSelector(state => state.rows);
 
   const categoryPresent = useCallback(() => {
-    const catCol = columns.filter(col => col.Header === "Category");
+    const catCol = columns.filter(col => col.key?.toLowerCase() === "category");
     return catCol.length > 0
   }, [columns]);
 

@@ -36,18 +36,14 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
   const dispatch = useDispatch();
 
   const createRTCol = useCallback((col, index) => {
-    // if (index == 0) {
-    //   console.log(`presetColumns=${JSON.stringify(presetColumns.map(pcol => pcol.key), null, 2)}`);
-    // }
-    // console.log(`col=${JSON.stringify(col, null, 2)}`)
+    const mPresetCols = presetColumns.filter(pcol=> pcol.key === col.key);
 
-    const presetCol = presetColumns.filter(pcol=> pcol.key === col.key);
-    if (presetCol.length) {
-      console.log(`Found column ${col[0]} in preset columns`);
-      return colToRTCol(presetCol[0])
-    } else {
-      return colToRTCol(col);
+    if (mPresetCols.length) {
+      console.log(`Found column '${col.key}' in preset columns`);
+      col = mPresetCols[0];
     }
+
+    return colToRTCol(col);
   }, [])
 
   const [rtColumns, setRTColumns] = useState(columns.map(createRTCol));
