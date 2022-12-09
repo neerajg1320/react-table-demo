@@ -50,7 +50,13 @@ const ReadExcel = ({onComplete}) => {
   };
 
   return (
-    <div style={{height:"60vh", display:"flex", justifyContent:"center", alignItems:"center", border:"1px dashed transparent"}}>
+    <div
+        style={{
+          height:"60vh",
+          display:"flex", justifyContent:"center", alignItems:"center",
+          border:"1px dashed transparent"
+        }}
+    >
       <div style={{
             height:"80%", width:"60%", border: "4px dashed gray",
             display: "flex", flexDirection:"column", justifyContent:"center", alignItems:"center"
