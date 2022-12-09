@@ -49,7 +49,12 @@ export const ColumnFilterWithIcon = ({ column }) => {
           icon={searchIcon}
           value={expanded}
           onChange={e => setExpanded(!expanded)}
-          popupPosition={column.index < 3 ? {top:"100%", left:"50%"}: {top:"100%", right:"50%"}}
+          popupPosition={column.index < 3 ?
+              {top:"100%", left:"50%"}:
+                  column.index < 6 ?
+                  {top:"100%", transform: "translate(-50%, 0)"} :
+                  {top:"100%", right:"50%"}
+          }
       >
         <div style={{color:"black", display:"flex", flexDirection:"column", gap:"5px", alignItems: "start"}}>
           <div style={{width: "100%", color:"black", display:"flex", justifyContent: "space-between", gap: "10px"}}>
@@ -107,7 +112,7 @@ export const ColumnFilterWithIcon = ({ column }) => {
                      setBlankEnabled(e.target.checked);
                    }}
             />
-            <label >Blanks</label>
+            <label>Blanks</label>
           </div>
         </div>
       </ExpandableButton>
