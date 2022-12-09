@@ -197,7 +197,7 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
 
   const handleBulkEditSaveClick = useCallback((values) => {
     const ids = getRowIds(selectedFlatRows);
-    // console.log(`handleBulkEditSaveClick: ids=${ids} values=${JSON.stringify(values)}`);
+    console.log(`handleBulkEditSaveClick: ids=${ids} values=${JSON.stringify(values)}`);
     dispatch(editRows(ids, values));
     setBulkEditExpanded(false);
     // eslint-disable-next-line
