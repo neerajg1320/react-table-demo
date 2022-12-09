@@ -72,7 +72,7 @@ export const filterEmptyValues = (rows, columnIds, filterValue) => {
                 return true;
               }
             } else {
-              if (textFlags.word) {
+              if (textFlags.full) {
                 if (finalCellText === finalFilterText)
                   return true;
               } else {

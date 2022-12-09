@@ -1,5 +1,5 @@
 import {RxLetterCaseCapitalize} from "react-icons/rx";
-import {TbLetterW} from "react-icons/tb";
+import {TbLetterF} from "react-icons/tb";
 import {SiExpress} from "react-icons/si";
 import {useCallback, useEffect, useRef, useState} from "react";
 import FlagIcon from "./FlagIcon";
@@ -9,19 +9,19 @@ const InputWithIcons = ({defaultValue, onChange, disabled}) => {
   // console.log(`Rendering <InputWithIcons>`);
 
   const [caps, setCaps] = useState(false);
-  const [word, setWord] = useState(false);
+  const [full, setFull] = useState(false);
   const [regex, setRegex] = useState(false);
   const inputRef = useRef();
 
   useEffect(() => {
     if (inputRef.current.value) {
-      onChange({text: inputRef.current.value, flags:{caps, word, regex}});
+      onChange({text: inputRef.current.value, flags:{caps, full, regex}});
     }
-  }, [caps, word, regex]);
+  }, [caps, full, regex]);
 
   const handleInputChange = useCallback((e) => {
-    onChange({text: e.target.value, flags:{caps, word, regex}})
-  }, [caps, word, regex]);
+    onChange({text: e.target.value, flags:{caps, full, regex}})
+  }, [caps, full, regex]);
 
   return (
       <div
@@ -55,8 +55,8 @@ const InputWithIcons = ({defaultValue, onChange, disabled}) => {
           <FlagIcon value={caps} onChange={e => setCaps(!caps)}>
             <RxLetterCaseCapitalize />
           </FlagIcon>
-          <FlagIcon value={word} onChange={e => setWord(!word)}>
-            <TbLetterW />
+          <FlagIcon value={full} onChange={e => setFull(!full)}>
+            <TbLetterF />
           </FlagIcon>
           <FlagIcon value={regex} onChange={e => setRegex(!regex)}>
             <SiExpress />
