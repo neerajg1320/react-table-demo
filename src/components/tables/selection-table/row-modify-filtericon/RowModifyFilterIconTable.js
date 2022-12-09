@@ -42,6 +42,7 @@ export const RowModifyFilterIconTable = ({onChange, onLoaded}) => {
       col = mPresetCols[0];
     }
 
+    col.index = index;
     return colToRTCol(col);
   }, [])
 

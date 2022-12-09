@@ -49,7 +49,7 @@ export const ColumnFilterWithIcon = ({ column }) => {
           icon={searchIcon}
           value={expanded}
           onChange={e => setExpanded(!expanded)}
-          popupPosition={{bottom:"30px", left: "-100px"}}
+          popupPosition={column.index > 2 ? {top:"100%", right:"50%"}: {top:"100%", left:"50%"}}
       >
         <div style={{color:"black", display:"flex", flexDirection:"column", gap:"5px", alignItems: "start"}}>
           <div style={{width: "100%", color:"black", display:"flex", justifyContent: "space-between", gap: "10px"}}>
