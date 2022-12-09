@@ -18,16 +18,7 @@ export const SmartFeatures = () => {
 
   const handleAddCategoryClick = useCallback((e) => {
     console.log(`Need to add a new column`);
-    const categoryColumn = {
-      label: "Category",
-      key: "Category",
-      edit: true,
-      bulk: true,
-      type: 'select',
-      choices: [
-        'Stationary', 'Salary', 'Travel'
-      ]
-    };
+
 
     const categoryRTColumn = {
       Header: "Category",

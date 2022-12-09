@@ -1,8 +1,8 @@
-import {PRESET_COLUMNS} from "../../assets/PRESET_COLUMNS";
+import {MOCK_COLUMNS} from "../../assets/MOCK_COLUMNS";
 import * as ActionTypes from '../actionTypes';
 import {insertProp} from "../../components/excel/xlsx/schema";
 
-const initialState = PRESET_COLUMNS;
+const initialState = MOCK_COLUMNS;
 
 const columnsReducer =  (state=initialState, action) => {
   let ids;

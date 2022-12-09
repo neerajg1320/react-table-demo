@@ -7,7 +7,6 @@ import {SmartFeatures} from "./SmartFeatures";
 
 export const SmartTable = () => {
 
-
   return (
     <div >
       <SmartFeatures />

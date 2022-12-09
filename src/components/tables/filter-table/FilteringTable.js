@@ -1,6 +1,6 @@
 import { useTable, useGlobalFilter, useFilters } from "react-table";
 import MOCK_DATA from "../../../assets/MOCK_DATA.json";
-import { PRESET_COLUMNS } from '../../../assets/PRESET_COLUMNS';
+import { MOCK_COLUMNS } from '../../../assets/MOCK_COLUMNS';
 import {useMemo} from "react";
 import '../../table.css';
 import {GlobalFilter} from "../common/filter/GlobalFilter";
@@ -8,7 +8,7 @@ import {ColumnFilter} from "../common/filter/ColumnFilter";
 
 
 export const FilteringTable = () => {
-  const columns = useMemo(() => PRESET_COLUMNS, []);
+  const columns = useMemo(() => MOCK_COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
   const defaultColumn = useMemo(() => {
     return {

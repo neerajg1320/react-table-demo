@@ -1,6 +1,6 @@
 import {valToString} from "../utils/types";
 
-export const PRESET_COLUMNS = [
+export const MOCK_COLUMNS = [
   {
     Header: 'Id',
     Footer: 'Id',
