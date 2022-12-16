@@ -1,3 +1,5 @@
+import {valToString} from "../utils/types";
+
 export const presetColumns = [
   {
     label: "Category",
@@ -8,5 +10,13 @@ export const presetColumns = [
     choices: [
       'Conveyance', 'Lodging', 'Stationary', 'Salary', 'Travel'
     ]
+  },
+  {
+    label: "Value Date",
+    key: "Value Date",
+    edit: false,
+    bulk: false,
+    type: 'input',
+    show: false
   }
 ];

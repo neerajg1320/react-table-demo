@@ -13,6 +13,8 @@ import {RowModifyFilterIconTable} from "./components/tables/selection-table/row-
 import ReadExcel from "./components/excel/xlsx/ReadExcel";
 import {useState} from "react";
 import {SmartTable} from "./components/smart-tables/column-modify/SmartTable";
+import {ColumnHidingTable} from "./components/tables/column-hiding/ColumnHidingTable";
+import {ColumnOrderTable} from "./components/tables/column-ordering/ColumnOrderTable";
 
 function App() {
 
@@ -37,9 +39,9 @@ function App() {
             <Tab eventKey="readExcel" title="Read Excel">
               <ReadExcel onComplete={e => {setTabKey("addCategory")}}/>
             </Tab>
-            {/*<Tab eventKey="basic" title="Basic">*/}
-            {/*  <BasicTable />*/}
-            {/*</Tab>*/}
+            <Tab eventKey="basic" title="Basic">
+              <BasicTable />
+            </Tab>
             {/*<Tab eventKey="sorting" title="Sorting">*/}
             {/*  <SortingTable />*/}
             {/*</Tab>*/}
@@ -63,6 +65,12 @@ function App() {
             {/*</Tab>*/}
             <Tab eventKey="addCategory" title="Add Category">
               <SmartTable />
+            </Tab>
+            <Tab eventKey="hideColumns" title="Hide Columns">
+              <ColumnHidingTable />
+            </Tab>
+            <Tab eventKey="orderColumns" title="Order Columns">
+              <ColumnOrderTable />
             </Tab>
           </Tabs>
         </div>
